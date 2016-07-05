@@ -107,55 +107,40 @@ export class FormCondDistri extends Formulaire {
   }
 
   calculer() {
+      //this.v.splice(0,this.v.length);
+      var length=this.fields.length;
 
-      this.inputs.splice(0,numbers.length);
-
-      for(var i=0;i<5;i++){
-          var v=<HTMLInputElement> document.getElementById(i.toString());
-          this.inputs.push(v.value);
-        }
-      
-      var v=<HTMLInputElement> document.getElementById("pr");
-      this.inputs.push(v.value);
-
-      var numbers=new Array<number>();
-      var n=this.inputs.length;
-      console.log(n);
-
-      for(var i=0;i<n;i++){          
-          numbers.push(Number(this.inputs[i]));
+      for(var i=0;i<length;i++){
+          this.v[this.fields[i].id] = (<HTMLInputElement> document.getElementById(this.fields[i].id)).value;
+          this.v[this.fields[i].id] = Number(this.v[this.fields[i].id]);
       }
-            //Récupérer l'élement selectionné à calculer
+      console.log(this.v);
 
-      var m=0;
-      var ids=['Q','D','J','Lg','nu'];
-      n=ids.length;
-      for(var i=0;i<n;i++){ 
-            var v = <HTMLInputElement> document.getElementById("cal_"+ ids[i]);
-            //variables.push(v);
-            if (v.checked) {
-                m=i;
+      //Récupérer l'id l'élement selectionné à calculer
+ 
+      var id;
+
+      for(var i=0;i<length;i++){ 
+            var e = <HTMLInputElement> document.getElementById("cal_"+ this.fields[i].id);
+            if (e.checked) {
+                id=this.fields[i].id;
             }
         
         }
 
-       
-
-      console.log(numbers);
-      this.result=this.cond_distri(numbers,m);
-      console.log(this.result);
-           
+      this.result=this.cond_distri(id);
+      console.log(this.result);      
   }
   
-  cond_distri(numbers: Array<number>,index:number){
+  cond_distri(id){
 
-    var acalculer=numbers[index];
-    var q=numbers[0];
-    var d=numbers[1];
-    var j=numbers[2];
-    var lg=numbers[3];
-    var nu=numbers[4];
-    //var p=numbers[5];
+    var acalculer=this.v[id];
+    var q=this.v['Q'];
+    var d=this.v['D'];
+    var j=this.v['J'];
+    var lg=this.v['Lg'];
+    var nu=this.v['nu'];
+    //var p=numbers[5];*/
 
     var K = 0.3164 * Math.pow(4,1.75)/(5.5*9.81*Math.pow(3.1415,1.75)); // Constante de la formule
     var result:number;

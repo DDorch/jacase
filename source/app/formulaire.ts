@@ -11,7 +11,7 @@ import {Observable} from 'rxjs/Rx';
 export abstract class Formulaire {
     
     public fields;
-    public inputs = new Array();
+    public v = new Object();
     public result;
 
     constructor(public http: Http){

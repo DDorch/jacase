@@ -24,7 +24,7 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
             Formulaire = (function () {
                 function Formulaire(http) {
                     this.http = http;
-                    this.inputs = new Array();
+                    this.v = new Object();
                 }
                 Formulaire = __decorate([
                     core_1.Component({
