@@ -34,6 +34,21 @@ System.register(['@angular/core', './formulaire', '@angular/http', 'rxjs/Rx'], f
                 __extends(FormCondDistri, _super);
                 function FormCondDistri(http) {
                     _super.call(this, http);
+                    this.v = {
+                        "Q": "3",
+                        "D": "1.2",
+                        "J": "0.6",
+                        "Lg": "100",
+                        "nu": "1E-6",
+                        "pr": "0.001"
+                    };
+                    this.glob = {
+                        "Q": "fix",
+                        "D": "fix",
+                        "J": "cal",
+                        "Lg": "fix",
+                        "nu": "fix"
+                    };
                 }
                 FormCondDistri.prototype.ngOnInit = function () {
                     this.getFields();
@@ -44,81 +59,69 @@ System.register(['@angular/core', './formulaire', '@angular/http', 'rxjs/Rx'], f
                         .map(function (res) { return res.json().fields; })
                         .subscribe(function (data) { _this.fields = data; }, function (err) { return console.error(err); }, function () { return console.log('done'); });
                 };
-                FormCondDistri.prototype.activeDesactive = function (id) {
-                    console.log(id);
-                    var v1 = document.getElementById("fix_" + id);
-                    var v2 = document.getElementById("var_" + id);
-                    var v3 = document.getElementById("cal_" + id);
-                    var ids = ['Q', 'D', 'J', 'Lg', 'nu'];
-                    var n = ids.length;
-                    var e1 = new Array();
-                    var e2 = new Array();
-                    var e3 = new Array();
-                    for (var i = 0; i < n; i++) {
-                        var v = document.getElementById("fix_" + ids[i]);
-                        e1.push(v);
-                    }
-                    for (var i = 0; i < n; i++) {
-                        var v = document.getElementById("var_" + ids[i]);
-                        e2.push(v);
-                    }
-                    for (var i = 0; i < n; i++) {
-                        var v = document.getElementById("cal_" + ids[i]);
-                        e3.push(v);
-                    }
-                    if (v2.checked) {
-                        for (var i = 0; i < n; i++) {
-                            for (var j = 0; j < n; j++) {
-                                if (e2[i] == v2 && j != i) {
-                                    e2[j].checked = false;
-                                    for (var k = 0; k < n; k++) {
-                                        if (e3[k].checked && k != j) {
-                                            e1[j].checked = true;
-                                            e1[k].checked = false;
-                                        }
-                                        else if (e2[k].checked && k != i) {
-                                            e1[k].checked = true;
-                                            e1[j].checked = true;
-                                        }
-                                    }
-                                }
-                            }
+                FormCondDistri.prototype.getRadioValue = function (radioName) {
+                    var radioElmt = document.getElementsByTagName(radioName);
+                    var choix = "";
+                    for (var i = 0; i < radioElmt.length; i++) {
+                        if (radioElmt.checked) {
+                            choix = radioElmt[i].value;
                         }
                     }
-                    if (v3.checked) {
-                        for (var i = 0; i < n; i++) {
-                            for (var j = 0; j < n; j++) {
-                                if (e3[i] == v3 && j != i) {
-                                    e3[j].checked = false;
-                                    for (var k = 0; k < n; k++) {
-                                        if (e2[k].checked && k != j) {
-                                            e1[j].checked = true;
-                                            e1[k].checked = false;
-                                        }
-                                        else if (e3[k].checked && k != i) {
-                                            e1[k].checked = true;
-                                            e1[j].checked = true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    return choix;
+                };
+                FormCondDistri.prototype.setVarGlob = function () {
+                    for (var i = 0; i < this.fields.length; i++) {
+                        this.glob[this.fields[i].id] = this.getRadioValue("choix_champ_" + this.fields[i].id);
                     }
+                };
+                FormCondDistri.prototype.setVarGlobBefore = function () {
+                    this.glob_before = this.glob;
+                };
+                FormCondDistri.prototype.afficherChamp = function (id, value) {
+                    //gerer les champs à calculer 
+                    if (value == 'fix') {
+                        document.getElementById(id).disabled = false;
+                    }
+                    else {
+                        document.getElementById(id).disabled = true;
+                    }
+                    // A compléter avec les champs à afficher si on choisi une 'var'
+                };
+                FormCondDistri.prototype.gestionRadios = function (id, value) {
+                    console.log(this.glob);
+                    // On gère l'affichage du champ sélectionné
+                    /*this.afficherChamp(id,value);
+                    // Pour var et cal, on bascule en fix l'ancien champ en var ou cal
+                    if(value != 'fix') {
+                        for (var cle in this.glob){
+                            if(this.glob[cle]==value && cle != id) {
+                                (<HTMLInputElement>document.getElementById('fix_'+cle)).checked=true;
+                                this.afficherChamp(cle,'fix');
+                             }
+                        }
+                     }
+                     // Si l'action est sur un ancien cal, on bascule le champ cal par défaut
+                     if(this.glob[id]=='cal' && value != 'cal') {
+                         (<HTMLInputElement>document.getElementById('cal_J')).checked=true;
+                         this.afficherChamp('J','cal');
+                     }
+                     this.setVarGlob();
+                     */
                 };
                 FormCondDistri.prototype.calculer = function () {
                     //this.v.splice(0,this.v.length);
                     var length = this.fields.length;
-                    for (var i = 0; i < length; i++) {
-                        this.v[this.fields[i].id] = document.getElementById(this.fields[i].id).value;
-                        this.v[this.fields[i].id] = Number(this.v[this.fields[i].id]);
-                    }
                     console.log(this.v);
+                    console.log(this.glob);
                     //Récupérer l'id l'élement selectionné à calculer
                     var id;
                     for (var i = 0; i < length; i++) {
                         var e = document.getElementById("cal_" + this.fields[i].id);
                         if (e.checked) {
                             id = this.fields[i].id;
+                        }
+                        else {
+                            id = "J";
                         }
                     }
                     this.result = this.cond_distri(id);

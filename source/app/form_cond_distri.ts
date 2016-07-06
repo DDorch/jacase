@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Formulaire} from './formulaire';
 import {Http, Response} from '@angular/http';
+import {FORM_DIRECTIVES} from "@angular/common";
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/Rx';
 
@@ -13,10 +14,26 @@ import 'rxjs/Rx';
 
 export class FormCondDistri extends Formulaire {
     
+
     constructor(http: Http){
         super(http);
+        this.v={
+            "Q": "3",
+            "D": "1.2",
+            "J": "0.6",
+            "Lg": "100",
+            "nu": "1E-6",
+            "pr":"0.001"
+        };
+        this.glob={
+            "Q": "fix",
+            "D": "fix",
+            "J": "cal",
+            "Lg": "fix",
+            "nu": "fix"
+        };
     }
-
+ 
     ngOnInit() {
 
         this.getFields();
@@ -32,90 +49,69 @@ export class FormCondDistri extends Formulaire {
             () => console.log('done')
         );
   }
+    getRadioValue(radioName) {
 
-  activeDesactive(id) {
- 
-        console.log(id);
-
-        var v1 = <HTMLInputElement> document.getElementById("fix_"+id);
-        var v2 = <HTMLInputElement> document.getElementById("var_"+id);
-        var v3 = <HTMLInputElement> document.getElementById("cal_"+id);
-
-        var ids=['Q','D','J','Lg','nu'];
-        var n=ids.length;
-
-        var e1=new Array();
-        var e2=new Array();
-        var e3=new Array();
-
-        for(var i=0;i<n;i++){ 
-            var v = <HTMLInputElement> document.getElementById("fix_"+ ids[i]);
-            e1.push(v);
+        var radioElmt : any = document.getElementsByTagName(radioName);
+        var choix = "";
+        for (var i=0; i<radioElmt.length; i++){
+            if (radioElmt.checked){
+                    choix = radioElmt[i].value;
+            }
         }
-
-        for(var i=0;i<n;i++){ 
-            var v = <HTMLInputElement> document.getElementById("var_"+ ids[i]);
-            e2.push(v);
-        }
-
-        for(var i=0;i<n;i++){ 
-            var v = <HTMLInputElement> document.getElementById("cal_"+ ids[i]);
-            e3.push(v);
-        }
-
-        if(v2.checked){
-            for(var i=0;i<n;i++){
-                for(var j=0;j<n;j++){
-                    if(e2[i]==v2 && j!=i){
-                        e2[j].checked=false;
-                        for(var k=0;k<n;k++){
-                            if(e3[k].checked && k!=j){
-                                e1[j].checked=true;
-                                e1[k].checked=false;
-                            } 
-                            else if(e2[k].checked && k!=i){
-                                e1[k].checked=true;
-                                e1[j].checked=true;
-                            }
-                        }  
-                    }
-                }
-            }  
-        }  
-
-        if(v3.checked){
-            for(var i=0;i<n;i++){
-                for(var j=0;j<n;j++){
-                    if(e3[i]==v3 && j!=i){
-                        e3[j].checked=false;
-                        for(var k=0;k<n;k++){
-                            if(e2[k].checked && k!=j){
-                                e1[j].checked=true;
-                                e1[k].checked=false;
-                            } 
-                            else if(e3[k].checked && k!=i){
-                                e1[k].checked=true;
-                                e1[j].checked=true;
-                            }
-                        }
-                    }   
-                }  
-            } 
-        }
-                
-       
+        return choix;
+    }
+  setVarGlob(){
+      for(var i=0;i<this.fields.length;i++){
+          this.glob[this.fields[i].id]=this.getRadioValue("choix_champ_"+this.fields[i].id);
+      }
   }
+  setVarGlobBefore(){
+      this.glob_before=this.glob;
+  }
+
+  afficherChamp(id, value){
+      //gerer les champs à calculer 
+     if(value=='fix') {
+         (<HTMLInputElement> document.getElementById(id)).disabled=false;
+         }
+     else {
+         (<HTMLInputElement> document.getElementById(id)).disabled=true;
+         }
+         // A compléter avec les champs à afficher si on choisi une 'var'
+  }
+  gestionRadios(id,value) {
+     
+      
+      console.log(this.glob);
+
+       // On gère l'affichage du champ sélectionné
+       /*this.afficherChamp(id,value);
+       // Pour var et cal, on bascule en fix l'ancien champ en var ou cal
+       if(value != 'fix') {
+           for (var cle in this.glob){
+               if(this.glob[cle]==value && cle != id) {
+                   (<HTMLInputElement>document.getElementById('fix_'+cle)).checked=true;
+                   this.afficherChamp(cle,'fix');
+                }
+           }
+        }
+        // Si l'action est sur un ancien cal, on bascule le champ cal par défaut
+        if(this.glob[id]=='cal' && value != 'cal') {
+            (<HTMLInputElement>document.getElementById('cal_J')).checked=true;
+            this.afficherChamp('J','cal');
+        }
+        this.setVarGlob();
+        */
+  }
+  
 
   calculer() {
       //this.v.splice(0,this.v.length);
       var length=this.fields.length;
-
-      for(var i=0;i<length;i++){
-          this.v[this.fields[i].id] = (<HTMLInputElement> document.getElementById(this.fields[i].id)).value;
-          this.v[this.fields[i].id] = Number(this.v[this.fields[i].id]);
-      }
       console.log(this.v);
+      console.log(this.glob);
 
+            
       //Récupérer l'id l'élement selectionné à calculer
  
       var id;
@@ -124,6 +120,9 @@ export class FormCondDistri extends Formulaire {
             var e = <HTMLInputElement> document.getElementById("cal_"+ this.fields[i].id);
             if (e.checked) {
                 id=this.fields[i].id;
+            }
+            else{
+                id="J";
             }
         
         }

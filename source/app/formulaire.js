@@ -25,6 +25,7 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                 function Formulaire(http) {
                     this.http = http;
                     this.v = new Object();
+                    this.glob_before = {}; //état des radios avant le binding
                 }
                 Formulaire = __decorate([
                     core_1.Component({
