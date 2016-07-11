@@ -18,6 +18,7 @@ export class FormCondDistri extends Formulaire {
 
     constructor(http: Http){
         super(http);
+        this.idCal="J";
         this.v={
             "Q": "3",
             "D": "1.2",
@@ -39,12 +40,13 @@ export class FormCondDistri extends Formulaire {
             "pas": ""
         };
         this.tabResults={
+            
             "ids":[],
             "noms":[],
             "values":[]
         };
      }
- 
+
     ngOnInit() {
 
         this.getFieldsAndOptions();
@@ -66,45 +68,52 @@ export class FormCondDistri extends Formulaire {
       );
     }
 
-  
+    /*initRadVarTable(){
 
-  
-  calculer(){
+        for(var cle in this.v){
+            this.options[0].value=this.v[cle]/2;
+            this.options[1].value=this.v[cle]*2;
+            this.options[2].value=this.v[cle]/10;
+        }
+    }*/
 
-    super.calculer()
-    var acalculer=this.v[this.idCal];
-    var q=this.v['Q'];
-    var d=this.v['D'];
-    var j=this.v['J'];
-    var lg=this.v['Lg'];
-    var nu=this.v['nu'];
-    //var p=numbers[5];*/
 
-    var K = 0.3164 * Math.pow(4,1.75)/(5.5*9.81*Math.pow(3.1415,1.75)); // Constante de la formule
-    var result:number;
-    switch (acalculer){
+    calculer(){
 
-        case j:
-         result = K*Math.pow(nu,0.25)*Math.pow(q,1.75)*lg/Math.pow(d,4.75);
-         break;
-        case d:
-         result=Math.pow(j/(K*Math.pow(nu,0.25)*Math.pow(q,1.75)*lg),1/4.75);
-         break;
-        case q:
-         result=Math.pow(j/(K*Math.pow(nu,0.25)*lg/Math.pow(d,4.75)),1/1.75)
-         break;
-        case lg:
-         result=j/(K*Math.pow(nu,0.25)*Math.pow(q,1.75)/Math.pow(d,4.75));
-         break;
-        case nu:
-         result=Math.pow(j/(K*Math.pow(q,1.75)*lg/Math.pow(d,4.75)),1/0.25);
-         break;
+        super.calculer()
+        var acalculer=this.v[this.idCal];
+        var q=this.v['Q'];
+        var d=this.v['D'];
+        var j=this.v['J'];
+        var lg=this.v['Lg'];
+        var nu=this.v['nu'];
+        //var p=numbers[5];*/
+
+        var K = 0.3164 * Math.pow(4,1.75)/(5.5*9.81*Math.pow(3.1415,1.75)); // Constante de la formule
+        var result:number;
+        switch (acalculer){
+
+            case j:
+            result = K*Math.pow(nu,0.25)*Math.pow(q,1.75)*lg/Math.pow(d,4.75);
+            break;
+            case d:
+            result=Math.pow(j/(K*Math.pow(nu,0.25)*Math.pow(q,1.75)*lg),1/4.75);
+            break;
+            case q:
+            result=Math.pow(j/(K*Math.pow(nu,0.25)*lg/Math.pow(d,4.75)),1/1.75)
+            break;
+            case lg:
+            result=j/(K*Math.pow(nu,0.25)*Math.pow(q,1.75)/Math.pow(d,4.75));
+            break;
+            case nu:
+            result=Math.pow(j/(K*Math.pow(q,1.75)*lg/Math.pow(d,4.75)),1/0.25);
+            break;
+        }        
         
+        this.result=result;
+    
     }
-    this.result=result;
- 
- 
-  }
-
 }
+
+
 

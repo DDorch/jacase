@@ -42,6 +42,7 @@ System.register(['@angular/core', './formulaire', '@angular/http', "@angular/com
                 __extends(FormCondDistri, _super);
                 function FormCondDistri(http) {
                     _super.call(this, http);
+                    this.idCal = "J";
                     this.v = {
                         "Q": "3",
                         "D": "1.2",
@@ -78,6 +79,14 @@ System.register(['@angular/core', './formulaire', '@angular/http', "@angular/com
                         _this.options = data[1];
                     }, function (err) { return console.error(err); });
                 };
+                /*initRadVarTable(){
+            
+                    for(var cle in this.v){
+                        this.options[0].value=this.v[cle]/2;
+                        this.options[1].value=this.v[cle]*2;
+                        this.options[2].value=this.v[cle]/10;
+                    }
+                }*/
                 FormCondDistri.prototype.calculer = function () {
                     _super.prototype.calculer.call(this);
                     var acalculer = this.v[this.idCal];

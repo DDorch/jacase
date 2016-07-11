@@ -25,10 +25,9 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                 //public glob_before={}; //état des radios avant le binding
                 function Formulaire(http) {
                     this.http = http;
+                    this.options = new Object();
                     this.v = new Object();
-                    this.idCal = "J"; //l'id l'élement selectionné à calculer
                     this.showResult = false; //boolean pour afficher le tableau des resultats et le graphique
-                    this.varVar = false; //l'id du parametre à varier
                 }
                 Formulaire.prototype.setNom = function (id) {
                     var nom = "";
@@ -40,6 +39,15 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                         }
                     }
                     return this.fields[index].name;
+                };
+                Formulaire.prototype.initRadVarTable = function (id) {
+                    for (var cle in this.v) {
+                        if (cle == id) {
+                            this.options[0].value = this.v[cle] / 2;
+                            this.options[1].value = this.v[cle] * 2;
+                            this.options[2].value = this.v[cle] / 10;
+                        }
+                    }
                 };
                 Formulaire.prototype.RemplirTabResults = function () {
                     this.tabResults.ids.splice(0, this.tabResults.ids.length);
@@ -70,6 +78,7 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                     }
                     //recuperer l'élement à varier
                     if (value == 'var') {
+                        this.initRadVarTable(id);
                         this.varVar = id;
                         this.showVar = true;
                     }

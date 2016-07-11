@@ -8,24 +8,22 @@
       <td>Paramètre à varier</td>
       <td>Paramètre à calculer</td>
     </tr>
-
-    <tr *ngFor="let field of fields, let i=index">
+    <template ngFor let-field [ngForOf]="fields" [ngForTrackBy]="assetTrackBy">
+    <tr>
       <td> {{field.id}} : {{field.name}} </td>
       <td> <input id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"></td>
       <td align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
       <td align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'var');" ></td>
       <td align="center"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="cal" (click)="gestionRadios(field.id,'cal');" ></td>
     </tr>
-
-    <tr [hidden]="!showVar" class="alert alert-success box-msg" role="alert" *ngFor="let option of options">
-      <td> </td>
-      <td> </td>
-      <td> {{option.name}} </td>
-      <td><input id="{{option.id}}" type="text" value="{{option.value}}" [(ngModel)]="paramVar[option.id]" maxlength="30"></td>
-      <td> </td>
-    </tr>
-
-   
+    <tr *ngFor="let option of options" [hidden]="varVar!=field.id" class="alert alert-success box-msg" role="alert" >
+        <td> </td>
+        <td> </td>
+        <td> {{option.name}} </td>
+        <td><input id="{{option.id}}" type="text" value="{{option.value}}" [(ngModel)]="paramVar[option.id]" maxlength="30"></td>
+        <td> </td>
+     </tr>
+    </template>
     <tr> Paramètres de calcul </tr>
 
     <tr>

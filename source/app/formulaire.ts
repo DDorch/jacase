@@ -12,24 +12,23 @@ import {FORM_DIRECTIVES} from "@angular/common";
 export abstract class Formulaire {
     
     public fields;
-    public options;
+    public options = new Object();
     public v = new Object();
     public paramVar;
     public tabResults;
-    public idCal="J";//l'id l'élement selectionné à calculer
+    public idCal;//l'id l'élement selectionné à calculer
     public nomCal;//le nom l'élement selectionné à calculer
 
     public result;
     public glob; // état des radios
     public showResult=false; //boolean pour afficher le tableau des resultats et le graphique
     public showVar; //A supprimer quand on pourra integrer une ligne dans le ngFor
-    public varVar=false; //l'id du parametre à varier
+    public varVar; //l'id du parametre à varier
     //public glob_before={}; //état des radios avant le binding
 
     constructor(public http: Http){
-        
-    }
 
+    }
 
     setNom(id){
       var nom="";
@@ -43,6 +42,17 @@ export abstract class Formulaire {
       return this.fields[index].name;
     }
   
+    initRadVarTable(id){
+
+        for(var cle in this.v){
+
+            if(cle==id){
+                this.options[0].value=this.v[cle]/2;
+                this.options[1].value=this.v[cle]*2;
+                this.options[2].value=this.v[cle]/10;
+            }
+        }
+    }
 
     RemplirTabResults(){
 
@@ -84,6 +94,8 @@ export abstract class Formulaire {
       }
       //recuperer l'élement à varier
       if(value=='var'){
+
+          this.initRadVarTable(id);
           this.varVar=id;
           this.showVar=true;
       }
