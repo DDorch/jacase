@@ -1,4 +1,5 @@
-<h3>Caractéristiques hydrauliques</h3>
+
+<h4>Caractéristiques hydrauliques</h4>
   <table>
 
     <tr>
@@ -38,25 +39,39 @@
   </table><br>
 
   <div id="result_table" *ngIf="showResult" class="alert alert-success box-msg" role="alert">
-    <table *ngIf="!showVar">
+    <table style="width:600px;float:left">
       <td>
-        <tr *ngFor="let id of tabResults.ids">
-          {{id}} :
+        <tr><b> Paramètres </b></tr>
+        <tr *ngFor="let id of tabResults.ids" [hidden]="id==varVar">
+          {{id}} 
         </tr>
-        <b><tr>{{idCal}}</tr></b>
+        <b><tr *ngIf="!showVar">{{idCal}}</tr></b>
       </td>
       <td>
-        <tr *ngFor="let nom of tabResults.noms">
+        <tr><b>fixés </b></tr>
+        <tr *ngFor="let nom of tabResults.noms" [hidden]="nom==nomVar">
            {{nom}}
         </tr>
-        <b><tr>{{nomCal}}</tr></b>
+        <b><tr *ngIf="!showVar">{{nomCal}}</tr></b>
       </td>
       <td>
+        <tr><b>Valeurs</b></tr>
         <tr *ngFor="let value of tabResults.values">
           {{value}}
         </tr>
-        <b><tr>{{result}}</tr></b>
+        <b><tr *ngIf="!showVar" >{{result}}</tr></b>
       </td>           
      
     </table> 
+
+    <table *ngIf="showVar" style="width:600px;float:left;margin-left:10;" >
+      <td>
+        <tr><b>{{varVar}} : {{nomVar}}</b></tr>
+        <tr *ngFor="let label of lineChartLabels"> {{label}} </tr>
+      </td>
+      <td>
+        <tr> <b> {{idCal}} : {{nomCal}} </b></tr>
+        <tr *ngFor="let data of lineChartData"> {{data}} </tr>
+      </td>
+    </table>
   </div>

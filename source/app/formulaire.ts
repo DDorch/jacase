@@ -18,13 +18,14 @@ export abstract class Formulaire {
     public tabResults;
     public idCal;//l'id l'élement selectionné à calculer
     public nomCal;//le nom l'élement selectionné à calculer
-
+    public lineChartLabels = new Array(); // ligne des abscisses pour les graph
+    public lineChartData = new Array(); // ligne des ordonnées pour les graph
     public result;
     public glob; // état des radios
     public showResult=false; //boolean pour afficher le tableau des resultats et le graphique
     public showVar; //A supprimer quand on pourra integrer une ligne dans le ngFor
     public varVar; //l'id du parametre à varier
-    //public glob_before={}; //état des radios avant le binding
+    public nomVar; //le nom du parametre à varier
 
     constructor(public http: Http){
 
@@ -47,12 +48,25 @@ export abstract class Formulaire {
         for(var cle in this.v){
 
             if(cle==id){
-                this.options[0].value=this.v[cle]/2;
-                this.options[1].value=this.v[cle]*2;
-                this.options[2].value=this.v[cle]/10;
+                this.paramVar.min=this.v[cle]/2;
+                this.paramVar.max=this.v[cle]*2;
+                this.paramVar.pas=this.v[cle]/10;
             }
         }
     }
+
+    getLineChartLabels(){
+        this.lineChartLabels.splice(0,this.lineChartLabels.length);
+        var i=this.paramVar.min;
+        while(i<=this.paramVar.max){
+            this.lineChartLabels.push(i);
+            i=i+this.paramVar.pas;
+        }
+    }
+
+    /*getLineChartData(){
+       
+    }*/
 
     RemplirTabResults(){
 
@@ -87,7 +101,6 @@ export abstract class Formulaire {
   }
 
   gestionRadios(id,value) {
-
       //recuper l'element à calculer
       if(value=="cal"){
           this.idCal=id;
@@ -101,10 +114,10 @@ export abstract class Formulaire {
       }
       else{
           this.showVar=false;
+          this.varVar=null;
       }
 
       console.log(this.varVar);     
-      console.log(value+'_'+id);
       console.log(this.glob);
       
       //On gère l'affichage du champ sélectionné
@@ -140,6 +153,7 @@ export abstract class Formulaire {
         this.nomCal=this.setNom(this.idCal);
         this.showResult=true;
         this.RemplirTabResults();
+
 
     }
      

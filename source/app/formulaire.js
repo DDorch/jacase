@@ -22,11 +22,12 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
             }],
         execute: function() {
             Formulaire = (function () {
-                //public glob_before={}; //état des radios avant le binding
                 function Formulaire(http) {
                     this.http = http;
                     this.options = new Object();
                     this.v = new Object();
+                    this.lineChartLabels = new Array(); // ligne des abscisses pour les graph
+                    this.lineChartData = new Array(); // ligne des ordonnées pour les graph
                     this.showResult = false; //boolean pour afficher le tableau des resultats et le graphique
                 }
                 Formulaire.prototype.setNom = function (id) {
@@ -43,12 +44,23 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                 Formulaire.prototype.initRadVarTable = function (id) {
                     for (var cle in this.v) {
                         if (cle == id) {
-                            this.options[0].value = this.v[cle] / 2;
-                            this.options[1].value = this.v[cle] * 2;
-                            this.options[2].value = this.v[cle] / 10;
+                            this.paramVar.min = this.v[cle] / 2;
+                            this.paramVar.max = this.v[cle] * 2;
+                            this.paramVar.pas = this.v[cle] / 10;
                         }
                     }
                 };
+                Formulaire.prototype.getLineChartLabels = function () {
+                    this.lineChartLabels.splice(0, this.lineChartLabels.length);
+                    var i = this.paramVar.min;
+                    while (i <= this.paramVar.max) {
+                        this.lineChartLabels.push(i);
+                        i = i + this.paramVar.pas;
+                    }
+                };
+                /*getLineChartData(){
+                   
+                }*/
                 Formulaire.prototype.RemplirTabResults = function () {
                     this.tabResults.ids.splice(0, this.tabResults.ids.length);
                     this.tabResults.noms.splice(0, this.tabResults.noms.length);
@@ -84,9 +96,9 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                     }
                     else {
                         this.showVar = false;
+                        this.varVar = null;
                     }
                     console.log(this.varVar);
-                    console.log(value + '_' + id);
                     console.log(this.glob);
                     //On gère l'affichage du champ sélectionné
                     this.afficherChamp(id, value);

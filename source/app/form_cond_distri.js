@@ -79,16 +79,27 @@ System.register(['@angular/core', './formulaire', '@angular/http', "@angular/com
                         _this.options = data[1];
                     }, function (err) { return console.error(err); });
                 };
-                /*initRadVarTable(){
-            
-                    for(var cle in this.v){
-                        this.options[0].value=this.v[cle]/2;
-                        this.options[1].value=this.v[cle]*2;
-                        this.options[2].value=this.v[cle]/10;
-                    }
-                }*/
                 FormCondDistri.prototype.calculer = function () {
+                    this.v[this.varVar] = "";
                     _super.prototype.calculer.call(this);
+                    this.lineChartData.splice(0, this.lineChartData.length);
+                    if (this.showVar) {
+                        this.nomVar = this.setNom(this.varVar);
+                        this.getLineChartLabels();
+                        console.log(this.lineChartLabels);
+                        var n = this.lineChartLabels.length;
+                        for (var i = 0; i < n; i++) {
+                            this.v[this.varVar] = this.lineChartLabels[i];
+                            this.lineChartData.push(this.calCondDistri());
+                            console.log(this.v[this.varVar]);
+                        }
+                    }
+                    else {
+                        this.result = this.calCondDistri();
+                    }
+                    console.log(this.lineChartData);
+                };
+                FormCondDistri.prototype.calCondDistri = function () {
                     var acalculer = this.v[this.idCal];
                     var q = this.v['Q'];
                     var d = this.v['D'];
@@ -115,7 +126,7 @@ System.register(['@angular/core', './formulaire', '@angular/http', "@angular/com
                             result = Math.pow(j / (K * Math.pow(q, 1.75) * lg / Math.pow(d, 4.75)), 1 / 0.25);
                             break;
                     }
-                    this.result = result;
+                    return result;
                 };
                 FormCondDistri = __decorate([
                     core_1.Component({
