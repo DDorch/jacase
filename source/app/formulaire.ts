@@ -21,6 +21,20 @@ export abstract class Formulaire {
     public nomCal;//le nom l'élement selectionné à calculer
     public lineChartLabels = new Array(); // ligne des abscisses pour les graph
     public lineChartData = new Array(); // ligne des ordonnées pour les graph
+    public lineChartOptions:any = {
+        animation: true,
+        responsive: true
+    };
+    public lineChartColours:any = { // grey
+        backgroundColor: 'rgba(148,159,177,0.2)',
+        borderColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    };    
+    //public lineChartLegend:boolean = true;
+    public lineChartType:string = 'line'; 
     public result;
     public glob; // état des radios
     public showResult=false; //boolean pour afficher le tableau des resultats et le graphique
@@ -57,17 +71,14 @@ export abstract class Formulaire {
     }
 
     getLineChartLabels(){
+
         this.lineChartLabels.splice(0,this.lineChartLabels.length);
         var i=this.paramVar.min;
-        while(i<=this.paramVar.max){
+        while(i<=(this.paramVar.max+this.paramVar.pas)){
             this.lineChartLabels.push(i);
             i=i+this.paramVar.pas;
         }
     }
-
-    /*getLineChartData(){
-       
-    }*/
 
     RemplirTabResults(){
 
@@ -102,6 +113,7 @@ export abstract class Formulaire {
   }
 
   gestionRadios(id,value) {
+
       //recuper l'element à calculer
       if(value=="cal"){
           this.idCal=id;
@@ -135,7 +147,14 @@ export abstract class Formulaire {
                }
                //pour garder le showVar actif quand on change le param à calculer
                if(value=='cal'&& this.glob[cle]=='var'){
-                   this.showVar=true;
+                   if(cle==id){
+                       this.varVar=null;
+                       this.showVar=false;
+                   }
+                   else{
+                       this.varVar=cle;
+                       this.showVar=true;        
+                   }
                }
               
            }

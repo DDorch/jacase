@@ -39,6 +39,16 @@
   </table><br>
 
   <div id="result_table" *ngIf="showResult" class="alert alert-success box-msg" role="alert">
+    <div *ngIf="showVar">
+      <base-chart  [ngClass]="chartclass"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColours"
+          [chartType]="lineChartType"
+      >
+      </base-chart>
+    </div>
     <table style="width:600px;float:left">
       <td>
         <tr><b> Paramètres </b></tr>

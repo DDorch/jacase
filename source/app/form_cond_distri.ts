@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import {Formulaire} from './formulaire';
 import {Http, Response} from '@angular/http';
-import {FORM_DIRECTIVES} from "@angular/common";
-import {CORE_DIRECTIVES} from "@angular/common";
+import {FORM_DIRECTIVES,NgClass,CORE_DIRECTIVES} from "@angular/common";
 import {RadioControlValueAccessor} from "./radio_value_accessor";
 import {Observable} from 'rxjs/Rx';
 import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
@@ -12,7 +11,7 @@ import 'rxjs/Rx';
     selector: 'form_cond',
     templateUrl: 'app/form_cond_distri.html',
      
-    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor] 
+    directives : [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor] 
 })
 
 export class FormCondDistri extends Formulaire {
@@ -69,10 +68,28 @@ export class FormCondDistri extends Formulaire {
           err => console.error(err)
       );
     }
+    initialiserV(){
+        this.v={
+            "Q": "3",
+            "D": "1.2",
+            "J": "0.6",
+            "Lg": "100",
+            "nu": "1E-6",
+            "pr":"0.001"
+        };
+    }
+
+     gestionRadios(id,value) {
+
+       this.initialiserV();
+       super.gestionRadios(id,value);
+     }
 
     calculer(){
 
+        this.initialiserV();
         this.v[this.varVar]="";
+        this.nomVar="";
         super.calculer();
         this.lineChartData.splice(0,this.lineChartData.length);
 
