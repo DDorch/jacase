@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {FORM_DIRECTIVES} from "@angular/common";
+import {CORE_DIRECTIVES} from "@angular/common";
 
 @Component({
     selector: 'formu',

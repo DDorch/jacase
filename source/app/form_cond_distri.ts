@@ -2,16 +2,17 @@ import {Component} from '@angular/core';
 import {Formulaire} from './formulaire';
 import {Http, Response} from '@angular/http';
 import {FORM_DIRECTIVES} from "@angular/common";
+import {CORE_DIRECTIVES} from "@angular/common";
 import {RadioControlValueAccessor} from "./radio_value_accessor";
 import {Observable} from 'rxjs/Rx';
-//import {CHART_DIRECTIVES} from '../ng2-charts';
+import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
 import 'rxjs/Rx';
 
 @Component({
     selector: 'form_cond',
     templateUrl: 'app/form_cond_distri.html',
      
-    directives : [FORM_DIRECTIVES, RadioControlValueAccessor] 
+    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor] 
 })
 
 export class FormCondDistri extends Formulaire {
