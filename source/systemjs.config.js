@@ -19,7 +19,7 @@
     'app':                        { main: 'boot.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
-    'ng2-charts':                 { defaultExtension: 'js'}
+    'ng2-charts':                 { main: 'index.js', defaultExtension: 'js'}
   };
 
   var ngPackageNames = [

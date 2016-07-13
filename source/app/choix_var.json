@@ -1,0 +1,19 @@
+{
+    "options":[
+        {
+             "id": "min",
+             "name": "De la valeur minimum: ",
+             "value":""
+        },
+        {
+            "id": "max",
+            "name": "A la valeur maximum: ",
+            "value":""
+        },
+        {
+            "id":"pas",
+            "name": "Avec un pas de variation de : ",
+            "value":""
+        }
+    ]
+}

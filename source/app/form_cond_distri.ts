@@ -97,20 +97,17 @@ export class FormCondDistri extends Formulaire {
 
             this.nomVar=this.setNom(this.varVar);
             this.getLineChartLabels();
-            console.log(this.lineChartLabels);
             var n=this.lineChartLabels.length;
             
             for(var i=0;i<n;i++){
                 this.v[this.varVar]=this.lineChartLabels[i];
                 this.lineChartData.push(this.calCondDistri());
-                console.log(this.v[this.varVar]);
             }
         }
                       
         else{
             this.result=this.calCondDistri();
         }
-        console.log(this.lineChartData);
     }
 
     calCondDistri(){

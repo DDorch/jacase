@@ -22,7 +22,7 @@ export abstract class Formulaire {
     public lineChartLabels = new Array(); // ligne des abscisses pour les graph
     public lineChartData = new Array(); // ligne des ordonnées pour les graph
     public lineChartOptions:any = {
-        animation: true,
+        animation: false,
         responsive: true
     };
     public lineChartColours:any = { // grey
@@ -129,9 +129,6 @@ export abstract class Formulaire {
           this.showVar=false;
           this.varVar=null;
       }
-
-      console.log(this.varVar);     
-      console.log(this.glob);
       
       //On gère l'affichage du champ sélectionné
        this.afficherChamp(id,value);
@@ -176,8 +173,14 @@ export abstract class Formulaire {
 
 
     }
-     
-  
+    //chart events
+    public chartClicked(e:any):void {
+        console.log(e);
+    }
+
+    public chartHovered(e:any):void {
+        console.log(e);
+    }
   
 
   

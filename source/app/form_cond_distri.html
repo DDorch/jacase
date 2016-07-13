@@ -40,12 +40,14 @@
 
   <div id="result_table" *ngIf="showResult" class="alert alert-success box-msg" role="alert">
     <div *ngIf="showVar">
-      <base-chart  [ngClass]="chartclass"
+      <base-chart  class="chart"
           [datasets]="lineChartData"
           [labels]="lineChartLabels"
           [options]="lineChartOptions"
           [colors]="lineChartColours"
           [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"
       >
       </base-chart>
     </div>
