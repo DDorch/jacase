@@ -19,33 +19,7 @@ export class FormCondDistri extends Formulaire {
 
     constructor(http: Http){
         super(http);
-        this.idCal="J";
-        this.v={
-            "Q": "3",
-            "D": "1.2",
-            "J": "0.6",
-            "Lg": "100",
-            "nu": "1E-6",
-            "pr":"0.001"
-        };
-        this.glob={
-            "Q": "fix",
-            "D": "fix",
-            "J": "cal",
-            "Lg": "fix",
-            "nu": "fix"
-        };
-        this.paramVar={
-            "min": "",
-            "max": "",
-            "pas": ""
-        };
-        this.tabResults={
-
-            "ids":[],
-            "noms":[],
-            "values":[]
-        };
+   
      }
 
     ngOnInit() {
@@ -58,32 +32,19 @@ export class FormCondDistri extends Formulaire {
       Observable.forkJoin(
 
         this.http.get('/app/champs_cd.json').map((res:Response) => res.json().fields),
+        this.http.get('/app/champs_cd.json').map((res:Response) => res.json().idCal),
         this.http.get('/app/choix_var.json').map((res:Response) => res.json().options)
 
       ).subscribe(
           
           data => { this.fields = data[0]
-                    this.options=data[1]
+                    this.idCal=data[1]
+                    this.options=data[2]
                 },
           err => console.error(err)
       );
-    }
-    initialiserV(){
-        this.v={
-            "Q": "3",
-            "D": "1.2",
-            "J": "0.6",
-            "Lg": "100",
-            "nu": "1E-6",
-            "pr":"0.001"
-        };
-    }
 
-     gestionRadios(id,value) {
-
-       this.initialiserV();
-       super.gestionRadios(id,value);
-     }
+    }
 
     calculer(){
 
