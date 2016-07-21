@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {LoadJson} from './load_json'; 
 import {Formulaire} from './formulaire';
 import {Http, Response} from '@angular/http';
 import {FORM_DIRECTIVES,NgClass,CORE_DIRECTIVES} from "@angular/common";
@@ -17,34 +18,13 @@ import 'rxjs/Rx';
 export class FormCondDistri extends Formulaire {
     
 
-    constructor(http: Http){
-        super(http);
-   
+    constructor(public loadjson: LoadJson){
+        super(loadjson);
+        this.nomForm="champs_cd";
+     
      }
 
-    ngOnInit() {
 
-        this.getFieldsAndOptions();
-    }
-
-    getFieldsAndOptions() {
-
-      Observable.forkJoin(
-
-        this.http.get('/app/champs_cd.json').map((res:Response) => res.json().fields),
-        this.http.get('/app/champs_cd.json').map((res:Response) => res.json().idCal),
-        this.http.get('/app/choix_var.json').map((res:Response) => res.json().options)
-
-      ).subscribe(
-          
-          data => { this.fields = data[0]
-                    this.idCal=data[1]
-                    this.options=data[2]
-                },
-          err => console.error(err)
-      );
-
-    }
 
     calculer(){
 

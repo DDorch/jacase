@@ -1,8 +1,11 @@
 import {Component} from '@angular/core';
 import {Http, Response} from '@angular/http';
+import {LoadJson} from './load_json'; 
 import {Observable} from 'rxjs/Rx';
+import 'rxjs/Rx';
 import {FORM_DIRECTIVES} from "@angular/common";
 import {CORE_DIRECTIVES} from "@angular/common";
+import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
 
 @Component({
     selector: 'formu',
@@ -14,6 +17,7 @@ export abstract class Formulaire {
     
     public champs;
     public fields;
+    public f;
     public options = new Object();
     public v = new Object();
     public paramVar;
@@ -42,8 +46,11 @@ export abstract class Formulaire {
     public showVar; //A supprimer quand on pourra integrer une ligne dans le ngFor
     public varVar; //l'id du parametre à varier
     public nomVar; //le nom du parametre à varier
+    public nomForm;
 
-    constructor(public http: Http){
+  
+
+    constructor(public loadjson: LoadJson){
 
         this.paramVar={
             "min": "",
@@ -56,17 +63,36 @@ export abstract class Formulaire {
             "noms":[],
             "values":[]
         };
-        /*this.glob={
-            "Q":"fix",
-            "D":"fix",
-            "J":"cal",
-            "Lg":"fix",
-            "nu":"fix"
-        }*/
         
+
+    }
+   
+    getFieldsAndOptions() {
+        this.loadjson.getFieldsAndOptions(this.nomForm).subscribe(
+        data => {
+                    this.fields=data[0]
+                    this.idCal=data[1]
+                    this.options=data[2]
+                    //console.log(this.fields);
+        }
+     );
+
     }
 
-    setNom(id){
+
+    init(){
+        console.log("in");
+        this.v=this.initialiserV();
+        this.glob=this.initialiserGlob();
+    }
+
+    ngOnInit() {
+
+        this.getFieldsAndOptions();
+        //this.initialiserGlob();
+     }
+
+     setNom(id){
 
       var nom="";
       var length=this.fields.length;
@@ -110,7 +136,6 @@ export abstract class Formulaire {
             this.v[this.fields[i].id]=this.fields[i].value;
         }
         return this.v;
-
     }
    
     initialiserGlob(){
@@ -160,8 +185,8 @@ export abstract class Formulaire {
 
   gestionRadios(id,value) {
       console.log(this.idCal);
-      this.v=this.initialiserV();
-      this.glob=this.initialiserGlob();
+      //this.v=this.initialiserV();
+      //this.glob=this.initialiserGlob();
       (<HTMLInputElement>document.getElementById('cal_Q')).checked=false;
       //recuper l'element à calculer
       if(value=="cal"){
@@ -247,17 +272,14 @@ export abstract class Formulaire {
        }*/
 
         console.log(this.glob);               
-      
-
-  }
+    }
      
     calculer() {
         this.nomCal=this.setNom(this.idCal);
         this.showResult=true;
         this.RemplirTabResults();
-
-
     }
+
     //chart events
     public chartClicked(e:any):void {
         console.log(e);
