@@ -1,17 +1,16 @@
 import {Component} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {LoadJson} from './load_json'; 
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/Rx';
 import {FORM_DIRECTIVES} from "@angular/common";
 import {CORE_DIRECTIVES} from "@angular/common";
 import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
+
 
 @Component({
     selector: 'formu',
     //templateUrl: 
     //directives : 
 })
+
 
 export abstract class Formulaire {
     
@@ -38,74 +37,91 @@ export abstract class Formulaire {
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     };    
+    
     //public lineChartLegend:boolean = true;
+    /** Type of line for the chart displayed in the results */
     public lineChartType:string = 'line'; 
+    /** ???? */
     public result;
-    public glob = new Object(); // état des radios
-    public showResult=false; //boolean pour afficher le tableau des resultats et le graphique
-    public showVar; //A supprimer quand on pourra integrer une ligne dans le ngFor
-    public varVar; //l'id du parametre à varier
-    public nomVar; //le nom du parametre à varier
+    /** State of radio buttons managing fix, var and cal parameters */
+    public glob = new Object(); 
+    /** boolean managing the result display */
+    public showResult=false;
+    /** @obsolete */
+    public showVar;
+    /** ID of varying parameter */
+    public varVar; 
+    /** Parameter's name to vary */ 
+    public nomVar;
+    /** Form name */ 
     public nomForm;
 
-  
 
-    constructor(public loadjson: LoadJson){
-
-        this.paramVar={
+    constructor(public http: Http, formName: string){
+        this.nomForm = formName;
+        this.paramVar = {
             "min": "",
             "max": "",
             "pas": ""
         };
-        this.tabResults={
-
+        this.tabResults = {
             "ids":[],
             "noms":[],
             "values":[]
         };
-        
-
     }
-   
+    
+    
+    /** 
+     * Lecture du fichier json de configuration du formulaire 
+     */
     getFieldsAndOptions() {
-        this.loadjson.getFieldsAndOptions(this.nomForm).subscribe(
-        data => {
-                    this.fields=data[0]
-                    this.idCal=data[1]
-                    this.options=data[2]
-                    //console.log(this.fields);
-        }
-     );
-
+        this.http.get("/app/"+this.nomForm+".json")
+          .subscribe((res: Response) => {
+            this.initJsonVar(res.json());
+        });
     }
 
 
-    init(){
-        console.log("in");
-        this.v=this.initialiserV();
-        this.glob=this.initialiserGlob();
+    /**
+     * Initialisation des variables après lecture du json
+     */
+    initJsonVar(data) {
+        this.fields = data.fields;
+        this.idCal = data.idCal;
+        this.options = data.options;
+        this.initGlob();
+        this.initV();
     }
 
+
+    /**
+     * Load and data initialisation called by Angular2
+     */
     ngOnInit() {
-
         this.getFieldsAndOptions();
-        //this.initialiserGlob();
-     }
+    }
 
-     setNom(id){
 
-      var nom="";
-      var length=this.fields.length;
-      var index;
-      for(var i=0;i<length;i++){
-          if(this.fields[i].id==id){
-              index=i;
-          }
-      }
-      return this.fields[index].name;
+    /**
+     * ?????
+     */
+    setNom(id) {
+        var length=this.fields.length;
+        var index;
+        for(var i=0;i<length;i++){
+            if(this.fields[i].id==id){
+                index=i;
+            }
+        }
+        return this.fields[index].name;
     }
   
-    initRadVarTable(id){
+  
+    /**
+     * Initialisation of min/max/step fields for field variation
+     */
+    initRadVarTable(id) {
         var length=this.fields.length;
         for(var i=0;i<length;i++){
 
@@ -117,7 +133,7 @@ export abstract class Formulaire {
         }
     }
 
-    getLineChartLabels(){
+    getLineChartLabels() {
 
         this.lineChartLabels.splice(0,this.lineChartLabels.length);
         var i=this.paramVar.min;
@@ -127,7 +143,7 @@ export abstract class Formulaire {
         }
     }
 
-    initialiserV(){
+    initV(){
 
 
         var length=this.fields.length;
@@ -137,8 +153,12 @@ export abstract class Formulaire {
         }
         return this.v;
     }
-   
-    initialiserGlob(){
+    
+    
+    /**
+     * Initialisation of glob : the variable managing radio buttons
+     */
+    initGlob(){
 
         var length=this.fields.length;
 

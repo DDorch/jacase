@@ -1,12 +1,9 @@
 import {Component} from '@angular/core';
-import {LoadJson} from './load_json'; 
 import {Formulaire} from './formulaire';
-import {Http, Response} from '@angular/http';
 import {FORM_DIRECTIVES,NgClass,CORE_DIRECTIVES} from "@angular/common";
 import {RadioControlValueAccessor} from "./radio_value_accessor";
-import {Observable} from 'rxjs/Rx';
 import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
-import 'rxjs/Rx';
+import {Http} from '@angular/http';
 
 @Component({
     selector: 'form_cond',
@@ -18,12 +15,9 @@ import 'rxjs/Rx';
 export class FormCondDistri extends Formulaire {
     
 
-    constructor(public loadjson: LoadJson){
-        super(loadjson);
-        this.nomForm="champs_cd";
-     
+    constructor(public http: Http){
+        super(http,"champs_cd");
      }
-
 
 
     calculer(){
