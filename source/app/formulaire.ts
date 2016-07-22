@@ -14,9 +14,7 @@ import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
 
 export abstract class Formulaire {
     
-    public champs;
     public fields;
-    public f;
     public options = new Object();
     public v = new Object();
     public paramVar;
@@ -104,9 +102,9 @@ export abstract class Formulaire {
 
 
     /**
-     * ?????
+     * Get the name associated to an Id
      */
-    setNom(id) {
+    getNom(id) {
         var length=this.fields.length;
         var index;
         for(var i=0;i<length;i++){
@@ -143,8 +141,10 @@ export abstract class Formulaire {
         }
     }
 
+    /**
+     * Initialisation of V: the variable containing the input values
+     */
     initV(){
-
 
         var length=this.fields.length;
 
@@ -170,7 +170,7 @@ export abstract class Formulaire {
                 this.glob[this.fields[i].id]='fix';
             }
         }
-        return this.glob;
+        //return this.glob;
     }
             
     RemplirTabResults(){
@@ -192,110 +192,67 @@ export abstract class Formulaire {
       }
     }
     
-
-    afficherChamp(id, value){
-      //gerer les champs à calculer 
-     if(value=='fix') {
-         (<HTMLInputElement> document.getElementById(id)).disabled=false;
-         }
-     else {
-         (<HTMLInputElement> document.getElementById(id)).disabled=true;
-         }
-  }
-
   gestionRadios(id,value) {
-      console.log(this.idCal);
-      //this.v=this.initialiserV();
-      //this.glob=this.initialiserGlob();
-      (<HTMLInputElement>document.getElementById('cal_Q')).checked=false;
-      //recuper l'element à calculer
-      if(value=="cal"){
-          this.idCal=id;
-      }
-      //recuperer l'élement à varier
-      if(value=='var'){
 
-          this.initRadVarTable(id);
-          this.varVar=id;
-          this.showVar=true;
-      }
-      else{
-          this.showVar=false;
-          this.varVar="";
-      }
-      
-      //On gère l'affichage du champ sélectionné
-       this.afficherChamp(id,value);
-       //console.log(this.showVar);
-       // Pour var et cal, on bascule en fix l'ancien champ en var ou cal
-       if(value != 'fix') {
+       var globBefore=Object.freeze(Object.assign({}, this.glob));
+       //recuper lelement à calculer
+        if(value=="cal"){
+            this.idCal=id;
+        }
+        //recuperer l'élement à varier
+        if(value=='var'){
 
-           for (var cle in this.glob){
-               if(this.glob[cle]==value && cle != id) {
-                   this.glob[cle]=='fix';
-                   (<HTMLInputElement>document.getElementById('fix_'+cle)).checked=true;
-                   this.afficherChamp(cle,'fix');
-                   (<HTMLInputElement>document.getElementById(value+'_'+cle)).checked=false;
-               }
-               //pour garder le showVar actif quand on change le param à calculer
-               if(value=='cal'&& this.glob[cle]=='var'){
-                   if(cle==id){
-                       this.varVar="";
-                       this.showVar=false;
-                   }
-                   else{
-                       this.varVar=cle;
-                       this.showVar=true;        
-                   }
-               }
-               if(this.glob[cle]=='cal'&& value!='cal'){
-                   if(cle==id){
-                       if(id=='J'){
-                            (<HTMLInputElement>document.getElementById('cal_Q')).checked=true;
-                            this.afficherChamp('Q','cal');
-
-                            //this.glob['Q']='cal';
-                            
-                       }
-                       else if(id=='Q'){
-                            (<HTMLInputElement>document.getElementById('cal_Q')).checked=false;
-                            (<HTMLInputElement>document.getElementById('cal_J')).checked=true;
-                            this.afficherChamp('J','cal');
-                            //this.glob[cle]=value;
-
-                       }
-                       else{
-                           (<HTMLInputElement>document.getElementById('cal_Q')).checked=false;
-                           (<HTMLInputElement>document.getElementById('cal_J')).checked=true;
-                           //(<HTMLInputElement>document.getElementById('cal_Q')).disabled=true;
-
-                           this.afficherChamp('J','cal');
-                          
-                       }
-                   }
-                   else{
-                       //this.glob[id]=value;
-
-                   }
-
-               }
-                           
-           }
-       }
-       //Ne pas pouvoir cocher les radio fix_
-        /*else{
-    
-                (<HTMLInputElement>document.getElementById('fix_'+id)).disabled=false; 
-
+            this.initRadVarTable(id);
+            this.varVar=id;
+            this.showVar=true;
+        }
+        else{
+            this.showVar=false;
+            this.varVar="";
+        }
+        for (var cle in this.glob){
+            if(globBefore[cle]=='cal' && value!='cal'){
+                if(id==cle){
+                    if(id=='J'){
+                        this.idCal='Q';
+                        (<HTMLInputElement>document.getElementById('cal_Q')).checked=true;
+                    }
+                    else{
+                        this.idCal='J';
+                        (<HTMLInputElement>document.getElementById('cal_J')).checked=true;
+                    }
+                }
+            }
             
+            if(value=='cal'&& globBefore[cle]=='var'){
+                if(cle==id){
+                    this.varVar="";
+                    this.showVar=false;
+                }
+                else{
+                    this.varVar=cle;
+                    this.showVar=true;        
+                }
+            }
+            this.glob[cle]='fix';
+            this.glob[this.idCal]='cal';
+            if(this.varVar!=""){this.glob[this.varVar]='var';}
+            if(this.glob[cle]=='fix'){
+                (<HTMLInputElement> document.getElementById(cle)).disabled=false;
+            }
+            else{
+                (<HTMLInputElement> document.getElementById(cle)).disabled=true;
+            }
 
-       }*/
+        }
 
-        console.log(this.glob);               
-    }
-     
+       console.log(this.glob);           
+       console.log(globBefore);  
+
+  }
+            
     calculer() {
-        this.nomCal=this.setNom(this.idCal);
+        this.nomCal=this.getNom(this.idCal);
         this.showResult=true;
         this.RemplirTabResults();
     }

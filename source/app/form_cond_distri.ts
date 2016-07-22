@@ -22,7 +22,7 @@ export class FormCondDistri extends Formulaire {
 
     calculer(){
 
-        this.initialiserV();
+        this.initV();
         this.v[this.varVar]="";
         this.nomVar="";
         super.calculer();
@@ -30,7 +30,7 @@ export class FormCondDistri extends Formulaire {
 
         if(this.showVar){
 
-            this.nomVar=this.setNom(this.varVar);
+            this.nomVar=this.getNom(this.varVar);
             this.getLineChartLabels();
             var n=this.lineChartLabels.length;
             
