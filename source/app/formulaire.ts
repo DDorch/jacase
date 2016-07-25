@@ -2,8 +2,6 @@ import {Component} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {FORM_DIRECTIVES} from "@angular/common";
 import {CORE_DIRECTIVES} from "@angular/common";
-import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
-
 
 @Component({
     selector: 'formu',
@@ -14,6 +12,7 @@ import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
 
 export abstract class Formulaire {
     
+
     public fields;
     public options = new Object();
     public v = new Object();
@@ -23,23 +22,10 @@ export abstract class Formulaire {
     public nomCal;//le nom l'élement selectionné à calculer
     public lineChartLabels = new Array(); // ligne des abscisses pour les graph
     public lineChartData = new Array(); // ligne des ordonnées pour les graph
-    public lineChartOptions:any = {
-        animation: false,
-        responsive: true
-    };
-    public lineChartColours:any = { // grey
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    };    
-    
-    //public lineChartLegend:boolean = true;
-    /** Type of line for the chart displayed in the results */
-    public lineChartType:string = 'line'; 
-    /** ???? */
+    public chartData = new Array();
+    public lineChartOptions:any;
+      
+       /** ???? */
     public result;
     /** State of radio buttons managing fix, var and cal parameters */
     public glob = new Object(); 
@@ -138,6 +124,61 @@ export abstract class Formulaire {
         while(i<=(this.paramVar.max+(this.paramVar.pas/2))){
             this.lineChartLabels.push(i);
             i=i+this.paramVar.pas;
+        }
+    }
+    getChartData(){
+        for(var i=0; i<this.lineChartData.length; i++){
+            this.chartData.push([this.lineChartLabels[i],this.lineChartData[i]]);
+        }
+      
+    }
+    getOptions(){
+        this.lineChartOptions={
+            title: {text:""},
+            chart: { zoomType: 'x'},
+            xAxis: {
+              reversed: false,
+              title: {
+                  enabled: true,
+                  text: this.varVar+':'+this.getNom(this.varVar)
+              },
+              labels: {
+                  formatter: function () {
+                      return this.value;
+                  }
+              },
+              //maxPadding: 0.05,
+              showLastLabel: true
+            },
+            yAxis: {
+                title: {
+                    text: this.idCal+':'+this.nomCal
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value;
+                    }
+                },
+                lineWidth: 2
+            },
+             legend: {
+                  enabled: false
+            },
+            tooltip: {
+                  //headerFormat: '<b>{series.name}</b><br/>',
+                  pointFormat: '{point.x} : {point.y}'
+            },
+            plotOptions: {
+                  spline: {
+                      marker: {
+                          enable: false
+                      }
+                  }
+            },
+            series:[{
+                data: this.chartData
+             }]
+              
         }
     }
 
@@ -257,17 +298,5 @@ export abstract class Formulaire {
         this.RemplirTabResults();
     }
 
-    //chart events
-    public chartClicked(e:any):void {
-        console.log(e);
-    }
-
-    public chartHovered(e:any):void {
-        console.log(e);
-    }
   
-
-  
-
-
 }

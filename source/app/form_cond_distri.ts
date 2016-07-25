@@ -1,15 +1,15 @@
 import {Component} from '@angular/core';
 import {Formulaire} from './formulaire';
-import {FORM_DIRECTIVES,NgClass,CORE_DIRECTIVES} from "@angular/common";
+import {FORM_DIRECTIVES,CORE_DIRECTIVES} from "@angular/common";
 import {RadioControlValueAccessor} from "./radio_value_accessor";
-import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
+import { CHART_DIRECTIVES } from 'angular2-highcharts';
 import {Http} from '@angular/http';
 
 @Component({
     selector: 'form_cond',
     templateUrl: 'app/form_cond_distri.html',
      
-    directives : [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor] 
+    directives : [ CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor] 
 })
 
 export class FormCondDistri extends Formulaire {
@@ -38,6 +38,8 @@ export class FormCondDistri extends Formulaire {
                 this.v[this.varVar]=this.lineChartLabels[i];
                 this.lineChartData.push(this.calCondDistri());
             }
+            this.getChartData();
+            this.getOptions();
         }
                       
         else{
