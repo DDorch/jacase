@@ -1,0 +1,70 @@
+
+<h4>Caractéristiques hydrauliques</h4>
+<table>
+    <tr>
+      <td> </td>
+      <td></td>
+      <td> Paramètre fixé </td>
+      <td>Paramètre à varier</td>
+      <td>Paramètre à calculer</td>
+    </tr>
+    <template ngFor let-field [ngForOf]="fields" [ngForTrackBy]="assetTrackBy">
+    <tr *ngIf="field.id!='Pr'">
+      <td > {{field.id}} : {{field.name}} ({{field.unit}}) </td>
+      <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"></td>
+      <td  align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
+      <td  align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'var');" ></td>
+      <td  align="center"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="cal" (click)="gestionRadios(field.id,'cal');" ></td>
+    </tr>
+    <tr *ngFor="let option of options" [hidden]="varVar!=field.id" class="alert alert-success box-msg" role="alert" >
+        <td> </td>
+        <td> </td>
+        <td> {{option.name}} </td>
+        <td><input id="{{option.id}}" type="text" value="{{option.value}}" [(ngModel)]="paramVar[option.id]" maxlength="30"></td>
+        <td> </td>
+     </tr>
+    
+    <tr [hidden]="field.id != 'Pr'"> Paramètres de calcul </tr>
+
+    <tr [hidden]="field.id != 'Pr'">
+      <td > {{field.name}} ({{field.unit}}) </td>
+      <td > <input *ngIf="field.id=='Pr'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"></td>
+
+    </tr> 
+        </template>
+
+    <tr>
+      <button (click)="calculer()"> Calculer </button>
+    </tr>
+  </table><br>
+
+  <div id="result_table" *ngIf="showResult" class="alert alert-success box-msg" role="alert">
+    <div *ngIf="showVar">
+      <chart [options]="lineChartOptions"></chart>
+    </div>
+    <table style="width:600px;float:left" cols=2 >
+      <tr><b>
+        <td> Paramètres fixés </td>
+        <td> Valeurs </td>
+      </b></tr>
+      <tr *ngFor="let result of tabResults" >
+        <td [hidden]="result.id==varVar"> {{result.id}} : {{result.name}} ({{result.unit}}) </td>
+        <td [hidden]="result.id==varVar"> {{result.value}} </td>
+      </tr>
+      <b><tr *ngIf="!showVar">
+        <td>{{idCal}} : {{nomCal}} ({{unitCal}}) </td>
+        <td> {{result|number:'.3-3'}} </td>
+      </tr></b>    
+    </table> 
+
+    <table *ngIf="showVar" style="width:600px;float:left;margin-left:10;" >
+      <td>
+        <tr><b>{{varVar}} : {{nomVar}} ({{unitVar}})</b></tr>
+        <tr *ngFor="let label of lineChartLabels"> {{label|number:'.3-3'}} </tr>
+      </td>
+      <td>
+        <tr> <b> {{idCal}} : {{nomCal}} ({{unitCal}}) </b></tr>
+        <tr *ngFor="let data of lineChartData"> {{data|number:'.3-3'}} </tr>
+      </td>
+    </table>
+  </div>
