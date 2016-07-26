@@ -42,6 +42,7 @@ export class FormCondDistri extends Formulaire {
                 this.v[this.varVar]=this.lineChartLabels[i];
                 this.lineChartData.push(this.calCondDistri());
             }
+            this.v[this.varVar]=2*this.lineChartLabels[0];
             this.getChartData();
             this.getOptions();
         }
