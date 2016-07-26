@@ -25,12 +25,14 @@ export class FormCondDistri extends Formulaire {
         this.initV();
         this.v[this.varVar]="";
         this.nomVar="";
+        this.unitVar="";
         super.calculer();
         this.lineChartData.splice(0,this.lineChartData.length);
 
         if(this.showVar){
 
             this.nomVar=this.getNom(this.varVar);
+            this.unitVar=this.getUnit(this.varVar);
             this.getLineChartLabels();
             var n=this.lineChartLabels.length;
             

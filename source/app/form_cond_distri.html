@@ -11,7 +11,7 @@
     <template ngFor let-field [ngForOf]="fields" [ngForTrackBy]="assetTrackBy">
     <tr>
       <td> {{field.id}} : {{field.name}} </td>
-      <td> <input id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"></td>
+      <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"></td>
       <td align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
       <td align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'var');" ></td>
       <td align="center"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="cal" (click)="gestionRadios(field.id,'cal');" ></td>
@@ -41,39 +41,29 @@
     <div *ngIf="showVar">
       <chart [options]="lineChartOptions"></chart>
     </div>
-    <table style="width:600px;float:left">
-      <td>
-        <tr><b> Paramètres </b></tr>
-        <tr *ngFor="let id of tabResults.ids" [hidden]="id==varVar">
-          {{id}} 
-        </tr>
-        <b><tr *ngIf="!showVar">{{idCal}}</tr></b>
-      </td>
-      <td>
-        <tr><b>fixés </b></tr>
-        <tr *ngFor="let nom of tabResults.noms" [hidden]="nom==nomVar">
-           {{nom}}
-        </tr>
-        <b><tr *ngIf="!showVar">{{nomCal}}</tr></b>
-      </td>
-      <td>
-        <tr><b>Valeurs</b></tr>
-        <tr *ngFor="let value of tabResults.values">
-          {{value}}
-        </tr>
-        <b><tr *ngIf="!showVar" >{{result}}</tr></b>
-      </td>           
-     
+    <table style="width:600px;float:left" cols=2 >
+      <tr><b>
+        <td> Paramètres fixés </td>
+        <td> Valeurs </td>
+      </b></tr>
+      <tr *ngFor="let result of tabResults" >
+        <td [hidden]="result.id==varVar"> {{result.id}} : {{result.name}} ({{result.unit}}) </td>
+        <td [hidden]="result.id==varVar"> {{result.value}} </td>
+      </tr>
+      <b><tr *ngIf="!showVar">
+        <td>{{idCal}} : {{nomCal}} ({{unitCal}}) </td>
+        <td> {{result|number:'.3-3'}} </td>
+      </tr></b>    
     </table> 
 
     <table *ngIf="showVar" style="width:600px;float:left;margin-left:10;" >
       <td>
-        <tr><b>{{varVar}} : {{nomVar}}</b></tr>
-        <tr *ngFor="let label of lineChartLabels"> {{label}} </tr>
+        <tr><b>{{varVar}} : {{nomVar}} ({{unitVar}})</b></tr>
+        <tr *ngFor="let label of lineChartLabels"> {{label|number:'.3-3'}} </tr>
       </td>
       <td>
-        <tr> <b> {{idCal}} : {{nomCal}} </b></tr>
-        <tr *ngFor="let data of lineChartData"> {{data}} </tr>
+        <tr> <b> {{idCal}} : {{nomCal}} ({{unitCal}}) </b></tr>
+        <tr *ngFor="let data of lineChartData"> {{data|number:'.3-3'}} </tr>
       </td>
     </table>
   </div>

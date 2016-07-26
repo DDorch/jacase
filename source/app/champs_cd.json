@@ -3,30 +3,35 @@
     "fields":[
         {
             "id" : "Q",
-            "name":"Débit (m³/s)",
+            "name":"Débit",
+            "unit":"m³/s",
             "value":3
         },
          {
             "id" : "D", 
-            "name":"Diamètre du tuyau (m)",
+            "name":"Diamètre du tuyau",
+            "unit":"m",
             "value":1.2
             
         },
          {
             "id" : "J",
-            "name":"Perte de charge (m)",
+            "name":"Perte de charge",
+            "unit":"m",
             "value":0.6
 
         },
          {
             "id" : "Lg",
-            "name":"Longueur du tuyau (m)",
+            "name":"Longueur du tuyau",
+            "unit":"m",           
             "value":100
 
         },
          {
             "id" : "nu",
-            "name":"Viscosité dynamique (Pa·s)",
+            "name":"Viscosité dynamique",
+            "unit":"Pa·s",            
             "value":1E-6
 
         }

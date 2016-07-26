@@ -17,9 +17,10 @@ export abstract class Formulaire {
     public options = new Object();
     public v = new Object();
     public paramVar;
-    public tabResults;
+    public tabResults = new Array();
     public idCal;//l'id l'élement selectionné à calculer
     public nomCal;//le nom l'élement selectionné à calculer
+    public unitCal;
     public lineChartLabels = new Array(); // ligne des abscisses pour les graph
     public lineChartData = new Array(); // ligne des ordonnées pour les graph
     public chartData = new Array();
@@ -37,6 +38,7 @@ export abstract class Formulaire {
     public varVar; 
     /** Parameter's name to vary */ 
     public nomVar;
+    public unitVar;
     /** Form name */ 
     public nomForm;
 
@@ -48,11 +50,8 @@ export abstract class Formulaire {
             "max": "",
             "pas": ""
         };
-        this.tabResults = {
-            "ids":[],
-            "noms":[],
-            "values":[]
-        };
+        /*this.tabResults = {
+            };*/
     }
     
     
@@ -99,6 +98,19 @@ export abstract class Formulaire {
             }
         }
         return this.fields[index].name;
+    }
+      /**
+     * Get the unit associated to an Id
+     */
+    getUnit(id) {
+        var length=this.fields.length;
+        var index;
+        for(var i=0;i<length;i++){
+            if(this.fields[i].id==id){
+                index=i;
+            }
+        }
+        return this.fields[index].unit;
     }
   
   
@@ -216,18 +228,17 @@ export abstract class Formulaire {
             
     RemplirTabResults(){
       
-      this.tabResults.ids.splice(0,this.tabResults.ids.length);
-      this.tabResults.noms.splice(0,this.tabResults.noms.length);
-      this.tabResults.values.splice(0,this.tabResults.values.length);
+      this.tabResults.splice(0,this.tabResults.length);
       var length=this.fields.length;
 
       for(var i=0;i<length;i++){
 
           if(this.fields[i].id!=this.idCal){
 
-              this.tabResults.ids.push(this.fields[i].id);
-              this.tabResults.noms.push(this.fields[i].name);
-              this.tabResults.values.push(this.v[this.fields[i].id]);
+              var j = this.tabResults.push(this.fields[i]);
+              this.tabResults[j-1].value = this.v[this.fields[i].id];
+              /*this.tabResults.noms.push(this.fields[i].name);
+              this.tabResults.values.push(this.v[this.fields[i].id]);*/
           }
           
       }
@@ -278,12 +289,12 @@ export abstract class Formulaire {
             this.glob[cle]='fix';
             this.glob[this.idCal]='cal';
             if(this.varVar!=""){this.glob[this.varVar]='var';}
-            if(this.glob[cle]=='fix'){
+            /*if(this.glob[cle]=='fix'){
                 (<HTMLInputElement> document.getElementById(cle)).disabled=false;
             }
             else{
                 (<HTMLInputElement> document.getElementById(cle)).disabled=true;
-            }
+            }*/
 
         }
 
@@ -294,6 +305,7 @@ export abstract class Formulaire {
             
     calculer() {
         this.nomCal=this.getNom(this.idCal);
+        this.unitCal=this.getUnit(this.idCal);
         this.showResult=true;
         this.RemplirTabResults();
     }
