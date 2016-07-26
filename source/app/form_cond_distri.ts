@@ -7,7 +7,7 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'form_cond',
-    templateUrl: 'app/form_cond_distri.html',
+    templateUrl: 'app/formulaire.html',
      
     directives : [ CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor] 
 })
@@ -23,11 +23,13 @@ export class FormCondDistri extends Formulaire {
     calculer(){
 
         this.initV();
-        this.v[this.varVar]="";
+        //this.v[this.varVar]=this.getValue(this.varVar);
         this.nomVar="";
         this.unitVar="";
         super.calculer();
         this.lineChartData.splice(0,this.lineChartData.length);
+        this.lineChartLabels.splice(0,this.lineChartLabels.length);
+        this.chartData.splice(0,this.chartData.length);
 
         if(this.showVar){
 
@@ -47,6 +49,7 @@ export class FormCondDistri extends Formulaire {
         else{
             this.result=this.calCondDistri();
         }
+        console.log(this.chartData);
     }
 
     calCondDistri(){

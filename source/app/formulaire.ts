@@ -50,6 +50,23 @@ export abstract class Formulaire {
             "max": "",
             "pas": ""
         };
+        this.options=[
+            {
+                "id": "min",
+                "name": "De la valeur minimum: ",
+                "value":""
+            },
+            {
+                "id": "max",
+                "name": "A la valeur maximum: ",
+                "value":""
+            },
+            {
+                "id":"pas",
+                "name": "Avec un pas de variation de : ",
+                "value":""
+            }
+        ];
         /*this.tabResults = {
             };*/
     }
@@ -58,7 +75,7 @@ export abstract class Formulaire {
     /** 
      * Lecture du fichier json de configuration du formulaire 
      */
-    getFieldsAndOptions() {
+    getFields() {
         this.http.get("/app/"+this.nomForm+".json")
           .subscribe((res: Response) => {
             this.initJsonVar(res.json());
@@ -72,7 +89,6 @@ export abstract class Formulaire {
     initJsonVar(data) {
         this.fields = data.fields;
         this.idCal = data.idCal;
-        this.options = data.options;
         this.initGlob();
         this.initV();
     }
@@ -82,7 +98,7 @@ export abstract class Formulaire {
      * Load and data initialisation called by Angular2
      */
     ngOnInit() {
-        this.getFieldsAndOptions();
+        this.getFields();
     }
 
 
@@ -112,13 +128,24 @@ export abstract class Formulaire {
         }
         return this.fields[index].unit;
     }
+
+     getValue(id) {
+        var length=this.fields.length;
+        var index;
+        for(var i=0;i<length;i++){
+            if(this.fields[i].id==id){
+                index=i;
+            }
+        }
+        return this.fields[index].value;
+    }
   
   
     /**
      * Initialisation of min/max/step fields for field variation
      */
     initRadVarTable(id) {
-        var length=this.fields.length;
+        var length=this.fields.length-1;
         for(var i=0;i<length;i++){
 
             if(this.fields[i].id==id){
@@ -159,7 +186,7 @@ export abstract class Formulaire {
                       return this.value;
                   }
               },
-              //maxPadding: 0.05,
+              maxPadding: 0.02,
               showLastLabel: true
             },
             yAxis: {
@@ -213,7 +240,7 @@ export abstract class Formulaire {
      */
     initGlob(){
 
-        var length=this.fields.length;
+        var length=this.fields.length-1;
 
         for(var i=0;i<length;i++){
             if(this.fields[i].id==this.idCal){
@@ -229,7 +256,7 @@ export abstract class Formulaire {
     RemplirTabResults(){
       
       this.tabResults.splice(0,this.tabResults.length);
-      var length=this.fields.length;
+      var length=this.fields.length-1;
 
       for(var i=0;i<length;i++){
 
@@ -243,7 +270,7 @@ export abstract class Formulaire {
     }
     
   gestionRadios(id,value) {
-
+        console.log(this.idCal);
        var globBefore=Object.freeze(Object.assign({}, this.glob));
        //recuper lelement à calculer
         if(value=="cal"){
