@@ -237,8 +237,6 @@ export abstract class Formulaire {
 
               var j = this.tabResults.push(this.fields[i]);
               this.tabResults[j-1].value = this.v[this.fields[i].id];
-              /*this.tabResults.noms.push(this.fields[i].name);
-              this.tabResults.values.push(this.v[this.fields[i].id]);*/
           }
           
       }
@@ -289,14 +287,7 @@ export abstract class Formulaire {
             this.glob[cle]='fix';
             this.glob[this.idCal]='cal';
             if(this.varVar!=""){this.glob[this.varVar]='var';}
-            /*if(this.glob[cle]=='fix'){
-                (<HTMLInputElement> document.getElementById(cle)).disabled=false;
-            }
-            else{
-                (<HTMLInputElement> document.getElementById(cle)).disabled=true;
-            }*/
-
-        }
+       }
 
        console.log(this.glob);           
        console.log(globBefore);  
