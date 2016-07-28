@@ -4,9 +4,11 @@ import {FORM_DIRECTIVES,CORE_DIRECTIVES} from "@angular/common";
 import {RadioControlValueAccessor} from "./radio_value_accessor";
 import { CHART_DIRECTIVES } from 'angular2-highcharts';
 import {Http} from '@angular/http';
+import {PipeNumbers} from "./pipe_numbers";
 
 @Component({
     selector: 'form_cond',
+    pipes: [PipeNumbers],
     templateUrl: 'app/formulaire.html',
      
     directives : [ CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor] 
@@ -22,10 +24,11 @@ export class FormCondDistri extends Formulaire {
 
     calculer(){
 
-        this.initV();
+        //this.initV();
         //this.v[this.varVar]=this.getValue(this.varVar);
-        this.nomVar="";
-        this.unitVar="";
+        this.precision=this.v['Pr'];
+        //this.nomVar="";
+        //this.unitVar="";
         super.calculer();
         this.lineChartData.splice(0,this.lineChartData.length);
         this.lineChartLabels.splice(0,this.lineChartLabels.length);
@@ -33,8 +36,7 @@ export class FormCondDistri extends Formulaire {
 
         if(this.showVar){
 
-            this.nomVar=this.getNom(this.varVar);
-            this.unitVar=this.getUnit(this.varVar);
+
             this.getLineChartLabels();
             var n=this.lineChartLabels.length;
             

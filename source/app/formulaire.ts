@@ -2,8 +2,10 @@ import {Component} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {FORM_DIRECTIVES} from "@angular/common";
 import {CORE_DIRECTIVES} from "@angular/common";
+import {PipeNumbers} from "./pipe_numbers";
 
 @Component({
+    pipes: [PipeNumbers],
     selector: 'formu',
     //templateUrl: 
     //directives : 
@@ -25,7 +27,7 @@ export abstract class Formulaire {
     public lineChartData = new Array(); // ligne des ordonnées pour les graph
     public chartData = new Array();
     public lineChartOptions:any;
-      
+    public precision;  
        /** ???? */
     public result;
     /** State of radio buttons managing fix, var and cal parameters */
@@ -91,6 +93,7 @@ export abstract class Formulaire {
         this.idCal = data.idCal;
         this.initGlob();
         this.initV();
+        this.precision=this.v['Pr'];
     }
 
 
@@ -179,7 +182,7 @@ export abstract class Formulaire {
               reversed: false,
               title: {
                   enabled: true,
-                  text: this.varVar+':'+this.getNom(this.varVar)
+                  text: this.varVar+':'+this.nomVar+'('+this.unitVar+')'
               },
               labels: {
                   formatter: function () {
@@ -191,8 +194,9 @@ export abstract class Formulaire {
             },
             yAxis: {
                 title: {
-                    text: this.idCal+':'+this.nomCal
+                    text: this.idCal+':'+this.nomCal+'('+this.unitCal+')'
                 },
+                
                 labels: {
                     formatter: function () {
                         return this.value;
@@ -204,7 +208,6 @@ export abstract class Formulaire {
                   enabled: false
             },
             tooltip: {
-                  //headerFormat: '<b>{series.name}</b><br/>',
                   pointFormat: '{point.x} : {point.y}'
             },
             plotOptions: {
@@ -281,6 +284,8 @@ export abstract class Formulaire {
 
             this.initRadVarTable(id);
             this.varVar=id;
+            this.nomVar=this.getNom(this.varVar);
+            this.unitVar=this.getUnit(this.varVar);
             this.showVar=true;
         }
         else{
@@ -326,6 +331,7 @@ export abstract class Formulaire {
         this.unitCal=this.getUnit(this.idCal);
         this.showResult=true;
         this.RemplirTabResults();
+        console.log(this.tabResults);
     }
 
   

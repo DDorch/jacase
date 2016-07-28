@@ -48,23 +48,23 @@
         <td> Valeurs </td>
       </b></tr>
       <tr *ngFor="let result of tabResults" >
-        <td [hidden]="result.id==varVar"> {{result.id}} : {{result.name}} ({{result.unit}}) </td>
-        <td [hidden]="result.id==varVar"> {{result.value}} </td>
+        <td [hidden]="result.id==varVar"> {{result.id}}  : {{result.name}} ({{result.unit}}) </td>
+        <td [hidden]="result.id==varVar"> {{result.value | PipeNumbers : precision}} </td>
       </tr>
       <b><tr *ngIf="!showVar">
         <td>{{idCal}} : {{nomCal}} ({{unitCal}}) </td>
-        <td> {{result|number:'.3-3'}} </td>
+        <td> {{result | PipeNumbers : precision}} </td>
       </tr></b>    
     </table> 
 
     <table *ngIf="showVar" style="width:600px;float:left;margin-left:10;" >
       <td>
         <tr><b>{{varVar}} : {{nomVar}} ({{unitVar}})</b></tr>
-        <tr *ngFor="let label of lineChartLabels"> {{label|number:'.3-3'}} </tr>
+        <tr *ngFor="let label of lineChartLabels"> {{label | PipeNumbers : precision}} </tr>
       </td>
       <td>
         <tr> <b> {{idCal}} : {{nomCal}} ({{unitCal}}) </b></tr>
-        <tr *ngFor="let data of lineChartData"> {{data|number:'.3-3'}} </tr>
+        <tr *ngFor="let data of lineChartData"> {{data | PipeNumbers : precision}} </tr>
       </td>
     </table>
   </div>
