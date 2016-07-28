@@ -10,7 +10,7 @@ import {RadioControlValueAccessor} from './radio_value_accessor';
     selector: "formu",
     pipes: [PipeNumbers],
     templateUrl: 'app/formulaire.html',
-    directives : [ CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor],    
+    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor],    
     /*pipes: [PipeNumbers],
     templateUrl: 'app/formulaire.html',
     directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor,],*/

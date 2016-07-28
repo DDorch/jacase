@@ -1,0 +1,30 @@
+{
+    "calculators":[
+        {
+            "id" : "conduite_distri",
+            "name" : "Loi de perte de charge dans une conduite distributrice"
+        },
+        {
+            "id" : "lechapt_calmon",
+            "name" : "Lechapt et Calmon"
+        },
+        {
+            "id" : "ouvrages",
+            "name" : "Ouvrages"
+        },
+        {
+            "id" : "remous",
+            "name" : "Courbes de remous"
+        },
+        {
+            "id" : "calcul_uniforme",
+            "name" : "Calcul du régime uniforme"
+        },
+        {
+            "id" : "calcul_section_parametree",
+            "name" : "Calculs hydrauliques sur une section paramétrée"
+        }
+
+    ]   
+
+}
