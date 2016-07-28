@@ -5,4 +5,5 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import {enableProdMode} from '@angular/core';
 
 enableProdMode();
-bootstrap(FormCondDistri,[Formulaire, HTTP_PROVIDERS]);
+//bootstrap(FormCondDistri,[Formulaire,HTTP_PROVIDERS]);
+bootstrap(Formulaire,[FormCondDistri,HTTP_PROVIDERS]);

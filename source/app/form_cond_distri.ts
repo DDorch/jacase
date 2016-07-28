@@ -1,62 +1,31 @@
 import {Component} from '@angular/core';
 import {Formulaire} from './formulaire';
-import {FORM_DIRECTIVES,CORE_DIRECTIVES} from "@angular/common";
-import {RadioControlValueAccessor} from "./radio_value_accessor";
+import {FORM_DIRECTIVES,CORE_DIRECTIVES} from '@angular/common';
+import {RadioControlValueAccessor} from './radio_value_accessor';
 import { CHART_DIRECTIVES } from 'angular2-highcharts';
 import {Http} from '@angular/http';
-import {PipeNumbers} from "./pipe_numbers";
+import {PipeNumbers} from './pipe_numbers';
 
 @Component({
     selector: 'form_cond',
-    pipes: [PipeNumbers],
-    templateUrl: 'app/formulaire.html',
-     
-    directives : [ CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor] 
+    template:`<formu> </formu>`,
+    //pipes: [PipeNumbers],
+    //templateUrl: 'app/formulaire.html',
+    //directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor],
+    directives : [Formulaire]
 })
 
 export class FormCondDistri extends Formulaire {
     
 
     constructor(public http: Http){
-        super(http,"champs_cd");
-     }
-
-
-    calculer(){
-
-        //this.initV();
-        //this.v[this.varVar]=this.getValue(this.varVar);
-        this.precision=this.v['Pr'];
-        //this.nomVar="";
-        //this.unitVar="";
-        super.calculer();
-        this.lineChartData.splice(0,this.lineChartData.length);
-        this.lineChartLabels.splice(0,this.lineChartLabels.length);
-        this.chartData.splice(0,this.chartData.length);
-
-        if(this.showVar){
-
-
-            this.getLineChartLabels();
-            var n=this.lineChartLabels.length;
-            
-            for(var i=0;i<n;i++){
-                this.v[this.varVar]=this.lineChartLabels[i];
-                this.lineChartData.push(this.calCondDistri());
-            }
-            this.v[this.varVar]=2*this.lineChartLabels[0];
-            this.getChartData();
-            this.getOptions();
-        }
-                      
-        else{
-            this.result=this.calCondDistri();
-        }
-        console.log(this.chartData);
+        super(http);
+        //this.nomForm="champs_cd";
+        console.log("in constructor");
     }
-
-    calCondDistri(){
-                
+    
+    calculate(){
+         console.log("in");       
         var acalculer=this.v[this.idCal];
         var q=this.v['Q'];
         var d=this.v['D'];

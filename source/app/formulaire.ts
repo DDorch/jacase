@@ -1,20 +1,24 @@
 import {Component} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {FORM_DIRECTIVES} from "@angular/common";
-import {CORE_DIRECTIVES} from "@angular/common";
-import {PipeNumbers} from "./pipe_numbers";
+import {FORM_DIRECTIVES, CORE_DIRECTIVES} from '@angular/common';
+import { CHART_DIRECTIVES } from 'angular2-highcharts';
+import {PipeNumbers} from './pipe_numbers';
+import {RadioControlValueAccessor} from './radio_value_accessor';
+//import {FormCondDistri} from './form_cond_distri';
 
 @Component({
+    selector: "formu",
     pipes: [PipeNumbers],
-    selector: 'formu',
-    //templateUrl: 
-    //directives : 
+    templateUrl: 'app/formulaire.html',
+    directives : [ CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor],    
+    /*pipes: [PipeNumbers],
+    templateUrl: 'app/formulaire.html',
+    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor,],*/
 })
 
 
 export abstract class Formulaire {
     
-
     public fields;
     public options = new Object();
     public v = new Object();
@@ -27,8 +31,9 @@ export abstract class Formulaire {
     public lineChartData = new Array(); // ligne des ordonnées pour les graph
     public chartData = new Array();
     public lineChartOptions:any;
+    /** Specifies the number of decimals */
     public precision;  
-       /** ???? */
+    /** The result when there is no varVar */
     public result;
     /** State of radio buttons managing fix, var and cal parameters */
     public glob = new Object(); 
@@ -42,11 +47,13 @@ export abstract class Formulaire {
     public nomVar;
     public unitVar;
     /** Form name */ 
-    public nomForm;
+    public nomForm="champs_cd";
 
 
-    constructor(public http: Http, formName: string){
-        this.nomForm = formName;
+    //constructor(public http: Http, formName:string){
+    constructor(public http: Http){
+        console.log(this.nomForm);
+        //this.nomForm = formName;
         this.paramVar = {
             "min": "",
             "max": "",
@@ -69,8 +76,7 @@ export abstract class Formulaire {
                 "value":""
             }
         ];
-        /*this.tabResults = {
-            };*/
+     
     }
     
     
@@ -91,6 +97,8 @@ export abstract class Formulaire {
     initJsonVar(data) {
         this.fields = data.fields;
         this.idCal = data.idCal;
+        this.nomCal=this.getName(this.idCal);
+        this.unitCal=this.getUnit(this.idCal);
         this.initGlob();
         this.initV();
         this.precision=this.v['Pr'];
@@ -108,7 +116,7 @@ export abstract class Formulaire {
     /**
      * Get the name associated to an Id
      */
-    getNom(id) {
+    getName(id) {
         var length=this.fields.length;
         var index;
         for(var i=0;i<length;i++){
@@ -278,13 +286,15 @@ export abstract class Formulaire {
        //recuper lelement à calculer
         if(value=="cal"){
             this.idCal=id;
+            this.nomCal=this.getName(this.idCal);
+            this.unitCal=this.getUnit(this.idCal);
         }
         //recuperer l'élement à varier
         if(value=='var'){
 
             this.initRadVarTable(id);
             this.varVar=id;
-            this.nomVar=this.getNom(this.varVar);
+            this.nomVar=this.getName(this.varVar);
             this.unitVar=this.getUnit(this.varVar);
             this.showVar=true;
         }
@@ -325,13 +335,37 @@ export abstract class Formulaire {
        console.log(globBefore);  
 
   }
-            
-    calculer() {
-        this.nomCal=this.getNom(this.idCal);
-        this.unitCal=this.getUnit(this.idCal);
+    getResult(){
+
         this.showResult=true;
         this.RemplirTabResults();
-        console.log(this.tabResults);
+        this.precision=this.v['Pr'];
+        this.lineChartData.splice(0,this.lineChartData.length);
+        this.lineChartLabels.splice(0,this.lineChartLabels.length);
+        this.chartData.splice(0,this.chartData.length);
+
+        if(this.showVar){
+
+            this.getLineChartLabels();
+            var n=this.lineChartLabels.length;
+            
+            for(var i=0;i<n;i++){
+                this.v[this.varVar]=this.lineChartLabels[i];
+                this.lineChartData.push(this.calculate());
+            }
+            this.v[this.varVar]=2*this.lineChartLabels[0];
+            this.getChartData();
+            this.getOptions();
+        }
+                      
+        else{
+            this.result=this.calculate();
+        }
+        console.log(this.chartData);
+    } 
+
+    calculate() {
+        return null;
     }
 
   
