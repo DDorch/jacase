@@ -25,6 +25,7 @@ export abstract class Formulaire {
     public paramVar;
     public tabResults = new Array();
     public idCal;//l'id l'élement selectionné à calculer
+    public idCal_inter;
     public nomCal;//le nom l'élement selectionné à calculer
     public unitCal;
     public lineChartLabels = new Array(); // ligne des abscisses pour les graph
@@ -41,8 +42,10 @@ export abstract class Formulaire {
     public showResult=false;
     /** @obsolete */
     public showVar;
+    public var_table=false;
     /** ID of varying parameter */
     public varVar; 
+    public varVar_inter;
     /** Parameter's name to vary */ 
     public nomVar;
     public unitVar;
@@ -96,9 +99,9 @@ export abstract class Formulaire {
      */
     initJsonVar(data) {
         this.fields = data.fields;
-        this.idCal = data.idCal;
-        this.nomCal=this.getName(this.idCal);
-        this.unitCal=this.getUnit(this.idCal);
+        this.idCal_inter = data.idCal;
+        //this.nomCal=this.getName(this.idCal);
+        //this.unitCal=this.getUnit(this.idCal);
         this.initGlob();
         this.initV();
         this.precision=this.v['Pr'];
@@ -170,7 +173,7 @@ export abstract class Formulaire {
     getLineChartLabels() {
 
         this.lineChartLabels.splice(0,this.lineChartLabels.length);
-        var i=this.paramVar.min;
+        var i=this.paramVar['min'];
         while(i<=(this.paramVar.max+(this.paramVar.pas/2))){
             this.lineChartLabels.push(i);
             i=i+this.paramVar.pas;
@@ -254,7 +257,7 @@ export abstract class Formulaire {
         var length=this.fields.length-1;
 
         for(var i=0;i<length;i++){
-            if(this.fields[i].id==this.idCal){
+            if(this.fields[i].id==this.idCal_inter){
                 this.glob[this.fields[i].id]='cal';
             }
             else{
@@ -270,7 +273,6 @@ export abstract class Formulaire {
       var length=this.fields.length-1;
 
       for(var i=0;i<length;i++){
-
           if(this.fields[i].id!=this.idCal){
 
               var j = this.tabResults.push(this.fields[i]);
@@ -281,36 +283,37 @@ export abstract class Formulaire {
     }
     
   gestionRadios(id,value) {
-        console.log(this.idCal);
+      console.log("iiiiin");
+       console.log("in  "+this.idCal_inter);
        var globBefore=Object.freeze(Object.assign({}, this.glob));
        //recuper lelement à calculer
         if(value=="cal"){
-            this.idCal=id;
-            this.nomCal=this.getName(this.idCal);
-            this.unitCal=this.getUnit(this.idCal);
+            this.idCal_inter=id;
+            /*this.nomCal=this.getName(this.idCal);
+            this.unitCal=this.getUnit(this.idCal);*/
         }
         //recuperer l'élement à varier
         if(value=='var'){
 
             this.initRadVarTable(id);
-            this.varVar=id;
-            this.nomVar=this.getName(this.varVar);
-            this.unitVar=this.getUnit(this.varVar);
+            this.varVar_inter=id;
+            /*this.nomVar=this.getName(this.varVar);
+            this.unitVar=this.getUnit(this.varVar);*/
             this.showVar=true;
+            console.log(this.varVar_inter);
         }
         else{
-            this.showVar=false;
-            this.varVar="";
+            this.varVar_inter="";
         }
         for (var cle in this.glob){
             if(globBefore[cle]=='cal' && value!='cal'){
                 if(id==cle){
                     if(id=='J'){
-                        this.idCal='Q';
+                        this.idCal_inter='Q';
                         (<HTMLInputElement>document.getElementById('cal_Q')).checked=true;
                     }
                     else{
-                        this.idCal='J';
+                        this.idCal_inter='J';
                         (<HTMLInputElement>document.getElementById('cal_J')).checked=true;
                     }
                 }
@@ -318,55 +321,65 @@ export abstract class Formulaire {
             
             if(value=='cal'&& globBefore[cle]=='var'){
                 if(cle==id){
-                    this.varVar="";
+                    this.varVar_inter="";
                     this.showVar=false;
                 }
                 else{
-                    this.varVar=cle;
+                    this.varVar_inter=cle;
                     this.showVar=true;        
                 }
             }
             this.glob[cle]='fix';
-            this.glob[this.idCal]='cal';
-            if(this.varVar!=""){this.glob[this.varVar]='var';}
+            this.glob[this.idCal_inter]='cal';
+            if(this.varVar_inter!=""){this.glob[this.varVar_inter]='var';}
        }
 
        console.log(this.glob);           
        console.log(globBefore);  
 
   }
-    getResult(){
 
-        this.showResult=true;
-        this.RemplirTabResults();
-        this.precision=this.v['Pr'];
-        this.lineChartData.splice(0,this.lineChartData.length);
-        this.lineChartLabels.splice(0,this.lineChartLabels.length);
-        this.chartData.splice(0,this.chartData.length);
+  getResult(){
+      console.log(this.varVar_inter);
+      this.idCal=this.idCal_inter;
+      this.nomCal=this.getName(this.idCal);
+      this.unitCal=this.getUnit(this.idCal);
+      this.showResult=true;
+      this.RemplirTabResults();
+      this.precision=this.v['Pr'];
+      this.lineChartData.splice(0,this.lineChartData.length);
+      this.lineChartLabels.splice(0,this.lineChartLabels.length);
+      this.chartData.splice(0,this.chartData.length);
 
-        if(this.showVar){
+      if(this.showVar){
+        this.var_table=true;
+        this.varVar=this.varVar_inter;
+        this.showVar=true;
+        this.nomVar=this.getName(this.varVar);
+        this.unitVar=this.getUnit(this.varVar);
+        this.getLineChartLabels();
+        var n=this.lineChartLabels.length;
 
-            this.getLineChartLabels();
-            var n=this.lineChartLabels.length;
-            
-            for(var i=0;i<n;i++){
-                this.v[this.varVar]=this.lineChartLabels[i];
-                this.lineChartData.push(this.calculate());
-            }
-            this.v[this.varVar]=2*this.lineChartLabels[0];
-            this.getChartData();
-            this.getOptions();
+        for(var i=0;i<n;i++){
+            this.v[this.varVar]=this.lineChartLabels[i];
+            this.lineChartData.push(this.calculate());
         }
-                      
-        else{
-            this.result=this.calculate();
+        this.v[this.varVar]=this.getValue(this.varVar);
+        this.getChartData();
+        this.getOptions();
         }
-        console.log(this.chartData);
-    } 
-
-    calculate() {
-        return null;
-    }
-
+                    
+      else{
+          
+          this.result=this.calculate();
+      }
+      console.log(this.chartData);
+  }
   
+  calculate() {
+    return null;
+  }
+  
+
+
 }

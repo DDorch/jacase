@@ -16,7 +16,7 @@
       <td  align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'var');" ></td>
       <td  align="center"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="cal" (click)="gestionRadios(field.id,'cal');" ></td>
     </tr>
-    <tr *ngFor="let option of options" [hidden]="varVar!=field.id" class="alert alert-success box-msg" role="alert" >
+    <tr *ngFor="let option of options" [hidden]="varVar_inter!=field.id" class="alert alert-success box-msg" role="alert" >
         <td> </td>
         <td> </td>
         <td> {{option.name}} </td>
@@ -57,7 +57,7 @@
       </tr>    
     </table> 
 
-    <table *ngIf="showVar" style="width:600px;float:left;margin-left:10;" >
+    <table *ngIf="var_table" style="width:600px;float:left;margin-left:10;" >
       <td>
         <tr><b>{{varVar}} : {{nomVar}} ({{unitVar}})</b></tr>
         <tr *ngFor="let label of lineChartLabels"> {{label | PipeNumbers : precision}} </tr>
