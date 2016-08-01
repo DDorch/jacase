@@ -4,18 +4,13 @@ import {FORM_DIRECTIVES, CORE_DIRECTIVES} from '@angular/common';
 import { CHART_DIRECTIVES } from 'angular2-highcharts';
 import {PipeNumbers} from './pipe_numbers';
 import {RadioControlValueAccessor} from './radio_value_accessor';
-//import {FormCondDistri} from './form_cond_distri';
 
 @Component({
     selector: "formu",
-    pipes: [PipeNumbers],
-    templateUrl: 'app/formulaire.html',
-    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor],    
     /*pipes: [PipeNumbers],
     templateUrl: 'app/formulaire.html',
     directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor,],*/
 })
-
 
 export abstract class Formulaire {
     
@@ -38,7 +33,7 @@ export abstract class Formulaire {
     public result;
     /** State of radio buttons managing fix, var and cal parameters */
     public glob = new Object(); 
-    /** boolean managing the result display */
+    /** boolean managing the r="champs_cd"esult display */
     public showResult=false;
     /** @obsolete */
     public showVar;
@@ -50,13 +45,11 @@ export abstract class Formulaire {
     public nomVar;
     public unitVar;
     /** Form name */ 
-    public nomForm="champs_cd";
+    public nomForm;
 
 
-    //constructor(public http: Http, formName:string){
-    constructor(public http: Http){
-        console.log(this.nomForm);
-        //this.nomForm = formName;
+    constructor(public http: Http, formName:string){
+        this.nomForm=formName;
         this.paramVar = {
             "min": "",
             "max": "",
@@ -81,8 +74,7 @@ export abstract class Formulaire {
         ];
      
     }
-    
-    
+      
     /** 
      * Lecture du fichier json de configuration du formulaire 
      */
@@ -92,7 +84,6 @@ export abstract class Formulaire {
             this.initJsonVar(res.json());
         });
     }
-
 
     /**
      * Initialisation des variables après lecture du json
@@ -107,14 +98,12 @@ export abstract class Formulaire {
         this.precision=this.v['Pr'];
     }
 
-
     /**
      * Load and data initialisation called by Angular2
      */
     ngOnInit() {
         this.getFields();
     }
-
 
     /**
      * Get the name associated to an Id
@@ -129,6 +118,7 @@ export abstract class Formulaire {
         }
         return this.fields[index].name;
     }
+
       /**
      * Get the unit associated to an Id
      */
@@ -154,8 +144,7 @@ export abstract class Formulaire {
         return this.fields[index].value;
     }
   
-  
-    /**
+     /**
      * Initialisation of min/max/step fields for field variation
      */
     initRadVarTable(id) {
@@ -178,15 +167,14 @@ export abstract class Formulaire {
             this.lineChartLabels.push(i);
             i=i+Number(this.paramVar.pas);
         }
-        console.log(Number(this.paramVar.max)+(Number(this.paramVar.pas)/2));
-        console.log(this.paramVar.pas);
     }
+
     getChartData(){
         for(var i=0; i<this.lineChartData.length; i++){
             this.chartData.push([this.lineChartLabels[i],this.lineChartData[i]]);
         }
-      
     }
+
     getOptions(){
         this.lineChartOptions={
             title: {text:""},
@@ -249,8 +237,7 @@ export abstract class Formulaire {
         }
         return this.v;
     }
-    
-    
+       
     /**
      * Initialisation of glob : the variable managing radio buttons
      */
@@ -284,25 +271,18 @@ export abstract class Formulaire {
       }
     }
     
-  gestionRadios(id,value) {
-      console.log("iiiiin");
-       console.log("in  "+this.idCal_inter);
-       var globBefore=Object.freeze(Object.assign({}, this.glob));
-       //recuper lelement à calculer
+    gestionRadios(id,value) {
+        var globBefore=Object.freeze(Object.assign({}, this.glob));
+       //recuperer lelement à calculer
         if(value=="cal"){
             this.idCal_inter=id;
-            /*this.nomCal=this.getName(this.idCal);
-            this.unitCal=this.getUnit(this.idCal);*/
         }
         //recuperer l'élement à varier
         if(value=='var'){
 
             this.initRadVarTable(id);
             this.varVar_inter=id;
-            /*this.nomVar=this.getName(this.varVar);
-            this.unitVar=this.getUnit(this.varVar);*/
             this.showVar=true;
-            console.log(this.varVar_inter);
         }
         else{
             this.varVar_inter="";
@@ -335,15 +315,9 @@ export abstract class Formulaire {
             this.glob[this.idCal_inter]='cal';
             if(this.varVar_inter!=""){this.glob[this.varVar_inter]='var';}
        }
-
-       console.log(this.glob);           
-       console.log(globBefore);  
-
   }
 
   getResult(){
-      console.log(this.v);
-      console.log(this.paramVar);
       this.idCal=this.idCal_inter;
       this.nomCal=this.getName(this.idCal);
       this.unitCal=this.getUnit(this.idCal);
@@ -376,8 +350,6 @@ export abstract class Formulaire {
           
           this.result=this.calculate();
       }
-      console.log(this.paramVar.max);
-      console.log(this.lineChartLabels);
   }
   
   calculate() {

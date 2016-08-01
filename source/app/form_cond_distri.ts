@@ -20,25 +20,20 @@ import {PipeNumbers} from './pipe_numbers';
 
 export class FormCondDistri extends Formulaire {
     
-
     constructor(public http: Http){
-        super(http);
-        //this.nomForm="champs_cd";
-        console.log("in constructor");
+        super(http,'champs_cd');
     }
     
     calculate(){
-         console.log("in");       
         var acalculer=this.v[this.idCal];
         var q=this.v['Q'];
         var d=this.v['D'];
         var j=this.v['J'];
         var lg=this.v['Lg'];
         var nu=this.v['nu'];
-        //var p=numbers[5];*/
-
         var K = 0.3164 * Math.pow(4,1.75)/(5.5*9.81*Math.pow(3.1415,1.75)); // Constante de la formule
         var result:number;
+
         switch (acalculer){
 
             case j:
