@@ -173,11 +173,13 @@ export abstract class Formulaire {
     getLineChartLabels() {
 
         this.lineChartLabels.splice(0,this.lineChartLabels.length);
-        var i=this.paramVar['min'];
-        while(i<=(this.paramVar.max+(this.paramVar.pas/2))){
+        var i=Number(this.paramVar['min']);
+        while(i<Number(this.paramVar.max)+(Number(this.paramVar.pas)/2)){
             this.lineChartLabels.push(i);
-            i=i+this.paramVar.pas;
+            i=i+Number(this.paramVar.pas);
         }
+        console.log(Number(this.paramVar.max)+(Number(this.paramVar.pas)/2));
+        console.log(this.paramVar.pas);
     }
     getChartData(){
         for(var i=0; i<this.lineChartData.length; i++){
@@ -340,7 +342,8 @@ export abstract class Formulaire {
   }
 
   getResult(){
-      console.log(this.varVar_inter);
+      console.log(this.v);
+      console.log(this.paramVar);
       this.idCal=this.idCal_inter;
       this.nomCal=this.getName(this.idCal);
       this.unitCal=this.getUnit(this.idCal);
@@ -373,7 +376,8 @@ export abstract class Formulaire {
           
           this.result=this.calculate();
       }
-      console.log(this.chartData);
+      console.log(this.paramVar.max);
+      console.log(this.lineChartLabels);
   }
   
   calculate() {
