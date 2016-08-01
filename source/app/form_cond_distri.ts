@@ -7,12 +7,15 @@ import {Http} from '@angular/http';
 import {PipeNumbers} from './pipe_numbers';
 
 @Component({
-    selector: 'form_cond',
-    template:`<formu> </formu>`,
-    //pipes: [PipeNumbers],
-    //templateUrl: 'app/formulaire.html',
-    //directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor],
-    directives : [Formulaire]
+    selector: 'jacase',
+    pipes: [PipeNumbers],
+    templateUrl: 'app/formulaire.html',
+    styles: [`
+       .result_fix {
+           font-weight: bold;
+        }
+    `],
+    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor],
 })
 
 export class FormCondDistri extends Formulaire {

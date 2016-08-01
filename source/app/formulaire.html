@@ -43,18 +43,18 @@
       <chart [options]="lineChartOptions"></chart>
     </div>
     <table style="width:600px;float:left" cols=2 >
-      <tr><b>
+      <tr class="result_fix">
         <td> Paramètres fixés </td>
         <td> Valeurs </td>
-      </b></tr>
+      </tr>
       <tr *ngFor="let result of tabResults" >
         <td [hidden]="result.id==varVar"> {{result.id}}  : {{result.name}} ({{result.unit}}) </td>
         <td [hidden]="result.id==varVar"> {{result.value | PipeNumbers : precision}} </td>
       </tr>
-      <b><tr *ngIf="!showVar">
+      <tr class="result_fix" *ngIf="!showVar">
         <td>{{idCal}} : {{nomCal}} ({{unitCal}}) </td>
         <td> {{result | PipeNumbers : precision}} </td>
-      </tr></b>    
+      </tr>    
     </table> 
 
     <table *ngIf="showVar" style="width:600px;float:left;margin-left:10;" >
