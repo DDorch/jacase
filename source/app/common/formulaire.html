@@ -1,6 +1,7 @@
 
-<h4>Caractéristiques hydrauliques</h4>
 <table>
+  <param_composite *ngIf="param_composite" [saisies]="saisies"></param_composite>
+   <tr class="result_fix">Caractéristiques hydrauliques</tr>
     <tr>
       <td> </td>
       <td></td>
@@ -24,7 +25,7 @@
         <td> </td>
      </tr>
      </template>
-    <tr> Paramètres de calcul </tr>
+    <tr class="result_fix"> Paramètres de calcul </tr>
     <tr>
       <td > {{param_calc?.name}} ({{param_calc?.unit}})  </td>
       <td > <input id="saisies.fs_param_calc['id']" type="text" value="param_calc.value" [(ngModel)]="precision" maxlength="30"></td>

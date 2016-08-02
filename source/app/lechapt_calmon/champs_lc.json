@@ -1,6 +1,9 @@
 {
     "saisies":{
-        "fs_materiau":[
+        "fs_materiau":{
+            "name":"Type du matériau",
+            "subName":"Choix du matériau",
+            "types":[
             {
                 "id": 1,
                 "name":"Fonte ou acier non revêtus - Béton grossier (eau corrosive)",
@@ -163,7 +166,8 @@
                 }
             ]                    
         }
-        ],
+        ]
+        },
 
         "fs_hydraulique":[
         {

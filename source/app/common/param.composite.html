@@ -1,0 +1,17 @@
+<tr *ngIf="saisies"> {{saisies.fs_materiau.name }}</tr>
+<tr *ngIf="saisies">
+   <td> {{saisies.fs_materiau.subName}} </td>
+   <td>
+       <select>
+           <option *ngFor="let materiau of saisies.fs_materiau.types" value= {{materiau.id}}>
+            {{materiau.name}}
+           </option>
+       </select>
+   </td>
+</tr>
+<template ngFor let-type [ngForOf]="saisies?.fs_materiau?.types" [ngForTrackBy]="assetTrackBy">
+    <tr *ngFor="let parameter of type.parameters">
+        <td *ngIf="type.id==1">{{parameter.id}}</td>
+        <td *ngIf="type.id==1"><input id="{{parameter.id}}" type="text" value="{{parameter.value}}" maxlength="30"></td>
+    </tr>
+</template>

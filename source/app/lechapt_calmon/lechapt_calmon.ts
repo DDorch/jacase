@@ -5,19 +5,25 @@ import {RadioControlValueAccessor} from '../common/radio_value_accessor';
 import { CHART_DIRECTIVES } from 'angular2-highcharts';
 import {Http} from '@angular/http';
 import {PipeNumbers} from '../common/pipe_numbers';
+import {ParamComposite} from '../common/param.composite';
 
 @Component({
-    selector: 'lechapt_calmon',
+    selector: 'jacase',
     pipes: [PipeNumbers],
-    //templateUrl: 'app/formulaire.html',
-    //directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor],
+    templateUrl: 'app/common/formulaire.html',
+    styles: [`
+       .result_fix {
+           font-weight: bold;
+        }
+    `],
+    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor, Formulaire, ParamComposite],
 })
 
 export class FormLechaptCalmon extends Formulaire {
     
 
     constructor(public http: Http){
-        super(http,'lechapt_calmon');
+        super(http,'lechapt_calmon/champs_lc');
         this.param_composite=true;
         //Temporaire, il sera initialisé dynamiquement par la suite
         this.v_mat={
