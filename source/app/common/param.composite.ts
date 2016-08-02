@@ -6,7 +6,7 @@ import {Component,Input} from '@angular/core';
 })
 export class ParamComposite{
     @Input() saisies;
-
+    @Input() v_mat;
     constructor(){
     }
    
