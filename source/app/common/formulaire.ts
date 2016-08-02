@@ -19,6 +19,7 @@ export abstract class Formulaire {
     public fields;
     public options = new Object();
     public v = new Object();
+    public v_mat = new Object(); // v materiaux (L,M,N)
     public paramVar;
     public tabResults = new Array();
     public idCal;//l'id l'élement selectionné à calculer
