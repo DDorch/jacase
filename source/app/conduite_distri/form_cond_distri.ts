@@ -23,7 +23,6 @@ export class FormCondDistri extends Formulaire {
     constructor(public http: Http){
         super(http,'conduite_distri/champs_cd');
         this.param_composite=false;
-        console.log(this.nomForm);
     }
     
     calculate(){

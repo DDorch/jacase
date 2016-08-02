@@ -15,6 +15,7 @@ import {RadioControlValueAccessor} from './radio_value_accessor';
 
 export abstract class Formulaire {
     
+    public saisies;
     public fields;
     public options = new Object();
     public v = new Object();
@@ -49,10 +50,10 @@ export abstract class Formulaire {
     public nomForm;
     /** Handling other components than inputs */
     public param_composite;
-
+    /** fs_param_calc */
+    public param_calc;
 
     constructor(public http: Http, formName:string){
-        console.log('iiin');
         this.nomForm=formName;
         this.paramVar = {
             "min": "",
@@ -76,14 +77,13 @@ export abstract class Formulaire {
                 "value":""
             }
         ];
-     
+
     }
       
     /** 
      * Lecture du fichier json de configuration du formulaire 
      */
     getFields() {
-        console.log("getfields");
         this.http.get("app/"+this.nomForm+".json")
           .subscribe((res: Response) => {
             this.initJsonVar(res.json());
@@ -94,14 +94,13 @@ export abstract class Formulaire {
      * Initialisation des variables après lecture du json
      */
     initJsonVar(data) {
-        console.log("in");
-        this.fields = data.fields;
-        this.idCal_inter = data.idCal;
-        //this.nomCal=this.getName(this.idCal);
-        //this.unitCal=this.getUnit(this.idCal);
+        this.saisies=data.saisies;
+        this.param_calc=this.saisies.fs_param_calc;
+        this.fields = this.saisies.fs_hydraulique;
+        this.idCal_inter = this.saisies.idCal;
         this.initGlob();
         this.initV();
-        this.precision=this.v['Pr'];
+        this.precision=this.param_calc.value;
     }
 
     /**
@@ -154,7 +153,7 @@ export abstract class Formulaire {
      * Initialisation of min/max/step fields for field variation
      */
     initRadVarTable(id) {
-        var length=this.fields.length-1;
+        var length=this.fields.length;
         for(var i=0;i<length;i++){
 
             if(this.fields[i].id==id){
@@ -249,7 +248,7 @@ export abstract class Formulaire {
      */
     initGlob(){
 
-        var length=this.fields.length-1;
+        var length=this.fields.length;
 
         for(var i=0;i<length;i++){
             if(this.fields[i].id==this.idCal_inter){
@@ -265,7 +264,7 @@ export abstract class Formulaire {
     RemplirTabResults(){
       
       this.tabResults.splice(0,this.tabResults.length);
-      var length=this.fields.length-1;
+      var length=this.fields.length;
 
       for(var i=0;i<length;i++){
           if(this.fields[i].id!=this.idCal){
@@ -278,6 +277,7 @@ export abstract class Formulaire {
     }
     
     gestionRadios(id,value) {
+        console.log(this.precision);
         var globBefore=Object.freeze(Object.assign({}, this.glob));
        //recuperer lelement à calculer
         if(value=="cal"){
@@ -329,7 +329,6 @@ export abstract class Formulaire {
       this.unitCal=this.getUnit(this.idCal);
       this.showResult=true;
       this.RemplirTabResults();
-      this.precision=this.v['Pr'];
       this.lineChartData.splice(0,this.lineChartData.length);
       this.lineChartLabels.splice(0,this.lineChartLabels.length);
       this.chartData.splice(0,this.chartData.length);

@@ -1,6 +1,8 @@
 {
 
-    "fields":[
+    "saisies":{
+
+        "fs_hydraulique":[
         {
             "id" : "Q",
             "name":"Débit",
@@ -34,16 +36,17 @@
             "unit":"Pa·s",            
             "value":1E-6
 
-        },
-         {
+        }         
+    ],
+
+    "fs_param_calc":{
             "id" : "Pr",
             "name":"Précision de calcul",
             "unit":"m",            
             "value":0.001
-
-        }
-    ],
+        },
 
     "idCal" : "J"
+    }
     
 }

@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PipeNumbers{
 
      transform(value, precision){
-         var n = -Math.log10(precision);
+         var n = -Math.log10(Number(precision));
          return Number(value).toFixed(n);
      }
 }
