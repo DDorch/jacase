@@ -1,8 +1,8 @@
-<tr *ngIf="saisies"> {{saisies.fs_materiau.name }}</tr>
+<tr class="result_fix" *ngIf="saisies"> {{saisies.fs_materiau.name }}</tr>
 <tr *ngIf="saisies">
    <td> {{saisies.fs_materiau.subName}} </td>
    <td>
-       <select>
+       <select [ngModel]="selectedType" (ngModelChange)="onChange($event)" >
            <option *ngFor="let materiau of saisies.fs_materiau.types" value= {{materiau.id}}>
             {{materiau.name}}
            </option>

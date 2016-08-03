@@ -85,7 +85,7 @@ export abstract class Formulaire {
      * Lecture du fichier json de configuration du formulaire 
      */
     getFields() {
-        this.http.get("app/"+this.nomForm+".json")
+        this.http.get("app/"+this.nomForm+"/"+this.nomForm+".config.json")
           .subscribe((res: Response) => {
             this.initJsonVar(res.json());
         });
