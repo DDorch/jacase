@@ -1,0 +1,213 @@
+{
+    "saisies":{
+        "fs_materiau":{
+            "name":"Type du matériau",
+            "subName":"Choix du matériau",
+            "types":[
+            {
+                "id": 1,
+                "name":"Fonte ou acier non revêtus - Béton grossier (eau corrosive)",
+                "parameters":[
+                    {
+                        "id":"L",
+                        "value":"1.863"
+                    },
+                    {
+                        "id":"M",
+                        "value":"2"
+                    },
+                    {
+                        "id":"N",
+                        "value":"5.33"
+                    }
+                ]                    
+        },
+        {
+                "id": 2,
+                "name":"Fonte ou acier non revêtus - Béton grossier (eau peu corrosive)",
+                "parameters":[
+                    {
+                        "id":"L",
+                        "value":"1.601"
+                    },
+                    {
+                        "id":"M",
+                        "value":"1.975"
+                    },
+                    {
+                        "id":"N",
+                        "value":"5.25"
+                    }
+                ]                    
+        },
+        {
+                "id": 3,    
+                "name":"Fonte ou acier revêtement ciment",
+                "parameters":[
+                    {
+                        "id":"L",
+                        "value":"1.40"
+                    },
+                    {
+                        "id":"M",
+                        "value":"1.96"
+                    },
+                    {
+                        "id":"N",
+                        "value":"5.19"
+                    }
+                ]                    
+        },
+        {
+                "id": 4,
+                "name":"Fonte ou acier revêtement bitume - Béton centrifugé",
+                "parameters":[
+                    {
+                        "id":"L",
+                        "value":"1.16"
+                    },
+                    {
+                        "id":"M",
+                        "value":"1.93"
+                    },
+                    {
+                        "id":"N",
+                        "value":"5.11"
+                    }
+                ]                    
+        },
+        {
+                "id": 5,
+                "name":"Acier laminé - Béton lisse",
+                "parameters":[
+                    {
+                        "id":"L",
+                        "value":"1.1"
+                    },
+                    {
+                        "id":"M",
+                        "value":"1.89"
+                    },
+                    {
+                        "id":"N",
+                        "value":"5.01"
+                    }
+                ]                    
+        },
+        {
+                "id": 6,
+                "name":"Fonte ou acier revêtement centrifugé",
+                "parameters":[
+                    {
+                        "id":"L",
+                        "value":"1.049"
+                    },
+                    {
+                        "id":"M",
+                        "value":"1.86"
+                    },
+                    {
+                        "id":"N",
+                        "value":"4.93"
+                    }
+                ]                    
+        },
+        {
+                "id": 7,
+               "name":"PVC - Polyéthylène",
+               "parameters":[
+                   {
+                       "id":"L",
+                       "value":"1.01"
+                   },
+                   {
+                       "id":"M",
+                       "value":"1.84"
+                   },
+                   {
+                       "id":"N",
+                       "value":"4.88"
+                   }
+               ]                    
+        },
+        {
+            "id": 8,
+            "name":"Tuyau hydrauliquement lisse - 0.05 ≤ D ≤ 0.2",
+            "parameters":[
+                {
+                    "id":"L",
+                    "value":"0.916"
+                },
+                {
+                    "id":"M",
+                    "value":"1.78"
+                },
+                {
+                    "id":"N",
+                    "value":"4.78"
+                }
+            ]                    
+        },
+        {
+            "id": 9,
+            "name":"Tuyau hydrauliquement lisse - 0.25 ≤ D ≤ 1",
+            "parameters":[
+                {
+                    "id":"L",
+                    "value":"0.971"
+                },
+                {
+                    "id":"M",
+                    "value":"1.81"
+                },
+                {
+                    "id":"N",
+                    "value":"4.81"
+                }
+            ]                    
+        }
+        ]
+        },
+
+        "fs_hydraulique":[
+        {
+            "id" : "Q",
+            "name":"Débit",
+            "unit":"m³/s",
+            "value":3
+        },
+         {
+            "id" : "D", 
+            "name":"Diamètre du tuyau",
+            "unit":"m",
+            "value":1.2
+            
+        },
+         {
+            "id" : "J",
+            "name":"Perte de charge",
+            "unit":"m",
+            "value":0.6
+
+        },
+         {
+            "id" : "Lg",
+            "name":"Longueur du tuyau",
+            "unit":"m",           
+            "value":100
+
+        }   
+    ],
+
+    "fs_param_calc":{
+            "id" : "Pr",
+            "name":"Précision de calcul",
+            "unit":"m",            
+            "value":0.001
+        },
+
+    "idCal" : "J",
+    "choix" : 1
+    }
+    
+}
