@@ -1,20 +1,21 @@
 import {Component} from '@angular/core';
 import {Http,Response} from '@angular/http';
-
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
-    selector: 'main',
+    selector: 'menu',
     //pipes: [PipeNumbers],
-    //templateUrl: 'app/formulaire.html',
-    //directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor]  
+    templateUrl: 'app/main.html',
+    directives : [ROUTER_DIRECTIVES]  
 })
 
-export class Main {
+export class MainApp {
 
     public calculators;
 
     constructor(public http: Http){
-        
+ //   constructor(){
+     
     }
 
     getCalculators(){

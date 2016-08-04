@@ -36,8 +36,6 @@ export class FormLechaptCalmon extends Formulaire {
     }
     
     calculate(){
-        console.log("in");
-        console.log(this.v_mat);
         var acalculer=this.v[this.idCal];
         var q=this.v['Q'];
         var d=this.v['D'];

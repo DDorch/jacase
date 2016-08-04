@@ -19,7 +19,8 @@
     'app':                        { main: 'boot.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
-    'angular2-highcharts' :       { main: 'index.js',format: 'cjs', defaultExtension: 'js' }
+    'angular2-highcharts' :       { main: 'index.js',format: 'cjs', defaultExtension: 'js' },
+    '@angular/router':            { main: 'index.js', defaultExtension: 'js' }
 
   };
 
@@ -30,7 +31,6 @@
     'http',
     'platform-browser',
     'platform-browser-dynamic',
-    'router',
     'router-deprecated',
     'upgrade',
   ];

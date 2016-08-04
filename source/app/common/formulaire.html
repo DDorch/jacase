@@ -1,7 +1,7 @@
 
 <table>
   <param_composite *ngIf="param_composite" [saisies]="saisies" [v_mat]="v_mat" [selectedType]="selectedType" ></param_composite>
-   <tr class="result_fix">Caractéristiques hydrauliques</tr>
+   <tr class="result_fix" colspan=5 >Caractéristiques hydrauliques</tr>
     <tr>
       <td> </td>
       <td></td>
@@ -11,7 +11,7 @@
     </tr>
     <template ngFor let-field [ngForOf]="fields" [ngForTrackBy]="assetTrackBy">
     <tr>
-      <td > {{field.id}} : {{field.name}} ({{field.unit}}) </td>
+      <td colspan=1> {{field.id}} : {{field.name}} ({{field.unit}}) </td>
       <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"></td>
       <td  align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
       <td  align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'var');" ></td>
@@ -25,7 +25,7 @@
         <td> </td>
      </tr>
      </template>
-    <tr class="result_fix"> Paramètres de calcul </tr>
+    <tr class="result_fix" colspan=5 > Paramètres de calcul </tr>
     <tr>
       <td > {{param_calc?.name}} ({{param_calc?.unit}})  </td>
       <td > <input id="saisies.fs_param_calc['id']" type="text" value="param_calc.value" [(ngModel)]="precision" maxlength="30"></td>

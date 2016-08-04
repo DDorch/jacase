@@ -24,6 +24,7 @@ export class FormCondDistri extends Formulaire {
     constructor(public http: Http){
         super(http,'cond_distri');
         this.param_composite=false;
+        console.log('here');
     }
     
     calculate(){

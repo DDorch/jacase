@@ -8,10 +8,12 @@
            </option>
        </select>
    </td>
+
 </tr>
 <template ngFor let-type [ngForOf]="saisies?.fs_materiau?.types" [ngForTrackBy]="assetTrackBy">
     <tr *ngFor="let parameter of type.parameters">
         <td *ngIf="type.id==1">{{parameter.id}}</td>
         <td *ngIf="type.id==1"><input id="{{parameter.id}}" type="text" value="{{parameter.value}}" [(ngModel)]="v_mat[parameter.id]" maxlength="30"></td>
+
     </tr>
 </template>
