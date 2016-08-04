@@ -24,4 +24,7 @@ export class MainApp {
               this.calculators=res.json().calculators;
         });
     }
+    ngOnInit(){
+        this.getCalculators();
+    }
 }

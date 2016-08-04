@@ -1,7 +1,7 @@
 {
     "calculators":[
         {
-            "id" : "conduite_distri",
+            "id" : "cond_distri",
             "name" : "Loi de perte de charge dans une conduite distributrice"
         },
         {

@@ -1,5 +1,4 @@
-<nav>
-    <a [routerLink]="['/cond_distri']" routerLinkActive="active" >Conduite distributive</a>
-    <a [routerLink]="['/lechapt_calmon']" routerLinkActive="active">Lechapt et Calmon</a>
+<nav *ngFor="let calculator of calculators">
+    <a routerLink={{calculator.id}} routerLinkActive="active" >{{calculator.name}}</a>
 </nav>
 <router-outlet></router-outlet>
