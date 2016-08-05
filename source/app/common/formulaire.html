@@ -2,16 +2,16 @@
 <table class="app-sidenav">
   <tr *ngIf="param_composite && saisies" class="result_fix">{{saisies.fs_materiau.name }}</tr>
   <tr *ngIf="param_composite && saisies">
-    <td> {{saisies.fs_materiau.subName}} </td>
-    <td>
+    <td> {{mat_fields?.name}} </td>
+    <td *ngIf="mat_fields">
        <select [ngModel]="selectedType" (ngModelChange)="onChange($event)" >
-           <option *ngFor="let materiau of saisies.fs_materiau.types" value= {{materiau.id}}>
+           <option *ngFor="let materiau of mat_fields.select" value= {{materiau.id}}>
             {{materiau.name}}
            </option>
        </select>
     </td>
   </tr>
-  <template *ngIf="param_composite" ngFor let-type [ngForOf]="saisies?.fs_materiau?.types" [ngForTrackBy]="assetTrackBy">
+  <template *ngIf="param_composite" ngFor let-type [ngForOf]="mat_fields?.select" [ngForTrackBy]="assetTrackBy">
     <tr *ngFor="let parameter of type.parameters">
         <td *ngIf="type.id==1">{{parameter.id}}</td>
         <td *ngIf="type.id==1"><input id="{{parameter.id}}" type="text" value="{{parameter.value}}" [(ngModel)]="v_mat[parameter.id]" maxlength="30"></td>

@@ -53,6 +53,8 @@ export abstract class Formulaire {
     public param_composite;
     /** fs_param_calc */
     public param_calc;
+    public selectedType;
+    public mat_fields;
 
     constructor(public http: Http, formName:string){
         this.nomForm=formName;
@@ -102,6 +104,11 @@ export abstract class Formulaire {
         this.initGlob();
         this.initV();
         this.precision=this.param_calc.value;
+        if(this.param_composite){
+            this.mat_fields=this.saisies.fs_materiau.fields;
+            this.selectedType=this.mat_fields.value;
+        }
+      
     }
 
     /**

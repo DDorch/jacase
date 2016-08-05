@@ -16,10 +16,8 @@ import {PipeNumbers} from '../common/pipe_numbers';
 
 export class FormLechaptCalmon extends Formulaire {
     
-    public selectedType;
     constructor(public http: Http){
         super(http,'lechapt_calmon');
-        this.selectedType=1;
         this.param_composite=true;
         //Temporaire, il sera initialisé dynamiquement par la suite
         this.v_mat={
