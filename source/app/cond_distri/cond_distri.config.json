@@ -2,51 +2,69 @@
 
     "saisies":{
 
-        "fs_hydraulique":[
-        {
-            "id" : "Q",
-            "name":"Débit",
-            "unit":"m³/s",
-            "value":3
-        },
-         {
-            "id" : "D", 
-            "name":"Diamètre du tuyau",
-            "unit":"m",
-            "value":1.2
-            
-        },
-         {
-            "id" : "J",
-            "name":"Perte de charge",
-            "unit":"m",
-            "value":0.6
+        "fs_hydraulique":{
+            "name":"Caractéristiques hydrauliques",
+            "option":"cal",
+            "fields":[
+            {
+                "type":"input",
+                "id" : "Q",
+                "name":"Débit",
+                "unit":"m³/s",
+                "value":3
+            },
+            {
+                "type":"input",
+                "id" : "D", 
+                "name":"Diamètre du tuyau",
+                "unit":"m",
+                "value":1.2
+                
+            },
+            {
+                "type":"input",
+                "id" : "J",
+                "name":"Perte de charge",
+                "unit":"m",
+                "value":0.6
 
-        },
-         {
-            "id" : "Lg",
-            "name":"Longueur du tuyau",
-            "unit":"m",           
-            "value":100
+            },
+            {
+                "type":"input",
+                "id" : "Lg",
+                "name":"Longueur du tuyau",
+                "unit":"m",           
+                "value":100
 
-        },
-         {
-            "id" : "nu",
-            "name":"Viscosité dynamique",
-            "unit":"Pa·s",            
-            "value":1E-6
+            },
+            {
+                "type":"input",
+                "id" : "nu",
+                "name":"Viscosité dynamique",
+                "unit":"Pa·s",            
+                "value":1E-6
 
-        }         
-    ],
-
-    "fs_param_calc":{
-            "id" : "Pr",
-            "name":"Précision de calcul",
-            "unit":"m",            
-            "value":0.001
+            }         
+            ]
         },
 
-    "idCal" : "J"
+        "fs_param_calc":{
+                
+                "name":"Paramètres de calcul",
+                "option":"fix",
+                "fields":[{
+                    "type":"input",
+                    "id" : "Pr",
+                    "name":"Précision de calcul",
+                    "unit":"m",            
+                    "value":0.001 
+                }]
+        },
+
+        "options":{
+            "idCal" : "J"
+        }
+    
     }
     
 }

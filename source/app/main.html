@@ -1,11 +1,11 @@
 <!--<nav *ngFor="let calculator of calculators">
     <a routerLink={{calculator.id}} routerLinkActive="active" >{{calculator.name}}</a>
 </nav>-->
-<md-sidenav-layout>
-    <md-sidenav #sidenav mode="side">
+<md-sidenav-layout >
+    <md-sidenav #sidenav mode="side" >
         <md-nav-list *ngFor="let calculator of calculators">
             <a md-list-item routerLink={{calculator.id}} routerLinkActive="active" >
-                <span md-line>{{calculator.name}}</span>
+                <span md-line >{{calculator.name}}</span>
             </a>
         </md-nav-list>
     </md-sidenav>
@@ -15,6 +15,6 @@
          >>
          </button>
          Calculettes pour l'hydraulique
-         <span></span>
+         <span class="app-toolbar-filler"></span>
     </md-toolbar>
-<router-outlet></router-outlet>
+<router-outlet ></router-outlet>

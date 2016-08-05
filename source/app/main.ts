@@ -12,7 +12,8 @@ import {MdButton} from '@angular2-material/button';
     //pipes: [PipeNumbers],
     templateUrl: 'app/main.html',
     directives : [ROUTER_DIRECTIVES,MD_SIDENAV_DIRECTIVES,MD_LIST_DIRECTIVES,MdToolbar,MdIcon,MdButton],
-    providers: [MdIconRegistry],  
+    providers: [MdIconRegistry],
+    styleUrls:['app/main.css']  
 })
 
 export class MainApp {

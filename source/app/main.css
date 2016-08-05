@@ -1,0 +1,17 @@
+.app-sidenav {
+  min-width: 10px;
+  margin: 5px;
+  padding:40px;
+}
+.app-toolbar-filler {
+  flex: 1 1 auto;
+}
+.app-toolbar-menu {
+  padding: 0 ;
+  color: white;
+}
+.result_fix {
+    font-weight: bold;
+}
+
+

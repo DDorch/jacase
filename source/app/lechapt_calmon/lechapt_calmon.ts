@@ -5,18 +5,13 @@ import {RadioControlValueAccessor} from '../common/radio_value_accessor';
 import { CHART_DIRECTIVES } from 'angular2-highcharts';
 import {Http} from '@angular/http';
 import {PipeNumbers} from '../common/pipe_numbers';
-import {ParamComposite} from '../common/param.composite';
 
 @Component({
     selector: 'jacase',
     pipes: [PipeNumbers],
     templateUrl: 'app/common/formulaire.html',
-    styles: [`
-       .result_fix {
-           font-weight: bold;
-        }
-    `],
-    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor, Formulaire, ParamComposite],
+    styleUrls:['app/main.css'],
+    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor, Formulaire],
 })
 
 export class FormLechaptCalmon extends Formulaire {
@@ -27,11 +22,11 @@ export class FormLechaptCalmon extends Formulaire {
         this.selectedType=1;
         this.param_composite=true;
         //Temporaire, il sera initialisé dynamiquement par la suite
-       /* this.v_mat={
+        this.v_mat={
             "L": 1.863,
             "M": 2,
             "N": 5.33
-        };*/
+        };
 
     }
     
@@ -63,6 +58,18 @@ export class FormLechaptCalmon extends Formulaire {
 
         return result;
         
+    }
+    onChange(value){
+        this.selectedType=value;
+        var types=this.saisies.fs_materiau.types;
+        var length=types.length;
+        for(var type of types){
+            if(this.selectedType==type.id){
+                this.v_mat['L']=type.parameters[0].value;
+                this.v_mat['M']=type.parameters[1].value;
+                this.v_mat['N']=type.parameters[2].value;
+            }
+        }
     }
 }
 

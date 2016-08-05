@@ -96,9 +96,9 @@ export abstract class Formulaire {
      */
     initJsonVar(data) {
         this.saisies=data.saisies;
-        this.param_calc=this.saisies.fs_param_calc;
-        this.fields = this.saisies.fs_hydraulique;
-        this.idCal_inter = this.saisies.idCal;
+        this.param_calc=this.saisies.fs_param_calc.fields;
+        this.fields = this.saisies.fs_hydraulique.fields;
+        this.idCal_inter = this.saisies.options.idCal;
         this.initGlob();
         this.initV();
         this.precision=this.param_calc.value;
