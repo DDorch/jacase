@@ -27,11 +27,11 @@ export class FormLechaptCalmon extends Formulaire {
         this.selectedType=1;
         this.param_composite=true;
         //Temporaire, il sera initialisé dynamiquement par la suite
-        this.v_mat={
+       /* this.v_mat={
             "L": 1.863,
             "M": 2,
             "N": 5.33
-        };
+        };*/
 
     }
     

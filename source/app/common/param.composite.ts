@@ -13,11 +13,17 @@ export class ParamComposite{
     @Input() saisies;
     @Input() v_mat;
     @Input() selectedType;
+    
     constructor(){
+        this.v_mat={
+            "L": 1.863,
+            "M": 2,
+            "N": 5.33
+        };
     }
+
     onChange(value){
         this.selectedType=value;
-        this.v_mat['L']=6;
         var types=this.saisies.fs_materiau.types;
         var length=types.length;
         for(var type of types){

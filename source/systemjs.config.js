@@ -11,6 +11,7 @@
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs',
     'angular2-highcharts':        'node_modules/angular2-highcharts', 
+    '@angular2-material':         'node_modules/@angular2-material', 
     'highcharts/highstock.src':   'https://cdn.rawgit.com/highcharts/highcharts-dist/v4.2.1/highstock.js'
   };
 
@@ -23,7 +24,20 @@
     '@angular/router':            { main: 'index.js', defaultExtension: 'js' }
 
   };
+  var materialPkgs = [
+    'core',
+    'button',
+    'card',
+    'button',
+    'list',
+    'sidenav',
+    'icon',
+    'toolbar'
+  ];
 
+  materialPkgs.forEach(function (pkg) {
+    packages[("@angular2-material/" + pkg)] = { main: pkg + ".js" };
+  });
   var ngPackageNames = [
     'common',
     'compiler',
@@ -42,7 +56,7 @@
 
   // Bundled (~40 requests):
   function packUmd(pkgName) {
-    packages['@angular/'+pkgName] = { main: '/bundles/' + pkgName + '.umd.js', defaultExtension: 'js' };
+    packages['@angular/'+pkgName] = { main:  pkgName + '.umd.js', defaultExtension: 'js' };
   };
   
   var setPackageConfig = System.packageWithIndex ? packIndex : packUmd;
