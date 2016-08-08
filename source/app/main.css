@@ -1,7 +1,6 @@
 .app-sidenav {
   min-width: 10px;
-  margin: 5px;
-  padding:40px;
+  padding:20px;
 }
 .app-toolbar-filler {
   flex: 1 1 auto;
@@ -12,6 +11,9 @@
 }
 .result_fix {
     font-weight: bold;
+}
+.md-sidenav{
+  max-width: 15% ;
 }
 
 

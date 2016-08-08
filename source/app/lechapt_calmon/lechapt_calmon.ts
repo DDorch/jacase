@@ -58,16 +58,17 @@ export class FormLechaptCalmon extends Formulaire {
         
     }
     onChange(value){
-        this.selectedType=value;
-        var types=this.saisies.fs_materiau.types;
-        var length=types.length;
-        for(var type of types){
-            if(this.selectedType==type.id){
-                this.v_mat['L']=type.parameters[0].value;
-                this.v_mat['M']=type.parameters[1].value;
-                this.v_mat['N']=type.parameters[2].value;
-            }
-        }
-    }
+       this.selectedType=value;
+       this.v_mat['L']=6;
+       var types=this.mat_fields.select;
+       var length=types.length;
+       for(var type of types){
+           if(this.selectedType==type.id){
+               this.v_mat['L']=type.parameters[0].value;
+               this.v_mat['M']=type.parameters[1].value;
+               this.v_mat['N']=type.parameters[2].value;
+           }
+       }
+   }
 }
 

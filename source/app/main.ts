@@ -6,12 +6,13 @@ import {MdToolbar} from '@angular2-material/toolbar';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MdButton} from '@angular2-material/button';
+import {FORM_DIRECTIVES} from '@angular/common';
 
 @Component({
     selector: 'menu',
     //pipes: [PipeNumbers],
     templateUrl: 'app/main.html',
-    directives : [ROUTER_DIRECTIVES,MD_SIDENAV_DIRECTIVES,MD_LIST_DIRECTIVES,MdToolbar,MdIcon,MdButton],
+    directives : [FORM_DIRECTIVES, ROUTER_DIRECTIVES,MD_SIDENAV_DIRECTIVES,MD_LIST_DIRECTIVES,MdToolbar,MdIcon,MdButton],
     providers: [MdIconRegistry],
     styleUrls:['app/main.css']  
 })
@@ -19,7 +20,7 @@ import {MdButton} from '@angular2-material/button';
 export class MainApp {
 
     public calculators;
-
+    public selectedCalculator="Calculettes pour l'hydraulique";
     constructor(public http: Http){
      
     }
@@ -32,5 +33,9 @@ export class MainApp {
     }
     ngOnInit(){
         this.getCalculators();
+    }
+    bindSelection(value){
+        console.log(value);
+        this.selectedCalculator=value;
     }
 }

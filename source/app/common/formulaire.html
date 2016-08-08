@@ -29,7 +29,7 @@
     </tr>
     <template ngFor let-field [ngForOf]="fields" [ngForTrackBy]="assetTrackBy">
     <tr>
-      <td colspan=1> {{field.id}} : {{field.name}} ({{field.unit}}) </td>
+      <td> {{field.id}} : {{field.name}} ({{field.unit}}) </td>
       <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"></td>
       <td  align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
       <td  align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'var');" ></td>
@@ -52,9 +52,9 @@
     <tr>
       <button (click)="getResult()"> Calculer </button>
     </tr>
-  </table><br>
+  </table>
 
-  <div id="result_table" *ngIf="showResult" class="alert alert-success box-msg" role="alert">
+  <div id="result_table" *ngIf="showResult" class="app-sidenav" role="alert">
     <div *ngIf="showVar">
       <chart [options]="lineChartOptions"></chart>
     </div>
