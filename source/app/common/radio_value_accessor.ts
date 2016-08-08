@@ -11,7 +11,7 @@ export const RADIO_VALUE_ACCESSOR: any = {
    selector:
        'input[type=radio][ngControl],input[type=radio][ngFormControl],input[type=radio][ngModel]',
    host: {'(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
-   bindings: [RADIO_VALUE_ACCESSOR]
+   providers: [RADIO_VALUE_ACCESSOR]
 })
 export class RadioControlValueAccessor implements ControlValueAccessor {
    onChange = (_) => {};

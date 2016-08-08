@@ -103,12 +103,13 @@ export abstract class Formulaire {
         this.idCal_inter = this.saisies.options.idCal;
         this.initGlob();
         this.initV();
-        this.precision=this.param_calc.value;
+        this.precision=this.param_calc[0].value;
         if(this.param_composite){
             this.mat_fields=this.saisies.fs_materiau.fields;
             this.selectedType=this.mat_fields.value;
         }
-      
+        console.log(this.param_calc);
+        console.log(this.precision);
     }
 
     /**
@@ -286,6 +287,7 @@ export abstract class Formulaire {
     
     gestionRadios(id,value) {
         console.log(this.precision);
+        console.log(this.glob);
         var globBefore=Object.freeze(Object.assign({}, this.glob));
        //recuperer lelement à calculer
         if(value=="cal"){
