@@ -2,7 +2,7 @@
     "saisies":{
          "fs_section":{
             "name":"Type de section",
-            "option": "var",
+            "option": "fix",
             "fields":{
                 "type":"select",
                 "name": "Choix du type de section",
@@ -72,67 +72,65 @@
             "option": "var",
             "fields":[
                 {
-                    "type":"input",
                     "id" : "K",
                     "name":"Coefficient de Strickler",
                     "unit":"m1/3s-1",
                     "value":40
                 }, 
                 {
-                    "type":"input",
-                    "id" : "If",
+                    "id" : "L",
+                    "name":"Longueur du bief",
+                    "unit":"m",
+                    "value":100                   
+                },
+                {
+                   "id" : "If",
                     "name":"Pente du fond",
                     "unit":"m/m",
                     "value":0.001
                 },  
                 {
-                    "type":"input",
                     "id" : "H",
                     "name":"Hauteur de berge",
                     "unit":"m",
                     "value":1
                 }                                                             
             ]
-         },
+         },         
 
-         "fs_hydraulique":{
-            "name":"Caractéristiques hydrauliques",
-            "option":"var",
-            "fields":[
-                {
-                    "type":"input",
-                    "id" : "Q",
-                    "name":"Débit",
-                    "unit":"m³/s",
-                    "value":1.2
-                },
-                {
-                    "type":"input",
-                    "id" : "Y", 
-                    "name":"Tirant d'eau",
-                    "unit":"m",
-                    "value":0.8
-                    
-                }
-            ]
-         },
-
+         "fs_hydraulique":{},
          "fs_param_calc":{
                 
                 "name":"Paramètres de calcul",
                 "option":"fix",
-                "fields":[{
-                    "type":"input",
-                    "id" : "Pr",
-                    "name":"Précision de calcul",
-                    "unit":"m",            
-                    "value":0.001 
-                }]
+                "fields":[
+                    {
+                        "type":"fix",
+                        "id" : "P",
+                        "name":"Pas de discrétisation(m)",
+                        "value":0.001 
+                    },
+                    {
+                        "type":"fix",
+                        "id" : "Pr",
+                        "name":"Précision de calcul et d'affichage des codes(m)",
+                        "value":0.001 
+                    },
+                    {
+                        "type":"select",
+                        "id" : "R",
+                        "name":"Méthode de résolution",
+                        "value":[
+                            "Runge Kutta d'ordre 4",
+                            "Euler explicite"
+                        ] 
+                    }
+                ]                                       
         },
 
-         "options":{
+        "options":{
         }
 
-
+       
     }
 }
