@@ -1,17 +1,17 @@
 <md-sidenav-layout fullscreen >
     <md-sidenav #sidenav class="md-sidenav">
-        <md-nav-list *ngFor="let calculator of calculators" >
+        <md-nav-list *ngFor="let calculator of calculators" md-padding>
             <a md-list-item routerLink={{calculator.id}} routerLinkActive="active" >
-                <span style="font-size: 14" md-line (click)="sidenav.close(); bindSelection(calculator.name)" >{{calculator.name}}</span>
+                <span md-2-line style="font-size: 14" (click)="sidenav.close(); bindSelection(calculator.name)" >{{calculator.name}}</span>
             </a>
         </md-nav-list>
     </md-sidenav>
 
     <md-toolbar color="primary">
         <button md-icon-button (click)="sidenav.toggle()" >
-         >>
+          <md-icon svgSrc="/app/menu.svg">  </md-icon>
          </button>
-         {{selectedCalculator}}
+           {{selectedCalculator}}
          <span></span>
     </md-toolbar>
 <router-outlet ></router-outlet>
