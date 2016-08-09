@@ -1,8 +1,8 @@
 <md-sidenav-layout fullscreen >
-    <md-sidenav #sidenav mode="side" class="md-sidenav">
+    <md-sidenav #sidenav class="md-sidenav">
         <md-nav-list *ngFor="let calculator of calculators" >
             <a md-list-item routerLink={{calculator.id}} routerLinkActive="active" >
-                <span style="font-size: 14;line-height: 17px" md-line (click)="sidenav.close(); bindSelection(calculator.name)" >{{calculator.name}}</span>
+                <span style="font-size: 14" md-line (click)="sidenav.close(); bindSelection(calculator.name)" >{{calculator.name}}</span>
             </a>
         </md-nav-list>
     </md-sidenav>
