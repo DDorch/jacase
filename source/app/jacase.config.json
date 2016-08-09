@@ -2,27 +2,33 @@
     "calculators":[
         {
             "id" : "cond_distri",
-            "name" : "Loi de perte de charge dans une conduite distributrice"
+            "name" : "Loi de perte de charge dans une conduite distributrice",
+            "component":"FormCondDistri"
         },
         {
             "id" : "lechapt_calmon",
-            "name" : "Lechapt et Calmon"
+            "name" : "Lechapt et Calmon",
+            "component":"FormLechaptCalmon"
         },
         {
             "id" : "ouvrages",
-            "name" : "Ouvrages"
+            "name" : "Ouvrages",
+            "component":"FormOuvrages"
         },
         {
             "id" : "remous",
-            "name" : "Courbes de remous"
+            "name" : "Courbes de remous",
+            "component":"FormRemous"
         },
         {
-            "id" : "calcul_uniforme",
-            "name" : "Calcul du régime uniforme"
+            "id" : "regime_uniforme",
+            "name" : "Calcul du régime uniforme",
+            "component":"FormRegUniforme"
         },
         {
-            "id" : "calcul_section_parametree",
-            "name" : "Calculs hydrauliques sur une section paramétrée"
+            "id" : "section_parametree",
+            "name" : "Calculs hydrauliques sur une section paramétrée",
+            "component":"FormSectionParam"
         }
 
     ]   

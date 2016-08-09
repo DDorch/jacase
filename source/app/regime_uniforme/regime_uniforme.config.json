@@ -1,0 +1,138 @@
+{
+    "saisies":{
+         "fs_section":{
+            "name":"Type de section",
+            "option": "var",
+            "fields":{
+                "type":"select",
+                "name": "Choix du type de section",
+                "value": 1,
+                
+                "select":[
+                    {
+                        "id":1,
+                        "name":"Trapézoïdale",
+                        "definition":[
+                            {
+                                "name":"Largeur au fond (m)",
+                                "value":2.5,
+                                "type":"input"
+                            },
+                            {
+                                "name":"Fruit des berges (m/m)",
+                                "value":0.56,
+                                "type":"input"
+                            }
+                        ] 
+                    },
+                    {
+                        "id":2,
+                        "name":"Rectangulaire",
+                        "definition":[
+                            {
+                                "name":"Largeur au fond (m)",
+                                "value":2.5,
+                                "type":"input"
+                            }
+                        ]                         
+                    },
+                    {
+                        "id":3,
+                        "name":"Circulaire",
+                        "definition":[
+                            {
+                                "name":"Diamètre (m)",
+                                "value":2,
+                                "type":"input"
+                            }
+                        ]                         
+                    },
+                    {
+                        "id":4,
+                        "name":"Parabolique",
+                        "definition":[
+                            {
+                                "name":"Coefficient",
+                                "value":0.5,
+                                "type":"input"
+                            },
+                            {
+                                "name":"Largeur au niveau des berges",
+                                "value":4,
+                                "type":"input"
+                            }
+                        ]                         
+                    }                                                            
+                ]                
+            }
+         },
+
+         "fs_bief":{
+            "name":"Caractéristiques du bief",
+            "option": "var",
+            "fields":[
+                {
+                    "type":"input",
+                    "id" : "K",
+                    "name":"Coefficient de Strickler",
+                    "unit":"m1/3s-1",
+                    "value":40
+                }, 
+                {
+                    "type":"input",
+                    "id" : "If",
+                    "name":"Pente du fond",
+                    "unit":"m/m",
+                    "value":0.001
+                },  
+                {
+                    "type":"input",
+                    "id" : "H",
+                    "name":"Hauteur de berge",
+                    "unit":"m",
+                    "value":1
+                }                                                             
+            ]
+         },
+
+         "fs_hydraulique":{
+            "name":"Caractéristiques hydrauliques",
+            "option":"var",
+            "fields":[
+                {
+                    "type":"input",
+                    "id" : "Q",
+                    "name":"Débit",
+                    "unit":"m³/s",
+                    "value":1.2
+                },
+                {
+                    "type":"input",
+                    "id" : "Y", 
+                    "name":"Tirant d'eau",
+                    "unit":"m",
+                    "value":0.8
+                    
+                }
+            ]
+         },
+
+         "fs_param_calc":{
+                
+                "name":"Paramètres de calcul",
+                "option":"fix",
+                "fields":[{
+                    "type":"input",
+                    "id" : "Pr",
+                    "name":"Précision de calcul",
+                    "unit":"m",            
+                    "value":0.001 
+                }]
+        },
+
+         "options":{
+        }
+
+
+    }
+}
