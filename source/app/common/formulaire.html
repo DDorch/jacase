@@ -14,7 +14,7 @@
   <template *ngIf="param_composite" ngFor let-type [ngForOf]="mat_fields?.select" [ngForTrackBy]="assetTrackBy">
     <tr *ngFor="let parameter of type.parameters">
         <td *ngIf="type.id==1">{{parameter.id}}</td>
-        <td *ngIf="type.id==1"><input id="{{parameter.id}}" type="text" value="{{parameter.value}}" [(ngModel)]="v_mat[parameter.id]" maxlength="30"></td>
+        <td *ngIf="type.id==1"><input id="{{parameter.id}}" type="text" value="{{parameter.value}}" [(ngModel)]="v_mat[parameter.id]" (keypress)='isNumber($event)' maxlength="30"></td>
 
     </tr>
 </template>
@@ -30,7 +30,7 @@
     <template ngFor let-field [ngForOf]="fields" [ngForTrackBy]="assetTrackBy">
     <tr>
       <td> {{field.id}} : {{field.name}} ({{field.unit}}) </td>
-      <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"></td>
+      <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"  (keypress)='isNumber($event)'></td>
       <td  align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
       <td  align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'var');" ></td>
       <td  align="center"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="cal" (click)="gestionRadios(field.id,'cal');" ></td>
@@ -39,7 +39,7 @@
         <td> </td>
         <td> </td>
         <td> {{option.name}} </td>
-        <td><input id="{{option.id}}" type="text" value="{{option.value}}" [(ngModel)]="paramVar[option.id]" maxlength="30"></td>
+        <td><input id="{{option.id}}" type="text" value="{{option.value}}" [(ngModel)]="paramVar[option.id]" maxlength="30" (keypress)='isNumber($event)'></td>
         <td> </td>
      </tr>
      </template>

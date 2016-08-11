@@ -5,10 +5,11 @@ import {RadioControlValueAccessor} from '../common/radio_value_accessor';
 import { CHART_DIRECTIVES } from 'angular2-highcharts';
 import {Http} from '@angular/http';
 import {PipeNumbers} from '../common/pipe_numbers';
+import {PipeNumberValidator} from '../common/pipe_number_validator';
 
 @Component({
     selector: 'jacase',
-    pipes: [PipeNumbers],
+    pipes: [PipeNumbers,PipeNumberValidator],
     templateUrl: 'app/common/formulaire.html',
     styleUrls:['app/main.css'],
     directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor, Formulaire],
@@ -52,6 +53,7 @@ export class FormCondDistri extends Formulaire {
         
         return result;
     }
+
 }
 
 

@@ -4,6 +4,7 @@ import {FORM_DIRECTIVES, CORE_DIRECTIVES} from '@angular/common';
 import { CHART_DIRECTIVES } from 'angular2-highcharts';
 import {PipeNumbers} from './pipe_numbers';
 import {RadioControlValueAccessor} from './radio_value_accessor';
+import {PipeNumberValidator} from './pipe_number_validator';
 
 @Component({
     selector: "formu",
@@ -80,7 +81,6 @@ export abstract class Formulaire {
                 "value":""
             }
         ];
-
     }
       
     /** 
@@ -371,7 +371,13 @@ export abstract class Formulaire {
     return null;
   }
   
-
-
+  isNumber(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode != 46 &&(charCode < 48 || charCode > 57))) {
+          return false;
+      }
+      return true;
+  }
 
 }
