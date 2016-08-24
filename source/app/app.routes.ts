@@ -1,8 +1,8 @@
-import { provideRouter, RouterConfig } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import {FormCondDistri} from './cond_distri/cond_distri';
 import {FormLechaptCalmon} from './lechapt_calmon/lechapt_calmon';
 
-const routes: RouterConfig = [
+const routes: Routes = [
     {path:'cond_distri', component: FormCondDistri} ,
     {path:'lechapt_calmon', component: FormLechaptCalmon } ,
    /* {path:'ouvrages', component: FormOuvrages },
@@ -11,4 +11,4 @@ const routes: RouterConfig = [
     {path:'lechapt_calmon', component: FormSectionParam }*/
 ];
 
-export const appRouterProviders = [ provideRouter(routes) ];
+export const Routing = RouterModule.forRoot(routes);

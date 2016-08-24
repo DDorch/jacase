@@ -1,75 +1,8 @@
 {
     "saisies":{
-         "fs_section":{
-            "name":"Type de section",
-            "option": "fix",
-            "fields":{
-                "type":"select",
-                "name": "Choix du type de section",
-                "value": 1,
-                
-                "select":[
-                    {
-                        "id":1,
-                        "name":"Trapézoïdale",
-                        "definition":[
-                            {
-                                "name":"Largeur au fond (m)",
-                                "value":2.5,
-                                "type":"input"
-                            },
-                            {
-                                "name":"Fruit des berges (m/m)",
-                                "value":0.56,
-                                "type":"input"
-                            }
-                        ] 
-                    },
-                    {
-                        "id":2,
-                        "name":"Rectangulaire",
-                        "definition":[
-                            {
-                                "name":"Largeur au fond (m)",
-                                "value":2.5,
-                                "type":"input"
-                            }
-                        ]                         
-                    },
-                    {
-                        "id":3,
-                        "name":"Circulaire",
-                        "definition":[
-                            {
-                                "name":"Diamètre (m)",
-                                "value":2,
-                                "type":"input"
-                            }
-                        ]                         
-                    },
-                    {
-                        "id":4,
-                        "name":"Parabolique",
-                        "definition":[
-                            {
-                                "name":"Coefficient",
-                                "value":0.5,
-                                "type":"input"
-                            },
-                            {
-                                "name":"Largeur au niveau des berges",
-                                "value":0.56,
-                                "type":"input"
-                            }
-                        ]                         
-                    }                                                            
-                ]                
-            }
-         },
-
          "fs_bief":{
             "name":"Caractéristiques du bief",
-            "option": "var",
+            "option": "fix",
             "fields":[
                 {
                     "id" : "K",
@@ -96,8 +29,34 @@
                     "value":1
                 }                                                             
             ]
-         },         
+         },
 
+         "fs_limites":{
+             "name":"Condition aux limites",
+             "option":"fix",
+             "fields":[
+                {
+                    "id" : "Q_a",
+                    "name":"Débit amont",
+                    "unit":"m3/s",
+                    "value":2
+                }, 
+                {
+                    "id" : "Y_aval",
+                    "name":"Tirant d'eau imposée à l'aval ",
+                    "unit":"m",
+                    "value":0.4                  
+                },
+                {
+                    "id" : "Y_amont",
+                    "name":"Tirant d'eau imposée à l'amont ",
+                    "unit":"m",
+                    "value":0.15
+                }               
+
+             ]
+
+         },
          "fs_hydraulique":{},
          "fs_param_calc":{
                 

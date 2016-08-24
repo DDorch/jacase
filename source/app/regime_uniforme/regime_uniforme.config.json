@@ -1,75 +1,8 @@
 {
     "saisies":{
-         "fs_section":{
-            "name":"Type de section",
-            "option": "var",
-            "fields":{
-                "type":"select",
-                "name": "Choix du type de section",
-                "value": 1,
-                
-                "select":[
-                    {
-                        "id":1,
-                        "name":"Trapézoïdale",
-                        "definition":[
-                            {
-                                "name":"Largeur au fond (m)",
-                                "value":2.5,
-                                "type":"input"
-                            },
-                            {
-                                "name":"Fruit des berges (m/m)",
-                                "value":0.56,
-                                "type":"input"
-                            }
-                        ] 
-                    },
-                    {
-                        "id":2,
-                        "name":"Rectangulaire",
-                        "definition":[
-                            {
-                                "name":"Largeur au fond (m)",
-                                "value":2.5,
-                                "type":"input"
-                            }
-                        ]                         
-                    },
-                    {
-                        "id":3,
-                        "name":"Circulaire",
-                        "definition":[
-                            {
-                                "name":"Diamètre (m)",
-                                "value":2,
-                                "type":"input"
-                            }
-                        ]                         
-                    },
-                    {
-                        "id":4,
-                        "name":"Parabolique",
-                        "definition":[
-                            {
-                                "name":"Coefficient",
-                                "value":0.5,
-                                "type":"input"
-                            },
-                            {
-                                "name":"Largeur au niveau des berges",
-                                "value":0.56,
-                                "type":"input"
-                            }
-                        ]                         
-                    }                                                            
-                ]                
-            }
-         },
-
-         "fs_bief":{
+        "fs_bief":{
             "name":"Caractéristiques du bief",
-            "option": "var",
+            "option": "cal",
             "fields":[
                 {
                     "type":"input",
@@ -97,7 +30,7 @@
 
          "fs_hydraulique":{
             "name":"Caractéristiques hydrauliques",
-            "option":"var",
+            "option":"cal",
             "fields":[
                 {
                     "type":"input",
