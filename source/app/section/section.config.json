@@ -2,7 +2,7 @@
     "saisies":{
         "fs_section":{
             "name":"Type de section",
-            "option": "var",
+            "option": "",
             "fields":{
                 "type":"select",
                 "name": "Choix du type de section",
@@ -14,11 +14,13 @@
                         "name":"Trapézoïdale",
                         "definition":[
                             {
+                                "id":"Lf",                                
                                 "name":"Largeur au fond (m)",
                                 "value":2.5,
                                 "type":"input"
                             },
                             {
+                                "id":"F",
                                 "name":"Fruit des berges (m/m)",
                                 "value":0.56,
                                 "type":"input"
@@ -30,6 +32,7 @@
                         "name":"Rectangulaire",
                         "definition":[
                             {
+                                "id":"Lf",
                                 "name":"Largeur au fond (m)",
                                 "value":2.5,
                                 "type":"input"
@@ -41,6 +44,7 @@
                         "name":"Circulaire",
                         "definition":[
                             {
+                                "id":"D",
                                 "name":"Diamètre (m)",
                                 "value":2,
                                 "type":"input"
@@ -52,11 +56,13 @@
                         "name":"Parabolique",
                         "definition":[
                             {
+                                "id":"C",
                                 "name":"Coefficient",
                                 "value":0.5,
                                 "type":"input"
                             },
                             {
+                                "id":"Lb",
                                 "name":"Largeur au niveau des berges",
                                 "value":0.56,
                                 "type":"input"

@@ -1,5 +1,45 @@
 
 <table class="app-sidenav">
+  
+ <!-- Traitement des sections --> 
+  <tr *ngIf="saisies_comp" class="result_fix">{{saisies_comp.fs_section.name}}</tr>
+  <tr *ngIf="sectionFields">
+    <td>{{sectionFields.name}}</td>
+    <td>
+      <select [ngModel]="sectionType" (ngModelChange)="sectionChange($event)">
+        <option *ngFor="let type of sectionFields.select" value={{type.id}}>
+        {{type.name}}
+        </option>  
+      </select>  
+    </td>
+  </tr>
+  <tr *ngIf="saisies_comp"> Définition de la section {{selectedSection.name}}</tr>
+  <tr *ngIf="saisies_comp && saisies.fs_hydraulique.option!='fix'">
+    <td></td>
+    <td></td>
+    <td> Paramètre fixé </td>
+    <td> Paramète à varier</td>
+    <td *ngIf="saisies.fs_hydraulique.option =='cal'"> Paramètre à calculer </td>
+  </tr> 
+  <tr *ngFor="let component of selectedSection.definition">
+    <td>{{component.name}}</td>
+    <td ><input type="text" id="{{type.id}}" value="{{type.value}}" [(ngModel)]="v_section.sectionType[type.id]" maxlength="30"  (keypress)='isNumber($event)'></td>
+    <td *ngIf="saisies.fs_hydraulique.option!='fix'" align="center">
+      <input id="fix_{{type.id}}" type="radio" name="choix_champ_{{type.id}}" [(ngModel)]="glob[type.id]" value="fix" (click)="gestionRadios(field.id,'fix');"> 
+    </td>
+    <td *ngIf="saisies.fs_hydraulique.option!='fix'" align="center">
+      <input id="var_{{type.id}}" type="radio" name="choix_champ_{{type.id}}" [(ngModel)]="glob[type.id]" value="var" (click)="gestionRadios(field.id,'fix');"> 
+    </td>
+    <td *ngIf="saisies.fs_hydraulique.option =='cal'" align="center"></td>
+      <input id="cal_{{type.id}}" type="radio" name="choix_champ_{{type.id}}" [(ngModel)]="glob[type.id]" value="cal" (click)="gestionRadios(field.id,'fix');"> 
+  </tr>
+
+
+
+
+
+ <!-- Traitement pour les matériaux --> 
+
   <tr *ngIf="param_composite && saisies" class="result_fix">{{saisies.fs_materiau.name }}</tr>
   <tr *ngIf="param_composite && saisies">
     <td> {{mat_fields?.name}} </td>

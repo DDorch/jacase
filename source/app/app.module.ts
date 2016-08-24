@@ -30,7 +30,7 @@ import {NG_VALUE_ACCESSOR} from '@angular/forms';
            
   ],
   providers:    [ MdIconRegistry],
-  declarations: [ MainApp, Formulaire, FormCondDistri, FormLechaptCalmon ],
+  declarations: [ MainApp, Formulaire, FormCondDistri, FormLechaptCalmon, RadioControlValueAccessor],
   bootstrap:    [ MainApp ]
 })
 

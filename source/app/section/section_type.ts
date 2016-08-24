@@ -1,5 +1,5 @@
 import {acNewton} from "./newton";
-
+import {cLog} from "./log"
 /**
  * Calcul de la hauteur critique
  */
@@ -243,7 +243,7 @@ export abstract class acSection {
         public HautCritique;  /// Tirant d'eau critique
         public HautNormale;   /// Tirant d'eau normal
         public oP: cParam;   /// Paramètres du système canal (classe oParam)
-        protected oLog; /// Pour l'affichage du journal de calcul
+        protected oLog : cLog; /// Pour l'affichage du journal de calcul
         public LargeurBerge; /// largeur au débordement
         protected bSnFermee = false; /// true si la section est fermée (fente de Preissmann)
         /**
@@ -546,8 +546,9 @@ export abstract class acSection {
          */
         Calc_Yc() {
                 var hautCritique = new cHautCritique(this, this.oP);
-                if(!this.HautCritique = hautCritique.Newton(this.oP.YB) || !hautCritique.HasConverged()) {
-                      //traduction de code de langue:  this.oLog.Add(_T('hydraulic:h_critique')+' : '+_T('hydraulic:newton_non_convergence'),true);
+                if(!this.HautCritique == hautCritique.Newton(this.oP.YB) || !hautCritique.HasConverged()) {
+                      //traduction de code de langue:
+                      //this.oLog.Add(_T('hydraulic:h_critique')+' : '+_T('hydraulic:newton_non_convergence'),true);
                 }
                 return this.HautCritique;
         }
@@ -561,7 +562,7 @@ export abstract class acSection {
                         //this.oLog.Add(_T('hydraulic:h_normale_pente_neg_nul'),true);
                 } else {
                         var oHautNormale= new cHautNormale(this, this.oP);
-                        if(!this.HautNormale = oHautNormale.Newton(this.CalcGeo('Yc')) || !oHautNormale.HasConverged()) {
+                        if(!this.HautNormale == oHautNormale.Newton(this.CalcGeo('Yc')) || !oHautNormale.HasConverged()) {
                                 //this.oLog.Add(_T('hydraulic:h_normale').' : '._T('hydraulic:newton_non_convergence'),true);
                         }
                 }
