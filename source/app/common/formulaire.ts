@@ -108,8 +108,6 @@ export abstract class Formulaire {
             this.mat_fields=this.saisies.fs_materiau.fields;
             this.selectedType=this.mat_fields.value;
         }
-        console.log(this.param_calc);
-        console.log(this.precision);
     }
 
     /**
@@ -267,6 +265,7 @@ export abstract class Formulaire {
                 this.glob[this.fields[i].id]='fix';
             }
         }
+        console.log(this.glob);
         //return this.glob;
     }
             

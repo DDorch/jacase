@@ -1,7 +1,7 @@
 
 <table class="app-sidenav">
   
- <!-- Traitement des sections --> 
+ <!-- Traitement des sections  
   <tr *ngIf="saisies_comp" class="result_fix">{{saisies_comp.fs_section.name}}</tr>
   <tr *ngIf="sectionFields">
     <td>{{sectionFields.name}}</td>
@@ -13,7 +13,7 @@
       </select>  
     </td>
   </tr>
-  <tr *ngIf="saisies_comp"> Définition de la section {{selectedSection.name}}</tr>
+  <tr *ngIf="saisies_comp && sectionFields"> Définition de la section {{selectedSection.name}}</tr>
   <tr *ngIf="saisies_comp && saisies.fs_hydraulique.option!='fix'">
     <td></td>
     <td></td>
@@ -21,7 +21,7 @@
     <td> Paramète à varier</td>
     <td *ngIf="saisies.fs_hydraulique.option =='cal'"> Paramètre à calculer </td>
   </tr> 
-  <tr *ngFor="let component of selectedSection.definition">
+  <tr *ngIf="saisies_comp && sectionFields" *ngFor="let component of selectedSection.definition">
     <td>{{component.name}}</td>
     <td ><input type="text" id="{{type.id}}" value="{{type.value}}" [(ngModel)]="v_section.sectionType[type.id]" maxlength="30"  (keypress)='isNumber($event)'></td>
     <td *ngIf="saisies.fs_hydraulique.option!='fix'" align="center">
@@ -33,9 +33,27 @@
     <td *ngIf="saisies.fs_hydraulique.option =='cal'" align="center"></td>
       <input id="cal_{{type.id}}" type="radio" name="choix_champ_{{type.id}}" [(ngModel)]="glob[type.id]" value="cal" (click)="gestionRadios(field.id,'fix');"> 
   </tr>
-
-
-
+  <tr *ngIf="biefFields"> {{saisies.fs_bief.name}} </tr>
+  <tr *ngIf="biefFields && saisies.fs_bief.option!='fix'">
+    <td></td>
+    <td></td>
+    <td> Paramètre fixé </td>
+    <td> Paramète à varier</td>
+    <td *ngIf="saisies.fs_bief.option =='cal'"> Paramètre à calculer </td>
+  </tr> 
+  <tr *ngIf="biefFields" *ngFor="let field of biefFields">
+    <td>{{field.name}}</td>
+    <td ><input type="text" id="{{field.id}}" value="{{field.value}}" [(ngModel)]="v_bief[field.id]" maxlength="30"  (keypress)='isNumber($event)'></td>
+    <td *ngIf="saisies.fs_bief.option!='fix'" align="center">
+      <input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="fix" (click)="gestionRadios(field.id,'fix');"> 
+    </td>
+    <td *ngIf="saisies.fs_bief.option!='fix'" align="center">
+      <input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'fix');"> 
+    </td>
+    <td *ngIf="saisies.fs_bief.option =='cal'" align="center"></td>
+      <input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="cal" (click)="gestionRadios(field.id,'fix');"> 
+  </tr> 
+  --> 
 
 
  <!-- Traitement pour les matériaux --> 
@@ -70,23 +88,24 @@
     <template ngFor let-field [ngForOf]="fields" [ngForTrackBy]="assetTrackBy">
     <tr>
       <td> {{field.id}} : {{field.name}} ({{field.unit}}) </td>
-      <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"  (keypress)='isNumber($event)'></td>
-      <td  align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
-      <td  align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="var" (click)="gestionRadios(field.id,'var');" ></td>
-      <td  align="center"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [(ngModel)]="glob[field.id]" value="cal" (click)="gestionRadios(field.id,'cal');" ></td>
+      <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"  (keypress)='isNumber($event)' required></td>
+      <td  align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='fix'" (change)="glob[field.id]='fix'" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
+      <td  align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='var'" value="var" (change)="glob[field.id]='var'" (click)="gestionRadios(field.id,'var');" ></td>
+      <td  align="center"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='cal'" value="cal" (change)="glob[field.id]='cal'" (click)="gestionRadios(field.id,'cal');" ></td>
+    
     </tr>
     <tr *ngFor="let option of options" [hidden]="varVar_inter!=field.id" class="alert alert-success box-msg" role="alert" >
         <td> </td>
         <td> </td>
         <td> {{option.name}} </td>
-        <td><input id="{{option.id}}" type="text" value="{{option.value}}" [(ngModel)]="paramVar[option.id]" maxlength="30" (keypress)='isNumber($event)'></td>
+        <td><input id="{{option.id}}" type="text" value="{{option.value}}" [(ngModel)]="paramVar[option.id]" maxlength="30" (keypress)='isNumber($event)' required></td>
         <td> </td>
      </tr>
      </template>
     <tr *ngIf="saisies" class="result_fix" colspan=5 > {{saisies.fs_param_calc.name}} </tr>
     <tr *ngFor="let param of param_calc">
       <td > {{param?.name}} ({{param?.unit}})  </td>
-      <td > <input id="{{param.id}}" type="text" value="{{param.value}}" [(ngModel)]="precision" maxlength="30"></td>
+      <td > <input id="{{param.id}}" type="text" value="{{param.value}}" [(ngModel)]="precision" maxlength="30" required></td>
     </tr> 
     
     <tr>

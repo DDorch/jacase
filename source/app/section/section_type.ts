@@ -324,13 +324,14 @@ export abstract class acSection {
                                 this.arCalc[sDonnee] = this.oP.If-this.Calc('J');
                                 break;
                                 default :
-                                var methode = 'Calc_'+ sDonnee;
-                                this.arCalc[sDonnee] = methode;
+                                var methode = 'Calc_'+ sDonnee ;
+                                this.arCalc[sDonnee] = window[methode]();
                         }
                 }
                 //~ spip_log('Calc('.$sDonnee.')='.$this->arCalc[$sDonnee],'hydraulic.'._LOG_DEBUG);
                 return this.arCalc[sDonnee];
         }
+        
         /**
          * Calcul des données uniquement dépendantes de la géométrie de la section
          * @param $sDonnee Clé de la donnée à calculer (voir $this->$arCalcGeo)
@@ -359,8 +360,10 @@ export abstract class acSection {
                                 this.LargeurBerge = this.CalcGeo[sDonnee];
                                 break;
                                 default :
+                                /*var methode = 'Calc_'+sDonnee + '()';
+                                this.CalcGeo[sDonnee] = eval(methode);*/
                                 var methode = 'Calc_'+sDonnee;
-                                this.CalcGeo[sDonnee] = methode;
+                                this.CalcGeo[sDonnee] = window[methode]();
                         }
                         //~ spip_log('CalcGeo('.$sDonnee.',rY='.$this->oP->rYB.')='.$this->arCalcGeo[$sDonnee],'hydraulic.'._LOG_DEBUG);
                         this.Swap(false); // On restitue les données hydrauliques en cours
@@ -415,7 +418,7 @@ export abstract class acSection {
          */
         Calc_dR() {
                 if(this.Calc('P')!=0) {
-                        return (this.Calc('B')*this.Calc('P')-this.Calc('S')*this.Calc('dP')/Math.pow(this.Calc('P'),2);
+                        return (this.Calc('B')*this.Calc('P')-this.Calc('S')*this.Calc('dP')/Math.pow(this.Calc('P'),2));
                 }
                 else {
                         return 0;
@@ -506,9 +509,19 @@ export abstract class acSection {
          */
         Calc_Y($rY) {
                 var funcCalcY = 'Calc_Y_'+this.oP.Resolution;
-
-
+                var methods = Object.getOwnPropertyNames(this).filter(function (p) {
+                        return typeof this[p] === 'function';
+                });
+                for(var m of methods){
+                        if(funcCalcY==m){
+                                return window[funcCalcY]($rY);
+                        }
+                        else{
+                                return false;
+                        }
+                }
         }
+
         /**
          * Calcul de la vitesse moyenne.
          * @return Vitesse moyenne

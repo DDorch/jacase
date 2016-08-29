@@ -8,9 +8,11 @@ export class FormSection extends Formulaire {
     public saisies_comp;
     public tVarCal; // tableau des variables à calculer
     public sectionFields;
+    public biefFields;
     public sectionType;
     public selectedSection;
     public v_section;
+    public v_bief;
 
     constructor(public http: Http, jsonName:string){
         super(http,'section');
@@ -48,6 +50,7 @@ export class FormSection extends Formulaire {
         this.sectionType=this.sectionFields.select[0].id;
         this.selectedSection=this.sectionFields.select[this.sectionType-1];
         this.saisies=this.saisies.concat(this.saisies_comp);
+        this.biefFields=this.saisies.fs_bief.fields;
     }
     
     ngOnInit() {
