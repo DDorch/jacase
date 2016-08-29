@@ -1,8 +1,9 @@
 {
 
-    "saisies":{
+    "saisies":[
 
-        "fs_hydraulique":{
+        {
+            "id":"fs_hydraulique",
             "name":"Caractéristiques hydrauliques",
             "option":"cal",
             "fields":[
@@ -48,8 +49,8 @@
             ]
         },
 
-        "fs_param_calc":{
-                
+        {
+                "id":"fs_param_calc",
                 "name":"Paramètres de calcul",
                 "option":"fix",
                 "fields":[{
@@ -61,10 +62,11 @@
                 }]
         },
 
-        "options":{
+        {
+            "id":"options",
             "idCal" : "J"
         }
     
-    }
+    ]
     
 }

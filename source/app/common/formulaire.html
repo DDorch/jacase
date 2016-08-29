@@ -1,5 +1,5 @@
 
-<table class="app-sidenav">
+ <!--<table class="app-sidenav">
   
  <!-- Traitement des sections  
   <tr *ngIf="saisies_comp" class="result_fix">{{saisies_comp.fs_section.name}}</tr>
@@ -56,12 +56,15 @@
   --> 
 
 
- <!-- Traitement pour les matériaux --> 
+ <!-- Traitement pour les matériaux -->
 
-  <tr *ngIf="param_composite && saisies" class="result_fix">{{saisies.fs_materiau.name }}</tr>
-  <tr *ngIf="param_composite && saisies">
-    <td> {{mat_fields?.name}} </td>
-    <td *ngIf="mat_fields">
+<table class="app-sidenav">
+ <template ngFor let-saisie [ngForOf]="saisies" [ngForTrackBy]="assetTrackBy" >
+  <tr class="result_fix">{{saisie.name }}</tr>
+
+  <tr *ngIf="saisie.id=='fs_materiau'">
+    <td> {{mat_fields.name}} </td>
+    <td >
        <select [ngModel]="selectedType" (ngModelChange)="onChange($event)" >
            <option *ngFor="let materiau of mat_fields.select" value= {{materiau.id}}>
             {{materiau.name}}
@@ -69,32 +72,32 @@
        </select>
     </td>
   </tr>
-  <template *ngIf="param_composite" ngFor let-type [ngForOf]="mat_fields?.select" [ngForTrackBy]="assetTrackBy">
+  <template *ngIf="saisie.id == 'fs_materiau'" ngFor let-type [ngForOf]="mat_fields.select" [ngForTrackBy]="assetTrackBy">
     <tr *ngFor="let parameter of type.parameters">
         <td *ngIf="type.id==1">{{parameter.id}}</td>
-        <td *ngIf="type.id==1"><input id="{{parameter.id}}" type="text" value="{{parameter.value}}" [(ngModel)]="v_mat[parameter.id]" (keypress)='isNumber($event)' maxlength="30"></td>
+        <td *ngIf="type.id==1"><input id="{{parameter.id}}" type="text" value="{{parameter.value}}" [(ngModel)]="v_mat[parameter.id]" (keypress)='isNumber($event)' maxlength="30" (keypress)='isNumber($event)' required></td>
 
     </tr>
 </template>
 
-   <tr *ngIf="saisies" class="result_fix" colspan=5 >{{saisies.fs_hydraulique.name}}</tr>
-    <tr>
+    <tr *ngIf="saisie.option!='fix' && saisie.id!='fs_materiau' && saisie.id!='options'">
       <td> </td>
       <td></td>
       <td> Paramètre fixé </td>
       <td>Paramètre à varier</td>
       <td>Paramètre à calculer</td>
     </tr>
-    <template ngFor let-field [ngForOf]="fields" [ngForTrackBy]="assetTrackBy">
-    <tr>
-      <td> {{field.id}} : {{field.name}} ({{field.unit}}) </td>
-      <td> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"  (keypress)='isNumber($event)' required></td>
-      <td  align="center"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='fix'" (change)="glob[field.id]='fix'" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
-      <td  align="center"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='var'" value="var" (change)="glob[field.id]='var'" (click)="gestionRadios(field.id,'var');" ></td>
-      <td  align="center"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='cal'" value="cal" (change)="glob[field.id]='cal'" (click)="gestionRadios(field.id,'cal');" ></td>
+    <template ngFor let-field [ngForOf]="saisie.fields" [ngForTrackBy]="assetTrackBy">
+    <tr [hidden]="saisie.id == 'fs_materiau'">
+      <td > {{field.id}} : {{field.name}} ({{field.unit}}) </td>
+      <td *ngIf="saisie.id=='fs_param_calc'"> <input id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="precision" maxlength="30" (keypress)='isNumber($event)' required></td>
+      <td *ngIf="saisie.id!='fs_param_calc'"> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"  (keypress)='isNumber($event)' required></td>
+      <td  align="center" *ngIf="saisie.option!='fix'"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='fix'" (change)="glob[field.id]='fix'" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
+      <td  align="center" *ngIf="saisie.option!='fix'"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='var'" value="var" (change)="glob[field.id]='var'" (click)="gestionRadios(field.id,'var');" ></td>
+      <td  align="center" *ngIf="saisie.option=='cal'"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='cal'" value="cal" (change)="glob[field.id]='cal'" (click)="gestionRadios(field.id,'cal');" ></td>
     
     </tr>
-    <tr *ngFor="let option of options" [hidden]="varVar_inter!=field.id" class="alert alert-success box-msg" role="alert" >
+    <tr *ngFor="let option of options" [hidden]="varVar_inter!=field.id || saisie.id == 'fs_materiau'" class="alert alert-success box-msg" role="alert" >
         <td> </td>
         <td> </td>
         <td> {{option.name}} </td>
@@ -102,12 +105,8 @@
         <td> </td>
      </tr>
      </template>
-    <tr *ngIf="saisies" class="result_fix" colspan=5 > {{saisies.fs_param_calc.name}} </tr>
-    <tr *ngFor="let param of param_calc">
-      <td > {{param?.name}} ({{param?.unit}})  </td>
-      <td > <input id="{{param.id}}" type="text" value="{{param.value}}" [(ngModel)]="precision" maxlength="30" required></td>
-    </tr> 
-    
+    </template>
+
     <tr>
       <button (click)="getResult()"> Calculer </button>
     </tr>
@@ -142,4 +141,4 @@
         <tr *ngFor="let data of lineChartData"> {{data | PipeNumbers : precision}} </tr>
       </td>
     </table>
-  </div>
+  </div> 

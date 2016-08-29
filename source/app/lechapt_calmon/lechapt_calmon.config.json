@@ -1,9 +1,10 @@
 {
-    "saisies":{
-        "fs_materiau":{
+    "saisies":[
+        {
+            "id":"fs_materiau",
             "name":"Type du matériau",
             "option":"var",
-            "fields":{
+            "fields":[{
                 "type":"select",
                 "name": "Choix du matériau",
                 "value": 1,
@@ -116,7 +117,7 @@
                             "value":"4.93"
                         }
                     ]                    
-            },
+                },
             {
                 "id": 7,
                 "name":"PVC - Polyéthylène",
@@ -172,10 +173,11 @@
                 ]                    
             }
             ]
-        }
+            }]
         },
 
-        "fs_hydraulique":{
+        {
+            "id":"fs_hydraulique",
             "name":"Caractéristiques hydrauliques",
             "option":"cal",
             "fields":[
@@ -213,8 +215,8 @@
             ]
         },
 
-        "fs_param_calc":{
-                
+        {
+                "id":"fs_param_calc",                
                 "name":"Paramètres de calcul",
                 "option":"fix",
                 "fields":[{
@@ -226,9 +228,10 @@
                 }]
         },
 
-        "options":{
+        {
+            "id":"options",      
             "idCal" : "J"
         }
-    }
+    ]
     
 }

@@ -98,16 +98,37 @@ export abstract class Formulaire {
      */
     initJsonVar(data) {
         this.saisies=data.saisies;
-        this.param_calc=this.saisies.fs_param_calc.fields;
-        this.fields = this.saisies.fs_hydraulique.fields;
-        this.idCal_inter = this.saisies.options.idCal;
+        console.log(this.saisies);
+        //this.param_calc=this.saisies.fs_param_calc.fields;
+        //this.fields = this.saisies.fs_hydraulique.fields;
+        for(var i=0; i<this.saisies.length; i++){
+            if(this.saisies[i].id=='options'){
+                this.idCal_inter=this.saisies[i].idCal;
+            }
+            if(this.saisies[i].fields){
+                if(this.saisies[i].id=='fs_hydraulique'){
+                    this.fields=this.saisies[i].fields;
+                }
+                if(this.saisies[i].id=='fs_param_calc'){
+                    this.precision=this.saisies[i].fields[0].value;
+                }
+                if(this.saisies[i].id=='fs_materiau'){
+                    this.selectedType=this.saisies[i].fields[0].value;
+                    this.mat_fields=this.saisies[i].fields[0];
+
+                }
+            }
+
+        }
+        console.log(this.precision);
+        //this.idCal_inter = this.saisies.options.idCal;
         this.initGlob();
         this.initV();
-        this.precision=this.param_calc[0].value;
-        if(this.param_composite){
+        //this.precision=this.param_calc[0].value;
+        /*if(this.param_composite){
             this.mat_fields=this.saisies.fs_materiau.fields;
             this.selectedType=this.mat_fields.value;
-        }
+        }*/
     }
 
     /**

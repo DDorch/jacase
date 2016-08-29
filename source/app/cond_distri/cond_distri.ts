@@ -12,7 +12,7 @@ import {PipeNumberValidator} from '../common/pipe_number_validator';
     pipes: [PipeNumbers,PipeNumberValidator],
     templateUrl: 'app/common/formulaire.html',
     styleUrls:['app/main.css'],
-    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, RadioControlValueAccessor, Formulaire],
+    directives : [CHART_DIRECTIVES, CORE_DIRECTIVES],
 })
 
 export class FormCondDistri extends Formulaire {

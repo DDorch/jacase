@@ -61,7 +61,7 @@ export class FormLechaptCalmon extends Formulaire {
     onChange(value){
        this.selectedType=value;
        this.v_mat['L']=6;
-       var types=this.mat_fields.select;
+       var types=this.saisies[0].fields[0].select;
        var length=types.length;
        for(var type of types){
            if(this.selectedType==type.id){

@@ -15,6 +15,10 @@ import {MdListModule} from '@angular2-material/list';
 import {RadioControlValueAccessor} from './common/radio_value_accessor';
 import {PipeNumbers} from './common/pipe_numbers';
 import {PipeNumberValidator} from './common/pipe_number_validator';
+import {FormSection} from './section/section';
+import {FormSectionParam} from './section_parametree/section_parametree';
+import {FormRegimeUniforme} from './regime_uniforme/regime_uniforme';
+
 
 @NgModule({
   imports:[ 
@@ -32,7 +36,7 @@ import {PipeNumberValidator} from './common/pipe_number_validator';
                  
   ],
   providers:    [ MdIconRegistry],
-  declarations: [ PipeNumbers, PipeNumberValidator, MainApp, Formulaire, FormCondDistri, FormLechaptCalmon, RadioControlValueAccessor],
+  declarations: [ FormRegimeUniforme, FormSection, FormSectionParam, PipeNumbers, PipeNumberValidator, MainApp, Formulaire, FormCondDistri, FormLechaptCalmon, RadioControlValueAccessor],
   bootstrap:    [ MainApp ]
 })
 
