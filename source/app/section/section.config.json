@@ -1,10 +1,11 @@
 {    
-    "saisies":{
-        "fs_section":{
+    "saisies":[
+        {
+            "id":"fs_section",
             "name":"Type de section",
-            "option": "",
-            "fields":{
-                "type":"select",
+            "option": "cal",
+            "fields":[{
+               "type":"select",
                 "name": "Choix du type de section",
                 "value": 1,
                 
@@ -71,6 +72,7 @@
                     }                                                            
                 ]                
             }
+        ]
         }
-    }
+    ]
 }

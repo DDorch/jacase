@@ -1,6 +1,7 @@
 {
-    "saisies":{
-        "fs_bief":{
+    "saisies":[
+        {
+            "id":"fs_bief",
             "name":"Caractéristiques du bief",
             "option": "cal",
             "fields":[
@@ -28,7 +29,8 @@
             ]
          },
 
-         "fs_hydraulique":{
+         {
+            "id":"fs_hydraulique",
             "name":"Caractéristiques hydrauliques",
             "option":"cal",
             "fields":[
@@ -50,8 +52,8 @@
             ]
          },
 
-         "fs_param_calc":{
-                
+         {
+                "id":"fs_param_calc",
                 "name":"Paramètres de calcul",
                 "option":"fix",
                 "fields":[{
@@ -63,9 +65,11 @@
                 }]
         },
 
-         "options":{
+        {
+             "id":"options",
+             "idCal" : "Q"             
         }
 
 
-    }
+    ]
 }
