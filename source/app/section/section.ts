@@ -73,7 +73,7 @@ export class FormSection extends Formulaire {
             }
             if(this.saisies[i].fields){
                 if(this.saisies[i].id=='fs_hydraulique'){
-                    this.fields=this.saisies[i].fields;
+                    var f=this.saisies[i].fields;
                 }
                 if(this.saisies[i].id=='fs_param_calc'){
                     this.precision=this.saisies[i].fields[0].value;
@@ -84,10 +84,12 @@ export class FormSection extends Formulaire {
                 
             }
         }
-        this.fields=this.fields.concat(this.selectSectionFields);
+        this.fields=this.selectSectionFields;
         this.fields=this.fields.concat(this.biefFields);
+        this.fields=this.fields.concat(f);
         this.initGlob();
         this.initV();
+        console.log(this.fields);
     }
 
     ngOnInit() {

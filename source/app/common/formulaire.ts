@@ -69,17 +69,17 @@ export abstract class Formulaire {
         this.options=[
             {
                 "id": "min",
-                "name": "De la valeur minimum: ",
+                "name": "Minimum: ",
                 "value":""
             },
             {
                 "id": "max",
-                "name": "A la valeur maximum: ",
+                "name": "Maximum: ",
                 "value":""
             },
             {
                 "id":"pas",
-                "name": "Avec un pas de variation de : ",
+                "name": "Pas de variation: ",
                 "value":""
             }
         ];
