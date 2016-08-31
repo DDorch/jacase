@@ -275,8 +275,21 @@ export abstract class Formulaire {
       }
     }
     
-    gestionRadios(id,value) {
+    getPosition(id){
+        var length=this.fields.length;
+        var p = 0;
+        for(var i=0; i<length; i++){
+            if(this.fields[i].id==id){
+                p=i;
+            }
+        }
+        return p;
+    }
 
+    gestionRadios(id,value) {
+        console.log(this.fields);
+        console.log(this.idCal_inter);
+        var length=this.fields.length;
         var globBefore=Object.freeze(Object.assign({}, this.glob));
        //recuperer lelement à calculer
         if(value=="cal"){
@@ -295,16 +308,18 @@ export abstract class Formulaire {
         for (var cle in this.glob){
             if(globBefore[cle]=='cal' && value!='cal'){
                 if(id==cle){
-                    if(id=='J'){
-                        this.idCal_inter='Q';
-                        (<HTMLInputElement>document.getElementById('cal_Q')).checked=true;
+                    if(this.getPosition(this.idCal_inter)!=length-1){
+                        var newCal=this.fields[this.getPosition(this.idCal_inter)+1].id;
+                        this.idCal_inter=newCal;
+                        (<HTMLInputElement>document.getElementById('cal_'+this.idCal_inter)).checked=true;
                     }
                     else{
-                        this.idCal_inter='J';
-                        (<HTMLInputElement>document.getElementById('cal_J')).checked=true;
+                        this.idCal_inter=this.fields[0].id;
+                        (<HTMLInputElement>document.getElementById('cal_'+this.idCal_inter)).checked=true;
                     }
                 }
             }
+            
             
             if(value=='cal'&& globBefore[cle]=='var'){
                 if(cle==id){

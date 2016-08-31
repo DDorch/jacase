@@ -84,11 +84,10 @@ export class FormSection extends Formulaire {
                 
             }
         }
-        this.fields=this.fields.concat(this.biefFields);
         this.fields=this.fields.concat(this.selectSectionFields);
+        this.fields=this.fields.concat(this.biefFields);
         this.initGlob();
         this.initV();
-        console.log(this.fields);
     }
 
     ngOnInit() {
