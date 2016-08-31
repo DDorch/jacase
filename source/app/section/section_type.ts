@@ -325,7 +325,7 @@ export abstract class acSection {
                                 break;
                                 default :
                                 var methode = 'Calc_'+ sDonnee ;
-                                this.arCalc[sDonnee] = window[methode]();
+                                this.arCalc[sDonnee] = this[methode]();
                         }
                 }
                 //~ spip_log('Calc('.$sDonnee.')='.$this->arCalc[$sDonnee],'hydraulic.'._LOG_DEBUG);
@@ -363,7 +363,7 @@ export abstract class acSection {
                                 /*var methode = 'Calc_'+sDonnee + '()';
                                 this.CalcGeo[sDonnee] = eval(methode);*/
                                 var methode = 'Calc_'+sDonnee;
-                                this.CalcGeo[sDonnee] = window[methode]();
+                                this.CalcGeo[sDonnee] = this[methode]();
                         }
                         //~ spip_log('CalcGeo('.$sDonnee.',rY='.$this->oP->rYB.')='.$this->arCalcGeo[$sDonnee],'hydraulic.'._LOG_DEBUG);
                         this.Swap(false); // On restitue les données hydrauliques en cours
@@ -514,7 +514,7 @@ export abstract class acSection {
                 });
                 for(var m of methods){
                         if(funcCalcY==m){
-                                return window[funcCalcY]($rY);
+                                return this[funcCalcY]($rY);
                         }
                         else{
                                 return false;
