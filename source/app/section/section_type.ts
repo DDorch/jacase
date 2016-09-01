@@ -3,7 +3,7 @@ import {cLog} from "./log"
 /**
  * Calcul de la hauteur critique
  */
-class cHautCritique extends acNewton {
+export class cHautCritique extends acNewton {
         private Sn;
         private oP;
         /**
@@ -51,7 +51,7 @@ class cHautCritique extends acNewton {
 /**
  * Calcul de la hauteur normale
  */
-class cHautNormale extends acNewton {
+export class cHautNormale extends acNewton {
         private Sn;
         private Q;
         private Ks;
@@ -95,7 +95,7 @@ class cHautNormale extends acNewton {
 /**
  * Calcul de la hauteur correspondante (charge égale)
  */
-class cHautCorrespondante extends acNewton {
+export class cHautCorrespondante extends acNewton {
         private Y; // Tirant d'eau connu
         private rS2; // 1/S^2 associé au tirant d'eau connu
         private Sn; // Section contenant les données de la section avec la hauteur à calculer
@@ -141,7 +141,7 @@ class cHautCorrespondante extends acNewton {
 /**
  * Calcul de la hauteur conjuguée (Impulsion égale)
  */
-class cHautConjuguee extends acNewton {
+export class cHautConjuguee extends acNewton {
         /** Tirant d'eau connu */
         private Y;
         /** 1/S^2 associé au tirant d'eau connu */
@@ -675,7 +675,7 @@ export abstract class acSection {
          * Fournit les coordonnées des points d'une demi section pour le dessin
          * @return tableau de couples de coordonnées (x,y)
          */
-        DessinCoordonnees() {
+        /*DessinCoordonnees() {
                 var Pas = this.oP.YB / this.nbDessinPoints;
                 var Points = new Array();
                 this.Swap(true); // On mémorise les données hydrauliques en cours
@@ -687,7 +687,7 @@ export abstract class acSection {
                 // On restitue les données initiales
                 this.Swap(false);
                 return Points;
-        }
+        }*/
             
 }
 

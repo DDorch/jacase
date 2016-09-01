@@ -3,7 +3,7 @@ import {acSection} from "./section_type";
 /**
  * Calculs de la section circulaire
  */
-class cSnCirc extends acSection {
+export class cSnCirc extends acSection {
         
         public D;      /// Diamètre du cercle
         private Alpha;    /// Angle de la surface libre par rapport au fond

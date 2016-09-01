@@ -3,7 +3,7 @@ import {acSection} from "./section_type";
 /**
  * Calculs de la section parabolique ou "puissance"
  */
-class cSnPuiss extends acSection {
+export class cSnPuiss extends acSection {
         public k;      /// Coefficient de forme compris entre 0 et 1
         //$LargeurBerge => La largeur des berges est déjà présente dans acSection
         protected nbDessinPoints=50;

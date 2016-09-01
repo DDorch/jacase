@@ -3,6 +3,11 @@ import {Http,Response} from '@angular/http';
 import {RadioControlValueAccessor} from '../common/radio_value_accessor';
 import {acSection, cParam} from './section_type';
 import {cLog} from './log';
+import {cSnTrapez} from './section_trapez';
+import {cSnRectang} from './section_rectang';
+import {cSnCirc} from './section_circulaire';
+import {cSnPuiss} from './section_puissance';
+
 
 export class FormSection extends Formulaire {
     
@@ -57,15 +62,13 @@ export class FormSection extends Formulaire {
                     this.sectionFields=this.saisies[i].fields[0];
                     this.sectionType=this.sectionFields.select[0].id;
                     this.selectedSection=this.sectionFields.select[this.sectionType-1];    
-                    this.selectSectionFields=this.selectedSection.definition;
-                
+                    this.selectSectionFields=this.selectedSection.definition;    
             }
         } 
-        console.log(this.selectedSection);
+
     }     
 
     initJsonSection(data){
-        //this.getFields();
         this.saisies_comp=data.saisies;
         this.saisies=this.saisies.concat(this.saisies_comp);
         this.initFields();
@@ -85,8 +88,7 @@ export class FormSection extends Formulaire {
                 }
                 if(this.saisies[i].id=='fs_bief'){
                     this.biefFields=this.saisies[i].fields;
-                }
-                
+                }                
             }
         }
         this.fields=this.selectSectionFields;
@@ -94,7 +96,7 @@ export class FormSection extends Formulaire {
         this.fields=this.fields.concat(f);
         this.initGlob();
         this.initV();
-        console.log(this.fields);
+        this.init_section_param();
     }
 
     ngOnInit() {
@@ -107,6 +109,30 @@ export class FormSection extends Formulaire {
         this.selectedSection=this.sectionFields.select[this.sectionType-1];
         this.selectSectionFields=this.selectedSection.definition;
         this.initFields();
-        console.log(this.selectedSection);
+        //this.init_section_param();
+    }
+
+    init_section_param() {
+
+        this.oP=new cParam(this.v['Ks'], this.v['Q'], this.v['If'], this.precision, this.v['YB']);
+        switch(this.sectionType) {
+                case '1':
+                    this.Sn = new cSnTrapez(this.oLog,this.oP,this.v['Lf'],this.v['F']);
+                    break;
+                case '2':
+                    this.Sn = new cSnRectang(this.oLog,this.oP,this.v['Lf']);
+                    break;
+                case '3':
+                    this.Sn = new cSnCirc(this.oLog,this.oP,this.v['D']);
+                    break;
+                case '4':
+                    this.Sn = new cSnPuiss(this.oLog,this.oP,this.v['K'],this.v['LB']);
+                    break;
+                default:
+                    this.Sn = new cSnTrapez(this.oLog,this.oP,this.v['Lf'],this.v['F']);
+        }
+        this.Sn.Y = this.v['Y'];        
+        console.log(this.Sn);
+        
     }
 }

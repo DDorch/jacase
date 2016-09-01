@@ -3,7 +3,7 @@ import {acSection} from "./section_type";
 /**
  * Calculs de la section rectangulaire
  */
-class cSnRectang extends acSection {
+export class cSnRectang extends acSection {
         constructor(oLog,oP,LargeurFond) {
                 super(oLog,oP);
                 this.LargeurBerge = LargeurFond;

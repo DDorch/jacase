@@ -3,7 +3,7 @@ import {acSection} from "./section_type";
 /**
  * Calculs de la section trapézoïdale
  */
-class cSnTrapez extends acSection {
+export class cSnTrapez extends acSection {
         public LargeurFond;    /// Largeur au fond
         public Fruit;          /// Fruit des berges
         constructor(oLog,oP,LargeurFond, Fruit) {

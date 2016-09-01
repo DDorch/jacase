@@ -57,13 +57,13 @@
                         "name":"Parabolique",
                         "definition":[
                             {
-                                "id":"C",
+                                "id":"K",
                                 "name":"Coefficient",
                                 "value":0.5,
                                 "type":"input"
                             },
                             {
-                                "id":"Lb",
+                                "id":"LB",
                                 "name":"Largeur au niveau des berges",
                                 "value":0.56,
                                 "type":"input"
