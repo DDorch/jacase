@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormSection} from '../section/section';
+import {FormSection} from '../section/form_section';
 import {FORM_DIRECTIVES,CORE_DIRECTIVES} from '@angular/common';
 import {RadioControlValueAccessor} from '../common/radio_value_accessor';
 import { CHART_DIRECTIVES } from 'angular2-highcharts';

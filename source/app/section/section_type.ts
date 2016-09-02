@@ -321,17 +321,13 @@ export abstract class acSection {
                         // La donnée a besoin d'être calculée
                         switch(sDonnee) {
                                 case 'I-J' : // Variation linéaire de l'énergie spécifique (I-J) en m/m
-                                this.arCalc[sDonnee] = this.oP.If-this.Calc('J');
-                                break;
+                                        this.arCalc[sDonnee] = this.oP.If-this.Calc('J');
+                                        break;
+                                case 'Yn' : // Hauteur normale
+                                        return this.Calc_Yn();
                                 default :
                                 var methode = 'Calc_'+ sDonnee ;
-                                //console.log("type   "+sDonnee+' ' + typeof this.arCalc[sDonnee]);
                                 this.arCalc[sDonnee] = this[methode]();
-                                if(sDonnee=='Yn') {
-                                        console.log(this.arCalc);                
-                                        console.log("type Yn  " + typeof this.arCalc[sDonnee]);
-                                        
-                                }
                         }
                 }
                 //console.log(sDonnee + '  ' + this.arCalc[sDonnee]);
