@@ -83,7 +83,7 @@ export class cSnTrapez extends acSection {
                         return super.Calc_dB();
                 }
                 else {
-                        return 2*this.LargeurFond.this.Fruit;
+                        return 2*this.LargeurFond*this.Fruit;
                 }
         }
         /**

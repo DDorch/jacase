@@ -16,7 +16,7 @@ import {PipeNumberValidator} from '../common/pipe_number_validator';
 })
 
 export class FormCondDistri extends Formulaire {
-    
+       
     constructor(public http: Http){
         super(http,'cond_distri');
         this.param_composite=false;
@@ -40,7 +40,7 @@ export class FormCondDistri extends Formulaire {
         this.initGlob();
         this.initV();
     }
-    calculate(){
+    calculate(rInit){
         var acalculer=this.v[this.idCal];
         var q=this.v['Q'];
         var d=this.v['D'];

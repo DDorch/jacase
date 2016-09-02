@@ -50,14 +50,14 @@ export abstract class acNewton {
              return ( a || b ) && !( a && b );
         }
 
-        public Newton($rX) {
+        public Newton(rX) {
                 this.iCpt++;
-                var rFn=this.CalcFn($rX);
+                var rFn=this.CalcFn(rX);
                 if(this.FuzzyEqual(rFn) || this.iCpt >= this.iCptMax) {
-                        return $rX;
+                        return rX;
                 }
                 else {
-                        var rDer=this.CalcDer($rX);
+                        var rDer=this.CalcDer(rX);
                         //~ echo(' - f\' = '.$rDer);
                         if(rDer!=0) {
                                 if(this.XOR(rFn < 0 , this.rFnPrec < 0)) {
@@ -80,14 +80,14 @@ export abstract class acNewton {
                                         this.rRelax = this.rRelax *2;
                                 }
                                 var rRelax = this.rRelax;
-                                while($rX - Delta*rRelax <= 0 && rRelax > 1E-4) {
+                                while(rX - Delta*rRelax <= 0 && rRelax > 1E-4) {
                                         // On diminue le coeficient de relaxation si on passe en négatif
                                         rRelax =rRelax * 0.5; // Mais on ne le mémorise pas pour les itérations suivantes
                                 }
-                                $rX = $rX - Delta*rRelax;
+                                rX = rX - Delta*rRelax;
                                 //this.rDelta = Delta; ???
-                                if($rX<0) {$rX = this.rTol;} // Aucune valeur recherchée ne peut être négative ou nulle
-                                return this.Newton($rX);
+                                if(rX<0) {rX = this.rTol;} // Aucune valeur recherchée ne peut être négative ou nulle
+                                return this.Newton(rX);
                         }
                         else {
                                 // Echec de la résolution

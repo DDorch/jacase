@@ -51,7 +51,7 @@ export class FormLechaptCalmon extends Formulaire {
         this.initGlob();
         this.initV();
     }
-    calculate(){
+    calculate(rInit){
         var acalculer=this.v[this.idCal];
         var q=this.v['Q'];
         var d=this.v['D'];

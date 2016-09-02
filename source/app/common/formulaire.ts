@@ -114,6 +114,7 @@ export abstract class Formulaire {
      */
     getName(id) {
         var length=this.fields.length;
+        console.log(length);
         var index;
         for(var i=0;i<length;i++){
             if(this.fields[i].id==id){
@@ -339,6 +340,7 @@ export abstract class Formulaire {
   }
 
   getResult(){
+      console.log(this.v['If']);
       this.idCal=this.idCal_inter;
       this.nomCal=this.getName(this.idCal);
       this.unitCal=this.getUnit(this.idCal);
@@ -358,8 +360,15 @@ export abstract class Formulaire {
         var n=this.lineChartLabels.length;
 
         for(var i=0;i<n;i++){
+            if(i==0){
+                var rInit=this.v[this.idCal];
+            }
+            else {
+                rInit=this.lineChartData[i-1];
+            }
             this.v[this.varVar]=this.lineChartLabels[i];
-            this.lineChartData.push(this.calculate());
+            this.lineChartData.push(this.calculate(rInit));
+
         }
         this.v[this.varVar]=this.getValue(this.varVar);
         this.getChartData();
@@ -367,12 +376,12 @@ export abstract class Formulaire {
         }
                     
       else{
-          
-          this.result=this.calculate();
+          rInit=this.idCal;
+          this.result=this.calculate(rInit);
       }
   }
   
-  calculate() {
+  calculate(rInit) {
     return null;
   }
   

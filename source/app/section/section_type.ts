@@ -260,10 +260,10 @@ export abstract class acSection {
          * - dR : la dérivée de R par rapport Y
          * - dB : la dérivée de B par rapport Y
          */
-        private arCalc = new Array();
-        protected calcGeo = new Array(); /// Données ne dépendant pas de la cote de l'eau
+        private arCalc = {};
+        protected calcGeo = {}; /// Données ne dépendant pas de la cote de l'eau
         private Y_old ; /// Mémorisation du tirant d'eau pour calcul intermédiaire
-        private Calc_old = new Array(); /// Mémorisation des données hydrauliques pour calcul intermédiaire
+        private Calc_old = {}; /// Mémorisation des données hydrauliques pour calcul intermédiaire
         /**
          * Nombre de points nécessaires pour le dessin de la section (hors point de berge)
          * Valeur de 1 par défaut pour les sections rectangulaires et trapézoïdales
@@ -283,9 +283,9 @@ export abstract class acSection {
          * @param $bGeo Réinitialise les données de géométrie aussi
          */
         Reset(bGeo=true) {
-                this.arCalc = new Array();
+                this.arCalc = {};
                 if(bGeo) {
-                        this.calcGeo = new Array();
+                        this.calcGeo = {};
                 }
         }
         /**
@@ -300,7 +300,7 @@ export abstract class acSection {
                 else {
                         this.Y = this.Y_old;
                         this.arCalc = this.Calc_old;
-                        this.Calc_old = new Array();
+                        this.Calc_old = {};
                 }
         }
         
@@ -316,8 +316,9 @@ export abstract class acSection {
                         // On efface toutes les données dépendantes de Y pour forcer le calcul
                         this.Reset(false);
                 }
+                console.log(" arcalc "+this.arCalc);
                 // | or || ???
-                if(!this.arCalc[sDonnee] || (this.arCalc[sDonnee] && !this.arCalc[sDonnee])) {
+                if(this.arCalc[sDonnee]==undefined) {
                         // La donnée a besoin d'être calculée
                         switch(sDonnee) {
                                 case 'I-J' : // Variation linéaire de l'énergie spécifique (I-J) en m/m
@@ -325,11 +326,18 @@ export abstract class acSection {
                                 break;
                                 default :
                                 var methode = 'Calc_'+ sDonnee ;
+                                //console.log("type   "+sDonnee+' ' + typeof this.arCalc[sDonnee]);
                                 this.arCalc[sDonnee] = this[methode]();
+                                if(sDonnee=='Yn') {
+                                        console.log(this.arCalc);                
+                                        console.log("type Yn  " + typeof this.arCalc[sDonnee]);
+                                        
+                                }
                         }
                 }
-                //~ spip_log('Calc('.$sDonnee.')='.$this->arCalc[$sDonnee],'hydraulic.'._LOG_DEBUG);
+                //console.log(sDonnee + '  ' + this.arCalc[sDonnee]);
                 return this.arCalc[sDonnee];
+                
         }
         
         /**
@@ -339,6 +347,7 @@ export abstract class acSection {
          * @return la donnée calculée
          */
         CalcGeo(sDonnee) {
+                console.log("in CalcGeo");
                 if(sDonnee != 'B' && !this.CalcGeo['B']) {
                         // Si la largeur aux berges n'a pas encore été calculée, on commence par ça
                         this.CalcGeo('B');
@@ -364,10 +373,13 @@ export abstract class acSection {
                                 this.CalcGeo[sDonnee] = eval(methode);*/
                                 var methode = 'Calc_'+sDonnee;
                                 this.CalcGeo[sDonnee] = this[methode]();
-                        }
-                        //~ spip_log('CalcGeo('.$sDonnee.',rY='.$this->oP->rYB.')='.$this->arCalcGeo[$sDonnee],'hydraulic.'._LOG_DEBUG);
+                                console.log("methodecalcgeo "+this[methode]());
+                       }
+                        //~ spip_log('CalcGeo('.$sDCalcGeonnee.',rY='.$this->oP->rYB.')='.$this->arCalcGeo[$sDonnee],'hydraulic.'._LOG_DEBUG);
                         this.Swap(false); // On restitue les données hydrauliques en cours
                 }
+                console.log('calcgeo  '+ sDonnee + '  ' + this.CalcGeo[sDonnee]);
+                
                 return this.CalcGeo[sDonnee];
         }
         /**
@@ -558,11 +570,13 @@ export abstract class acSection {
          * @return tirant d'eau critique
          */
         Calc_Yc() {
+                console.log("in calcYc");
                 var hautCritique = new cHautCritique(this, this.oP);
-                if(!this.HautCritique == hautCritique.Newton(this.oP.YB) || !hautCritique.HasConverged()) {
+                /*if(!this.HautCritique == hautCritique.Newton(this.oP.YB) || !hautCritique.HasConverged()) {
                       //traduction de code de langue:
                       //this.oLog.Add(_T('hydraulic:h_critique')+' : '+_T('hydraulic:newton_non_convergence'),true);
-                }
+                }*/
+                this.HautCritique = hautCritique.Newton(this.oP.YB);
                 return this.HautCritique;
         }
         /**
@@ -570,14 +584,17 @@ export abstract class acSection {
          * @return tirant d'eau normal
          */
         Calc_Yn() {
+                console.log("in calc_Yn");
                 if(this.oP.If <= 0) {
                         this.HautNormale = false;
                         //this.oLog.Add(_T('hydraulic:h_normale_pente_neg_nul'),true);
                 } else {
                         var oHautNormale= new cHautNormale(this, this.oP);
-                        if(!this.HautNormale == oHautNormale.Newton(this.CalcGeo('Yc')) || !oHautNormale.HasConverged()) {
+                        //if(!this.HautNormale == oHautNormale.Newton(this.CalcGeo('Yc')) || !oHautNormale.HasConverged()) {
                                 //this.oLog.Add(_T('hydraulic:h_normale').' : '._T('hydraulic:newton_non_convergence'),true);
-                        }
+                                this.HautNormale = oHautNormale.Newton(this.CalcGeo('Yc'));
+                                console.log("hautnormale"+this.HautNormale);
+                      //  }
                 }
                 return this.HautNormale;
         }

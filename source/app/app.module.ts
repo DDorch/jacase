@@ -15,10 +15,16 @@ import {MdListModule} from '@angular2-material/list';
 import {RadioControlValueAccessor} from './common/radio_value_accessor';
 import {PipeNumbers} from './common/pipe_numbers';
 import {PipeNumberValidator} from './common/pipe_number_validator';
-import {FormSection} from './section/section';
+import {FormSection} from './section/form_section';
 import {FormSectionParam} from './section_parametree/section_parametree';
 import {FormRegimeUniforme} from './regime_uniforme/regime_uniforme';
-
+import {acSection, cParam, cHautConjuguee, cHautCorrespondante, cHautNormale, cHautCritique } from './section/section_type';
+import {cDichotomie} from './section/dichotomie';
+import {cSnTrapez} from './section/section_trapez';
+import {cSnRectang} from './section/section_rectang';
+import {cSnCirc} from './section/section_circulaire';
+import {cSnPuiss} from './section/section_puissance';
+import {acNewton} from './section/newton';
 
 @NgModule({
   imports:[ 
@@ -36,7 +42,10 @@ import {FormRegimeUniforme} from './regime_uniforme/regime_uniforme';
                  
   ],
   providers:    [ MdIconRegistry],
-  declarations: [ FormRegimeUniforme, FormSection, FormSectionParam, PipeNumbers, PipeNumberValidator, MainApp, Formulaire, FormCondDistri, FormLechaptCalmon, RadioControlValueAccessor],
+  declarations: [ FormRegimeUniforme, FormSection, FormSectionParam, PipeNumbers, PipeNumberValidator, 
+                  MainApp, Formulaire, FormCondDistri, FormLechaptCalmon /*, acSection, cParam , cDichotomie, 
+                  cSnTrapez, cSnRectang, cSnCirc, cSnPuiss, acNewton, cHautConjuguee, cHautCorrespondante, cHautNormale, cHautCritique */
+                ],
   bootstrap:    [ MainApp ]
 })
 

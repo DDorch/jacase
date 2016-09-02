@@ -39,7 +39,7 @@ export class cDichotomie {
         * @param $rTol Précision attendue
         * @param $rInit Valeur initiale
         */
-        calculer(QT,rTol,rInit=0.) {
+        calculer(QT,rTol,rInit) {
                 var result;
                 var XminInit = 1E-8;
                 this.objet['idCal'] = XminInit;
