@@ -16,13 +16,15 @@
                         "definition":[
                             {
                                 "id":"Lf",                                
-                                "name":"Largeur au fond (m)",
+                                "name":"Largeur au fond ",
+                                "unit":"m",
                                 "value":2.5,
                                 "type":"input"
                             },
                             {
                                 "id":"F",
-                                "name":"Fruit des berges (m/m)",
+                                "name":"Fruit des berges",
+                                "unit":"m/m",
                                 "value":0.56,
                                 "type":"input"
                             }
@@ -34,7 +36,8 @@
                         "definition":[
                             {
                                 "id":"Lf",
-                                "name":"Largeur au fond (m)",
+                                "name":"Largeur au fond",
+                                "unit":"m",
                                 "value":2.5,
                                 "type":"input"
                             }
@@ -46,7 +49,8 @@
                         "definition":[
                             {
                                 "id":"D",
-                                "name":"Diamètre (m)",
+                                "name":"Diamètre",
+                                "unit":"m",
                                 "value":2,
                                 "type":"input"
                             }
@@ -59,12 +63,14 @@
                             {
                                 "id":"K",
                                 "name":"Coefficient",
+                                "unit":"",
                                 "value":0.5,
                                 "type":"input"
                             },
                             {
                                 "id":"LB",
                                 "name":"Largeur au niveau des berges",
+                                "unit":"",
                                 "value":0.56,
                                 "type":"input"
                             }

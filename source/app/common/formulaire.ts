@@ -25,7 +25,7 @@ export abstract class Formulaire {
     public v_mat = new Object(); // v materiaux
     public paramVar;
     public tabResults = new Array();
-    public idCal;//l'id l'élement selectionné à calculer
+    public idCal:string;//l'id l'élement selectionné à calculer
     public idCal_inter;
     public nomCal;//le nom l'élement selectionné à calculer
     public unitCal;
@@ -46,7 +46,7 @@ export abstract class Formulaire {
     public var_table=false;
     /** ID of varying parameter */
     public varVar; 
-    public varVar_inter;
+    public varVar_inter='';
     /** Parameter's name to vary */ 
     public nomVar;
     public unitVar;
@@ -114,13 +114,13 @@ export abstract class Formulaire {
      */
     getName(id) {
         var length=this.fields.length;
-        console.log(length);
         var index;
         for(var i=0;i<length;i++){
             if(this.fields[i].id==id){
                 index=i;
             }
         }
+        console.log("index "+index);
         return this.fields[index].name;
     }
 
@@ -137,7 +137,9 @@ export abstract class Formulaire {
         }
         return this.fields[index].unit;
     }
-
+    /**
+     * Get the value assocated to an Id
+     */
      getValue(id) {
         var length=this.fields.length;
         var index;
@@ -276,6 +278,9 @@ export abstract class Formulaire {
       }
     }
     
+    /**
+     * Get the position of a field from its Id
+     */
     getPosition(id){
         var length=this.fields.length;
         var p = 0;
@@ -287,15 +292,18 @@ export abstract class Formulaire {
         return p;
     }
 
+    /**
+     * Manage the radio buttons
+     */
     gestionRadios(id,value) {
         console.log(this.fields);
-        console.log(this.idCal_inter);
         var length=this.fields.length;
         var globBefore=Object.freeze(Object.assign({}, this.glob));
        //recuperer lelement à calculer
         if(value=="cal"){
             this.idCal_inter=id;
         }
+        console.log(this.idCal_inter);
         //recuperer l'élement à varier
         if(value=='var'){
 
@@ -339,9 +347,13 @@ export abstract class Formulaire {
        console.log(this.glob);
   }
 
+  /**
+   * Method called from the template that shows the results
+   */
   getResult(){
-      console.log(this.v['If']);
+      console.log(this.varVar_inter);  
       this.idCal=this.idCal_inter;
+      console.log(this.idCal);
       this.nomCal=this.getName(this.idCal);
       this.unitCal=this.getUnit(this.idCal);
       this.showResult=true;
@@ -350,41 +362,51 @@ export abstract class Formulaire {
       this.lineChartLabels.splice(0,this.lineChartLabels.length);
       this.chartData.splice(0,this.chartData.length);
 
-      if(this.showVar){
-        this.var_table=true;
-        this.varVar=this.varVar_inter;
-        this.showVar=true;
-        this.nomVar=this.getName(this.varVar);
-        this.unitVar=this.getUnit(this.varVar);
-        this.getLineChartLabels();
-        var n=this.lineChartLabels.length;
+      if(this.varVar_inter!=''){
+          this.var_table=true;
+          this.varVar=this.varVar_inter;
+          this.showVar=true;
+          this.nomVar=this.getName(this.varVar);
+          this.unitVar=this.getUnit(this.varVar);
+          this.getLineChartLabels();
+          console.log(this.lineChartLabels);
+          var n=this.lineChartLabels.length;
 
-        for(var i=0;i<n;i++){
-            if(i==0){
-                var rInit=this.v[this.idCal];
-            }
-            else {
-                rInit=this.lineChartData[i-1];
-            }
-            this.v[this.varVar]=this.lineChartLabels[i];
-            this.lineChartData.push(this.calculate(rInit));
+          for(var i=0;i<n;i++){
+          if(i==0){
+              var rInit=this.v[this.idCal];
+          }
+          else {
+              rInit=this.lineChartData[i-1];
+          }
+          this.v[this.varVar]=this.lineChartLabels[i];
+          this.lineChartData.push(this.calculate(rInit));
 
-        }
-        this.v[this.varVar]=this.getValue(this.varVar);
-        this.getChartData();
-        this.getOptions();
-        }
+          }
+          this.v[this.varVar]=this.getValue(this.varVar);
+          this.getChartData();
+          this.getOptions();
+      }
                     
       else{
+          this.var_table=false;
+          this.showVar=false;
+          console.log("in else");
           rInit=this.idCal;
           this.result=this.calculate(rInit);
       }
   }
   
+  /**
+   * Method called by the extended classes that does the calculations
+   */
   calculate(rInit) {
     return null;
   }
-  
+
+  /**
+   * Method that forbids the non-numeric inputs  
+   */
   isNumber(evt) {
       evt = (evt) ? evt : window.event;
       var charCode = (evt.which) ? evt.which : evt.keyCode;

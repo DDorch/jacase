@@ -42,12 +42,12 @@ export class cDichotomie {
         calculer(QT,rTol,rInit) {
                 var result;
                 var XminInit = 1E-8;
-                this.objet['idCal'] = XminInit;
+                this.objet['v["idCal"]'] = XminInit;
                 var res = this.CalculQ();
                 var Q1=res[0];
                 var nFlag=res[1];
                 var XmaxInit = Math.max(1,rInit)*100;
-                this.objet['idCal'] = XmaxInit;
+                this.objet['v["idCal"]'] = XmaxInit;
                 res = this.CalculQ();
                 var Q2 = res[0];
                 nFlag = res[1];
@@ -57,7 +57,7 @@ export class cDichotomie {
                 var Xmax = rInit;
                 var X1 = rInit;
                 var X2 = rInit;
-                this.objet['idCal'] = rInit;
+                this.objet['v["idCal"]'] = rInit;
                 res = this.CalculQ();
                 var Q=res[0];
                 nFlag=res[1];
@@ -68,7 +68,7 @@ export class cDichotomie {
                         //Ouverture de l'intervalle des deux côtés : à droite puis à gauche
                         Xmax = Xmax + DX;
                         if(this.XOR(Xmax > XmaxInit,DX <= 0)) Xmax = XmaxInit;
-                        this.objet['idCal'] = Xmax;
+                        this.objet['v["idCal"]'] = Xmax;
                         [Q,nFlag] = this.CalculQ();
                         if(this.XOR(Q1 < Q2,Q <= Q2)) {
                                 Q2 = Q;
@@ -82,7 +82,7 @@ export class cDichotomie {
                         if(this.XOR(Xmin < XminInit , DX <= 0)) {
                                 Xmin = XminInit;
                         }
-                        this.objet['idCal'] = Xmin;
+                        this.objet['v["idCal"]'] = Xmin;
                         [Q,nFlag] = this.CalculQ();
                         if(this.XOR(Q1 < Q2,Q <= Q2)) {
                                 Q2 = Q;
@@ -98,11 +98,11 @@ export class cDichotomie {
                         // Pas d'intervalle trouvé avec au moins une solution
                         if(Q2 < QT && Q1 < QT) {
                                 // Cote de l'eau trop basse pour passer le débit il faut ouvrir un autre ouvrage
-                                this.objet['idCal'] = XmaxInit;
+                                this.objet['v["idCal"]'] = XmaxInit;
                         }
                         else {
                                 // Cote de l'eau trop grande il faut fermer l'ouvrage
-                                this.objet['idCal'] = XminInit;
+                                this.objet['v["idCal"]'] = XminInit;
                         }
                         [Q,nFlag] = this.CalculQ();
                         nFlag = -1;
@@ -115,17 +115,17 @@ export class cDichotomie {
                         // Dichotomie
                         var X = rInit;
                         for(nIter = 1; nIter<=this.IDICMAX; nIter++) {
-                                this.objet['idCal'] = X;
+                                this.objet['v["idCal"]'] = X;
                                 [Q,nFlag] = this.CalculQ();
                                 //~ if($QT!=0 && abs($Q/$QT-1.) <= $rTol) {break;}
                                 if(QT!=0 && Math.abs(X1-X2) <= rTol) {break;}
                                 if(this.XOR(QT < Q , Q1 <= Q2)) {
                                         // QT < IQ et Q(X1) > Q(X2) ou pareil en inversant les inégalités
-                                        X1 = this.objet['idCal'] ;
+                                        X1 = this.objet['v["idCal"]'] ;
                                 }
                                 else {
                                         // QT < IQ et Q(X1) < Q(X2) ou pareil en inversant les inégalités
-                                        X2 = this.objet['idCal'] ;
+                                        X2 = this.objet['v["idCal"]'] ;
                                 }
                                 X=(X2+X1)*0.5;
                         }
@@ -136,6 +136,6 @@ export class cDichotomie {
                                 nFlag = -1;
                         }
                 }
-                return new Array(this.objet['idCal'],nFlag);
+                return new Array(this.objet['v["idCal"]'],nFlag);
         }
 }

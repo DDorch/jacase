@@ -39,7 +39,6 @@ export class FormRegimeUniforme extends FormSection {
 
         calculate(rInit) {
                 this.init_section_param();
-                console.log("in calculate");
                 if(this.idCal!='Q' && this.idCal!='Y') {
                         var oDicho = new cDichotomie(this.oLog,this,'Calc_Qn');
                 }
@@ -53,7 +52,8 @@ export class FormRegimeUniforme extends FormSection {
                         result = this.Calc_Qn();
                         break;
                         default :
-
+                        console.log(this.idCal);
+                        console.log(oDicho);        
                         [result,flag] = oDicho.calculer(this.v['Q'],this.precision,rInit);
                 }
                 

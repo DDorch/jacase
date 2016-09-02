@@ -132,7 +132,6 @@ export class FormSection extends Formulaire {
                     this.Sn = new cSnTrapez(this.oLog,this.oP,this.v['Lf'],this.v['F']);
         }
         this.Sn.Y = this.v['Y'];        
-        console.log(this.Sn);
         
     }
 }

@@ -316,7 +316,6 @@ export abstract class acSection {
                         // On efface toutes les données dépendantes de Y pour forcer le calcul
                         this.Reset(false);
                 }
-                console.log(" arcalc "+this.arCalc);
                 // | or || ???
                 if(this.arCalc[sDonnee]==undefined) {
                         // La donnée a besoin d'être calculée
