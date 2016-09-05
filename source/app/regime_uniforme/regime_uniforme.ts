@@ -32,6 +32,7 @@ export class FormRegimeUniforme extends FormSection {
                         var  Qn = 0; // ? false bool
                         //this.oLog.Add('h_normale_pente_neg_nul',true);
                 } else {
+                        console.log(this.Sn);
                         Qn = this.oP.Ks*Math.pow(this.Sn.Calc('R',this.Sn.Y),2/3)*this.Sn.Calc('S',this.Sn.Y)*Math.sqrt(this.oP.If);
                 }
                 return Qn;
@@ -52,9 +53,8 @@ export class FormRegimeUniforme extends FormSection {
                         result = this.Calc_Qn();
                         break;
                         default :
-                        console.log(this.idCal);
-                        console.log(oDicho);        
                         [result,flag] = oDicho.calculer(this.v['Q'],this.precision,rInit);
+                        console.log(result);
                 }
                 
                 return result;

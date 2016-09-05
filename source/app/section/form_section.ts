@@ -22,6 +22,7 @@ export class FormSection extends Formulaire {
     public v_section;
     public v_bief;
     public selectSectionFields;
+    public limitFields;
 
     constructor(public http: Http, jsonName:string){
         super(http,'section');
@@ -71,6 +72,8 @@ export class FormSection extends Formulaire {
     initJsonSection(data){
         this.saisies_comp=data.saisies;
         this.saisies=this.saisies.concat(this.saisies_comp);
+        this.option=this.saisies[2].option;
+        console.log(this.option);
         this.initFields();
     }
     
@@ -88,12 +91,17 @@ export class FormSection extends Formulaire {
                 }
                 if(this.saisies[i].id=='fs_bief'){
                     this.biefFields=this.saisies[i].fields;
+                }
+                if(this.saisies[i].id=="fs_limites"){
+                    this.limitFields=this.saisies[i].fields;
                 }                
             }
         }
         this.fields=this.selectSectionFields;
         this.fields=this.fields.concat(this.biefFields);
-        this.fields=this.fields.concat(f);
+        if(this.limitFields) this.fields=this.fields.concat(this.limitFields);
+        if(f) this.fields=this.fields.concat(f);
+        console.log(this.fields);
         this.initGlob();
         this.initV();
         this.init_section_param();
@@ -120,6 +128,7 @@ export class FormSection extends Formulaire {
                     this.Sn = new cSnTrapez(this.oLog,this.oP,this.v['Lf'],this.v['F']);
                     break;
                 case '2':
+                    console.log("in rect");
                     this.Sn = new cSnRectang(this.oLog,this.oP,this.v['Lf']);
                     break;
                 case '3':

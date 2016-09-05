@@ -57,12 +57,14 @@ export class cDichotomie {
                 var Xmax = rInit;
                 var X1 = rInit;
                 var X2 = rInit;
+                console.log("rInit: "+rInit);
                 this.objet['v["idCal"]'] = rInit;
                 res = this.CalculQ();
                 var Q=res[0];
                 nFlag=res[1];
                 var Q1 = Q;
                 var Q2 = Q;
+                console.log(nIterMax);
                 ///< @todo : Chercher en dehors de l'intervalle en le décalant à droite ou à gauche en fonction de la valeur
                 for(var nIter=1;nIter<nIterMax;nIter++) {
                         //Ouverture de l'intervalle des deux côtés : à droite puis à gauche
@@ -95,6 +97,7 @@ export class cDichotomie {
                         if(this.XOR(QT > Q1 , QT >= Q2)) {break;}
                 }
                 if(nIter >= this.IDEFINT) {
+                        console.log("in if");
                         // Pas d'intervalle trouvé avec au moins une solution
                         if(Q2 < QT && Q1 < QT) {
                                 // Cote de l'eau trop basse pour passer le débit il faut ouvrir un autre ouvrage
@@ -113,6 +116,7 @@ export class cDichotomie {
                 }
                 else {
                         // Dichotomie
+                        console.log("in dicho");
                         var X = rInit;
                         for(nIter = 1; nIter<=this.IDICMAX; nIter++) {
                                 this.objet['v["idCal"]'] = X;
@@ -128,6 +132,8 @@ export class cDichotomie {
                                         X2 = this.objet['v["idCal"]'] ;
                                 }
                                 X=(X2+X1)*0.5;
+                                console.log(X);
+                                //this.objet['v["idCal"]'] = X;                               
                         }
                         if(nIter == this.IDICMAX) {
                                /* $this->oLog->Add(
@@ -136,6 +142,7 @@ export class cDichotomie {
                                 nFlag = -1;
                         }
                 }
+                //console.log(this.objet['v["idCal"]']);
                 return new Array(this.objet['v["idCal"]'],nFlag);
         }
 }

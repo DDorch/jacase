@@ -381,9 +381,9 @@ export abstract class acSection {
          * Calcul de la surface hydraulique.
          * @return La surface hydraulique
          */
-        Calc_S(rY) {
+        Calc_S() {
                 //~ spip_log('section->CalcS(rY='.$rY.')='.($rY*$this->rLargeurBerge),'hydraulic.'._LOG_DEBUG);
-                return rY*this.LargeurBerge;
+                return this.Y*this.LargeurBerge;
         }
         /**
          * Calcul de la dérivée surface hydraulique.
@@ -396,9 +396,9 @@ export abstract class acSection {
          * Calcul du périmètre hydraulique.
          * @return Le périmètre hydraulique
          */
-        Calc_P($rY=0) {
+        Calc_P() {
                 //~ spip_log('section->CalcP(rY='.$rY.')='.(2*$rY),'hydraulic.'._LOG_DEBUG);
-                return 2*$rY;
+                return 2*this.Y;
         }
         /**
          * Calcul de dérivée du périmètre hydraulique par rapport au tirant d'eau.
@@ -412,6 +412,7 @@ export abstract class acSection {
          * @return Le rayon hydraulique
          */
         Calc_R() {
+                console.log("in calc_R")
                 if(this.Calc('P')!=0) {
                         return this.Calc('S')/this.Calc('P');
                 }

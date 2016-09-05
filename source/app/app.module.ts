@@ -17,6 +17,7 @@ import {PipeNumbers} from './common/pipe_numbers';
 import {PipeNumberValidator} from './common/pipe_number_validator';
 import {FormSection} from './section/form_section';
 import {FormSectionParam} from './section_parametree/section_parametree';
+import {FormRemous} from './remous/remous';
 import {FormRegimeUniforme} from './regime_uniforme/regime_uniforme';
 import {acSection, cParam, cHautConjuguee, cHautCorrespondante, cHautNormale, cHautCritique } from './section/section_type';
 import {cDichotomie} from './section/dichotomie';
@@ -42,7 +43,7 @@ import {acNewton} from './section/newton';
                  
   ],
   providers:    [ MdIconRegistry],
-  declarations: [ FormRegimeUniforme, FormSection, FormSectionParam, PipeNumbers, PipeNumberValidator, 
+  declarations: [ FormRemous, FormRegimeUniforme, FormSection, FormSectionParam, PipeNumbers, PipeNumberValidator, 
                   MainApp, Formulaire, FormCondDistri, FormLechaptCalmon /*, acSection, cParam , cDichotomie, 
                   cSnTrapez, cSnRectang, cSnCirc, cSnPuiss, acNewton, cHautConjuguee, cHautCorrespondante, cHautNormale, cHautCritique */
                 ],

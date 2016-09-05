@@ -13,7 +13,7 @@
   </tr>
 
   <tr *ngIf="saisie.id=='fs_section'" class="result_fix" > Définition de la section {{selectedSection.name}}</tr>
-  <tr *ngIf="saisie.id=='fs_section'">
+  <tr *ngIf="saisie.id=='fs_section' && option !='fix'">
     <td></td>
     <td></td>
     <td> fixé </td>
@@ -23,14 +23,14 @@
   <template *ngIf="saisie.id=='fs_section'" ngFor let-param [ngForOf]="selectedSection.definition" [ngForTrackBy]="assetTrackBy">
   <tr >
    <td>{{param.name}} ({{param.unit}})</td> 
-   <td ><input type="text" id="{{param.id}}" value="{{param.value}}" [(ngModel)]="v[param.id]" maxlength="30" (keypress)='isNumber($event)' required></td>
-   <td align="center">
+   <td ><input [disabled]="glob[param.id]!='fix'" type="text" id="{{param.id}}" value="{{param.value}}" [(ngModel)]="v[param.id]" maxlength="30" (keypress)='isNumber($event)' required></td>
+   <td *ngIf="option !='fix'" align="center">
       <input id="fix_{{param.id}}" type="radio" name="choix_champ_{{param.id}}" [checked]="glob[param.id]=='fix'" (change)="glob[param.id]='fix'" value="fix" (click)="gestionRadios(param.id,'fix');"> 
     </td>
-    <td  align="center">
+    <td *ngIf="option !='fix'" align="center">
       <input id="var_{{param.id}}" type="radio" name="choix_champ_{{param.id}}" [checked]="glob[param.id]=='var'" (change)="glob[param.id]='var'" value="var" (click)="gestionRadios(param.id,'var');"> 
     </td>
-    <td *ngIf="saisie.option=='cal'" align="center">
+    <td *ngIf="option=='cal'" align="center">
       <input id="cal_{{param.id}}" type="radio" name="choix_champ_{{param.id}}" [checked]="glob[param.id]='cal'" (change)="glob[param.id]='cal'" value="cal" (click)="gestionRadios(param.id,'cal');"> 
     </td>
    </tr>

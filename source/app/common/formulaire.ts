@@ -58,6 +58,8 @@ export abstract class Formulaire {
     public param_calc;
     public selectedType;
     public mat_fields;
+    public option='';
+
 
     constructor(public http: Http, formName:string){
         this.nomForm=formName;
@@ -251,12 +253,18 @@ export abstract class Formulaire {
     initGlob(){
         this.glob={};
         var length=this.fields.length;
-
-        for(var i=0;i<length;i++){
-            if(this.fields[i].id==this.idCal_inter){
-                this.glob[this.fields[i].id]='cal';
-            }
-            else{
+        if(this.option!='fix'){
+            for(var i=0;i<length;i++){
+                if(this.fields[i].id==this.idCal_inter){
+                    this.glob[this.fields[i].id]='cal';
+                }
+                else{
+                    this.glob[this.fields[i].id]='fix';
+                }
+        }
+        }
+        else{
+            for(var i=0;i<length;i++){
                 this.glob[this.fields[i].id]='fix';
             }
         }
@@ -379,12 +387,14 @@ export abstract class Formulaire {
           else {
               rInit=this.lineChartData[i-1];
           }
+          console.log("rInit dans form: "+rInit);
           this.v[this.varVar]=this.lineChartLabels[i];
           this.lineChartData.push(this.calculate(rInit));
 
           }
           this.v[this.varVar]=this.getValue(this.varVar);
           this.getChartData();
+          console.log(this.lineChartData);
           this.getOptions();
       }
                     
@@ -392,7 +402,8 @@ export abstract class Formulaire {
           this.var_table=false;
           this.showVar=false;
           console.log("in else");
-          rInit=this.idCal;
+          rInit=this.v[this.idCal];
+          console.log("rInit dans form: "+rInit);
           this.result=this.calculate(rInit);
       }
   }

@@ -1,6 +1,7 @@
 {
-    "saisies":{
-         "fs_bief":{
+    "saisies":[
+         {
+            "id":"fs_bief",
             "name":"Caractéristiques du bief",
             "option": "fix",
             "fields":[
@@ -31,7 +32,8 @@
             ]
          },
 
-         "fs_limites":{
+         {
+             "id":"fs_limites",
              "name":"Condition aux limites",
              "option":"fix",
              "fields":[
@@ -57,39 +59,28 @@
              ]
 
          },
-         "fs_hydraulique":{},
-         "fs_param_calc":{
-                
+         {
+                "id":"fs_param_calc",
                 "name":"Paramètres de calcul",
                 "option":"fix",
                 "fields":[
                     {
-                        "type":"fix",
                         "id" : "P",
-                        "name":"Pas de discrétisation(m)",
+                        "name":"Pas de discrétisation",
                         "value":0.001 
                     },
                     {
-                        "type":"fix",
                         "id" : "Pr",
                         "name":"Précision de calcul et d'affichage des codes(m)",
                         "value":0.001 
-                    },
-                    {
-                        "type":"select",
-                        "id" : "R",
-                        "name":"Méthode de résolution",
-                        "value":[
-                            "Runge Kutta d'ordre 4",
-                            "Euler explicite"
-                        ] 
-                    }
-                ]                                       
+                    }                  
+                ]                                    
         },
 
-        "options":{
+        {
+            "id":"options"
         }
 
        
-    }
+    ]
 }
