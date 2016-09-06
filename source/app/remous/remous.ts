@@ -17,8 +17,11 @@ import {PipeNumberValidator} from '../common/pipe_number_validator';
 
 export class FormRemous extends FormSection {
     
+    public resolution;
+
     constructor(public http: Http){
         super(http,'remous');
+        this.resolution="Rk4";
     }
     
     calculate(){

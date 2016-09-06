@@ -43,7 +43,7 @@ import {acNewton} from './section/newton';
                  
   ],
   providers:    [ MdIconRegistry],
-  declarations: [ FormRemous, FormRegimeUniforme, FormSection, FormSectionParam, PipeNumbers, PipeNumberValidator, 
+  declarations: [ FormSectionParam, FormRemous, FormRegimeUniforme, FormSection, FormSectionParam, PipeNumbers, PipeNumberValidator, 
                   MainApp, Formulaire, FormCondDistri, FormLechaptCalmon /*, acSection, cParam , cDichotomie, 
                   cSnTrapez, cSnRectang, cSnCirc, cSnPuiss, acNewton, cHautConjuguee, cHautCorrespondante, cHautNormale, cHautCritique */
                 ],

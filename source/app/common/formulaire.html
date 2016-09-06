@@ -72,13 +72,20 @@
     <template ngFor let-field [ngForOf]="saisie.fields" [ngForTrackBy]="assetTrackBy">
     <tr [hidden]="saisie.id == 'fs_materiau' || saisie.id == 'fs_section'">
       <td > {{field.id}} : {{field.name}} ({{field.unit}}) </td>
-      <td *ngIf="saisie.id=='fs_param_calc'"> <input id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="precision" maxlength="30" (keypress)='isNumber($event)' required></td>
+      <td *ngIf="saisie.id=='fs_param_calc' && field.type!='select'"> <input id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="precision" maxlength="30" (keypress)='isNumber($event)' required></td>
+      <td *ngIf="saisie.id=='fs_param_calc' && field.type=='select'">
+        <select [(ngModel)]="resolution" >
+           <option *ngFor="let methode of field.select" value= {{methode.id}}>
+            {{methode.name}}
+           </option>
+        </select>       
+      </td>
       <td *ngIf="saisie.id!='fs_param_calc'"> <input [disabled]="glob[field.id]!='fix'" id="{{field.id}}" type="text" value="{{field.value}}" [(ngModel)]="v[field.id]" maxlength="30"  (keypress)='isNumber($event)' required></td>
       <td  align="center" *ngIf="saisie.option!='fix'"><input id="fix_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='fix'" (change)="glob[field.id]='fix'" value="fix" (click)="gestionRadios(field.id,'fix');" ></td>
       <td  align="center" *ngIf="saisie.option!='fix'"><input id="var_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='var'" value="var" (change)="glob[field.id]='var'" (click)="gestionRadios(field.id,'var');" ></td>
       <td  align="center" *ngIf="saisie.option=='cal'"><input id="cal_{{field.id}}" type="radio" name="choix_champ_{{field.id}}" [checked]="glob[field.id]=='cal'" value="cal" (change)="glob[field.id]='cal'" (click)="gestionRadios(field.id,'cal');" ></td>
-    
     </tr>
+
     <tr *ngFor="let option of options" [hidden]="varVar_inter!=field.id || saisie.id == 'fs_materiau' || saisie.id == 'fs_section'" class="alert alert-success box-msg" role="alert" >
         <td> </td>
         <td> </td>

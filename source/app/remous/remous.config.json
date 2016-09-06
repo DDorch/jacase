@@ -71,9 +71,25 @@
                     },
                     {
                         "id" : "Pr",
-                        "name":"Précision de calcul et d'affichage des codes(m)",
+                        "name":"Précision de calcul et d'affichage des codes",
+                        "unit":"m",
                         "value":0.001 
-                    }                  
+                    },
+                    {
+                        "type":"select",
+                        "id" : "R",
+                        "name":"Méthode de résolution",
+                        "select":[
+                            {
+                                "id":"Rk4",
+                                "name":"Runge Kutta d'ordre 4"
+                            },
+                            {
+                                "id":"Eu",
+                                "name":"Euler explicite"                           
+                            }                            
+                        ] 
+                   }                  
                 ]                                    
         },
 
