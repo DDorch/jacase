@@ -18,7 +18,7 @@
     <td></td>
     <td> fixé </td>
     <td> à varier</td>
-    <td *ngIf="saisie.option =='cal'"> à calculer </td>
+    <td *ngIf="option =='cal'"> à calculer </td>
   </tr> 
   <template *ngIf="saisie.id=='fs_section'" ngFor let-param [ngForOf]="selectedSection.definition" [ngForTrackBy]="assetTrackBy">
   <tr >
@@ -31,7 +31,7 @@
       <input id="var_{{param.id}}" type="radio" name="choix_champ_{{param.id}}" [checked]="glob[param.id]=='var'" (change)="glob[param.id]='var'" value="var" (click)="gestionRadios(param.id,'var');"> 
     </td>
     <td *ngIf="option=='cal'" align="center">
-      <input id="cal_{{param.id}}" type="radio" name="choix_champ_{{param.id}}" [checked]="glob[param.id]='cal'" (change)="glob[param.id]='cal'" value="cal" (click)="gestionRadios(param.id,'cal');"> 
+      <input id="cal_{{param.id}}" type="radio" name="choix_champ_{{param.id}}" [checked]="glob[param.id]=='cal'" (change)="glob[param.id]='cal'" value="cal" (click)="gestionRadios(param.id,'cal');"> 
     </td>
    </tr>
    <tr *ngFor="let option of options" [hidden]="varVar_inter!=param.id || saisie.id != 'fs_section'" class="alert alert-success box-msg" role="alert" >

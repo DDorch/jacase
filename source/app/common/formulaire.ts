@@ -268,7 +268,6 @@ export abstract class Formulaire {
                 this.glob[this.fields[i].id]='fix';
             }
         }
-        console.log(this.glob);
     }
             
     RemplirTabResults(){
@@ -304,10 +303,9 @@ export abstract class Formulaire {
      * Manage the radio buttons
      */
     gestionRadios(id,value) {
-        console.log(this.fields);
         var length=this.fields.length;
         var globBefore=Object.freeze(Object.assign({}, this.glob));
-       //recuperer lelement à calculer
+       //recuperer l'element à calculer
         if(value=="cal"){
             this.idCal_inter=id;
         }
@@ -352,7 +350,6 @@ export abstract class Formulaire {
             this.glob[this.idCal_inter]='cal';
             if(this.varVar_inter!=""){this.glob[this.varVar_inter]='var';}
        }
-       console.log(this.glob);
   }
 
   /**
